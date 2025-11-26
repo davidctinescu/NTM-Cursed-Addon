@@ -4,7 +4,7 @@ import com.google.common.collect.ImmutableMap;
 import com.hbm.blocks.BlockBase;
 import com.hbm.blocks.ModBlocks;
 import com.hbm.items.IDynamicModels;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.main.MainRegistry;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.building.mixed.TextureAtlasSpriteHalf.HalfDirection;
@@ -91,12 +91,12 @@ public class BlockMixedConcrete extends BlockBase implements IDynamicModels {
 		try {
 			IModel baseModel = ModelLoaderRegistry.getModel(new ResourceLocation("minecraft:block/cube"));
 			ImmutableMap.Builder<String, String> textureMap = ImmutableMap.builder();
-			ResourceLocation front = new ResourceLocation(RefStrings.MODID, "blocks/"+b);
-			ResourceLocation back = new ResourceLocation(RefStrings.MODID, "blocks/"+a);
-			ResourceLocation top = new ResourceLocation(RefStrings.MODID, "blocks/"+this.getRegistryName()+"_top");
-			ResourceLocation right = new ResourceLocation(RefStrings.MODID, "blocks/"+this.getRegistryName()+"_right");
-			ResourceLocation bottom = new ResourceLocation(RefStrings.MODID, "blocks/"+this.getRegistryName()+"_bottom");
-			ResourceLocation left = new ResourceLocation(RefStrings.MODID, "blocks/"+this.getRegistryName()+"_left");
+			ResourceLocation front = new ResourceLocation("hbm", "blocks/"+b);
+			ResourceLocation back = new ResourceLocation("hbm", "blocks/"+a);
+			ResourceLocation top = new ResourceLocation("hbm", "blocks/"+this.getRegistryName()+"_top");
+			ResourceLocation right = new ResourceLocation("hbm", "blocks/"+this.getRegistryName()+"_right");
+			ResourceLocation bottom = new ResourceLocation("hbm", "blocks/"+this.getRegistryName()+"_bottom");
+			ResourceLocation left = new ResourceLocation("hbm", "blocks/"+this.getRegistryName()+"_left");
 			// Base texture
 			textureMap.put("north", back.toString());
 			textureMap.put("south", front.toString());
@@ -162,12 +162,12 @@ public class BlockMixedConcrete extends BlockBase implements IDynamicModels {
 	@SideOnly(Side.CLIENT)
 	@Override
 	public void registerSprite(TextureMap map) {
-		ResourceLocation aLoc = new ResourceLocation(RefStrings.MODID, "blocks/"+a);
+		ResourceLocation aLoc = new ResourceLocation("hbm", "blocks/"+a);
 		map.registerSprite(aLoc);
-		ResourceLocation bLoc = new ResourceLocation(RefStrings.MODID, "blocks/"+b);
+		ResourceLocation bLoc = new ResourceLocation("hbm", "blocks/"+b);
 		map.registerSprite(bLoc);
 		{
-			ResourceLocation spriteLoc = new ResourceLocation(RefStrings.MODID, "blocks/"+this.getRegistryName()+"_top");
+			ResourceLocation spriteLoc = new ResourceLocation("hbm", "blocks/"+this.getRegistryName()+"_top");
 			TextureAtlasSpriteHalf halfSpr = new TextureAtlasSpriteHalf(
 					spriteLoc.toString(),
 					"blocks/"+a,"blocks/"+b,HalfDirection.A_DOWN_B_UP
@@ -175,7 +175,7 @@ public class BlockMixedConcrete extends BlockBase implements IDynamicModels {
 			map.setTextureEntry(halfSpr);
 		}
 		{
-			ResourceLocation spriteLoc = new ResourceLocation(RefStrings.MODID, "blocks/"+this.getRegistryName()+"_bottom");
+			ResourceLocation spriteLoc = new ResourceLocation("hbm", "blocks/"+this.getRegistryName()+"_bottom");
 			TextureAtlasSpriteHalf halfSpr = new TextureAtlasSpriteHalf(
 					spriteLoc.toString(),
 					"blocks/"+a,"blocks/"+b,HalfDirection.A_UP_B_DOWN
@@ -183,7 +183,7 @@ public class BlockMixedConcrete extends BlockBase implements IDynamicModels {
 			map.setTextureEntry(halfSpr);
 		}
 		{
-			ResourceLocation spriteLoc = new ResourceLocation(RefStrings.MODID, "blocks/"+this.getRegistryName()+"_left");
+			ResourceLocation spriteLoc = new ResourceLocation("hbm", "blocks/"+this.getRegistryName()+"_left");
 			TextureAtlasSpriteHalf halfSpr = new TextureAtlasSpriteHalf(
 					spriteLoc.toString(),
 					"blocks/"+a,"blocks/"+b,HalfDirection.A_RIGHT_B_LEFT
@@ -191,7 +191,7 @@ public class BlockMixedConcrete extends BlockBase implements IDynamicModels {
 			map.setTextureEntry(halfSpr);
 		}
 		{
-			ResourceLocation spriteLoc = new ResourceLocation(RefStrings.MODID, "blocks/"+this.getRegistryName()+"_right");
+			ResourceLocation spriteLoc = new ResourceLocation("hbm", "blocks/"+this.getRegistryName()+"_right");
 			TextureAtlasSpriteHalf halfSpr = new TextureAtlasSpriteHalf(
 					spriteLoc.toString(),
 					"blocks/"+a,"blocks/"+b,HalfDirection.A_LEFT_B_RIGHT

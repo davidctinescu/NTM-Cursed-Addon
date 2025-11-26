@@ -2,7 +2,7 @@ package com.leafia.jei;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.handler.jei.JEIConfig;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.util.I18nUtil;
 import com.leafia.jei._JEIBase.Recipe;
 import mezz.jei.api.IGuiHelper;
@@ -46,7 +46,7 @@ public class _JEIBase implements IRecipeCategory<Recipe> {
 	@Override public String getTitle() {
 		return I18nUtil.resolveKey(ModBlocks.machine_chemical_plant.getTranslationKey()+".name");
 	}
-	@Override public String getModName() { return RefStrings.MODID; }
+	@Override public String getModName() { return "hbm"; }
 	@Override public IDrawable getBackground() { return background; }
 
 	@Override

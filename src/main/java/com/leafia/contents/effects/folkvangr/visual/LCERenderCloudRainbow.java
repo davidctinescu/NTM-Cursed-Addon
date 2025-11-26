@@ -2,7 +2,7 @@ package com.leafia.contents.effects.folkvangr.visual;
 
 import com.hbm.entity.effect.EntityCloudFleija;
 import com.hbm.entity.effect.EntityCloudFleijaRainbow;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.render.loader.WaveFrontObjectVAO;
 import com.leafia.AddonBase;
 import com.leafia.overwrite_contents.interfaces.IMixinEntityCloudFleija;

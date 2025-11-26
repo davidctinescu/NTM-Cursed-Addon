@@ -1,7 +1,7 @@
 package com.custom_hbm.contents.torex;
 
 import com.custom_hbm.contents.torex.LCETorex.Cloudlet;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.main.MainRegistry;
 import com.hbm.render.amlfrom1710.Vec3;
 import com.leafia.dev.LeafiaUtil;
@@ -36,8 +36,8 @@ public class LCETorexRender extends Render<LCETorex> {
 
 	public static final IRenderFactory<LCETorex> FACTORY = man -> new LCETorexRender(man);
 	
-	private static final ResourceLocation cloudlet = new ResourceLocation(RefStrings.MODID + ":textures/particle/particle_base.png");
-	private static final ResourceLocation flare = new ResourceLocation(RefStrings.MODID + ":textures/particle/flare.png");
+	private static final ResourceLocation cloudlet = new ResourceLocation("hbm" + ":textures/particle/particle_base.png");
+	private static final ResourceLocation flare = new ResourceLocation("hbm" + ":textures/particle/flare.png");
 
 	public static final int flashBaseDuration = 15;
 	public static final int flareBaseDuration = 100;

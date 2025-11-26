@@ -3,7 +3,7 @@ package com.leafia.contents.machines.powercores.dfc.components.injector;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.container.ContainerCoreInjector;
 import com.hbm.inventory.gui.GuiInfoContainer;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.tileentity.machine.TileEntityCore;
 import com.hbm.tileentity.machine.TileEntityCoreInjector;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntityCore;

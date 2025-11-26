@@ -11,8 +11,9 @@ import com.hbm.inventory.recipes.loader.GenericRecipes.IOutput;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemBlueprints;
 import com.hbm.items.machine.ItemFluidIcon;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.util.I18nUtil;
+import com.leafia.dev.LeafiaClientUtil;
 import com.leafia.jei.JEIChemplant.Recipe;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
@@ -25,6 +26,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,15 +49,16 @@ public class JEIChemplant implements IRecipeCategory<Recipe> {
 
 		final List<List<ItemStack>> inputs = new ArrayList<>();
 		final List<ItemStack> outputs = new ArrayList<>();
+		final List<FluidStack> inputFluid;
+		final List<FluidStack> outputFluid;
 		public Recipe(GenericRecipe recipe) {
-			List<FluidStack> inputFluid =
-					(recipe.inputFluid == null ? new ArrayList<>() : Arrays.asList(recipe.inputFluid));
-			List<FluidStack> outputFluid =
-					(recipe.outputFluid == null ? new ArrayList<>() : Arrays.asList(recipe.outputFluid));
+			inputFluid = (recipe.inputFluid == null ? new ArrayList<>() : Arrays.asList(recipe.inputFluid));
+			outputFluid = (recipe.outputFluid == null ? new ArrayList<>() : Arrays.asList(recipe.outputFluid));
 			List<AStack> inputItem =
 					(recipe.inputItem == null ? new ArrayList<>() : Arrays.asList(recipe.inputItem));
 			List<IOutput> outputItem =
 					(recipe.outputItem == null ? new ArrayList<>() : Arrays.asList(recipe.outputItem));
+			/*
 			for (int i = 0; i < 3; i++) {
 				if (inputFluid.size() > i) {
 					ItemStack icon = ItemFluidIcon.make(inputFluid.get(i));
@@ -68,7 +72,7 @@ public class JEIChemplant implements IRecipeCategory<Recipe> {
 					outputs.add(icon);
 				} else
 					outputs.add(new ItemStack(Items.AIR));
-			}
+			}*/
 			for (int i = 0; i < 3; i++) {
 				if (inputItem.size() > i) {
 					List<ItemStack> stacks = inputItem.get(i).getStackList();
@@ -101,6 +105,39 @@ public class JEIChemplant implements IRecipeCategory<Recipe> {
 			ingredients.setInputLists(VanillaTypes.ITEM,inputs);
 			ingredients.setOutputs(VanillaTypes.ITEM,outputs);
 		}
+		@SideOnly(Side.CLIENT)
+		@Override
+		public void drawInfo(Minecraft minecraft,int recipeWidth,int recipeHeight,int mouseX,int mouseY) {
+			List<FluidStack> stacks = new ArrayList<>();
+			stacks.addAll(inputFluid);
+			stacks.addAll(outputFluid);
+			for (int i = 0; i < 3; i++) {
+				if (inputFluid.size() > i)
+					LeafiaClientUtil.jeiFluidRenderTank(stacks,inputFluid.get(i),37+i*18,1,16,26,false);
+			}
+			for (int i = 0; i < 3; i++) {
+				if (outputFluid.size() > i)
+					LeafiaClientUtil.jeiFluidRenderTank(stacks,outputFluid.get(i),109+i*18,1,16,26,false);
+			}
+		}
+		@SideOnly(Side.CLIENT)
+		@Override
+		public List<String> getTooltipStrings(int mouseX,int mouseY) {
+			List<String> list = new ArrayList<>();
+			for (int i = 0; i < 3; i++) {
+				if (inputFluid.size() > i) {
+					FluidStack stack = inputFluid.get(i);
+					LeafiaClientUtil.jeiFluidRenderInfo(stack,list,mouseX,mouseY,37+i*18,1,16,26);
+				}
+			}
+			for (int i = 0; i < 3; i++) {
+				if (outputFluid.size() > i) {
+					FluidStack stack = outputFluid.get(i);
+					LeafiaClientUtil.jeiFluidRenderInfo(stack,list,mouseX,mouseY,109+i*18,1,16,26);
+				}
+			}
+			return list;
+		}
 	}
 
 	protected final IDrawable background;
@@ -116,7 +153,7 @@ public class JEIChemplant implements IRecipeCategory<Recipe> {
 	@Override public String getTitle() {
 		return I18nUtil.resolveKey(ModBlocks.machine_chemical_plant.getTranslationKey()+".name");
 	}
-	@Override public String getModName() { return RefStrings.MODID; }
+	@Override public String getModName() { return "hbm"; }
 	@Override public IDrawable getBackground() { return background; }
 
 	@Override
@@ -127,17 +164,17 @@ public class JEIChemplant implements IRecipeCategory<Recipe> {
 	@Override
 	public void setRecipe(IRecipeLayout recipeLayout,Recipe recipeWrapper,IIngredients ingredients) {
 		IGuiItemStackGroup stacks = recipeLayout.getItemStacks();
-		stacks.init(13,true,1,37);
+		stacks.init(7,true,1,37);
 		for (int x = 0; x < 3; x++) {
-			stacks.init(x+3,true,37+x*18,37);
-			stacks.init(x,true,37+x*18,6);
+			stacks.init(x,true,37+x*18,37);
+			//stacks.init(x,true,37+x*18,6);
 		}
-		stacks.init(6,true,19,1);
+		stacks.init(3,true,19,1);
 		for (int x = 0; x < 3; x++) {
-			stacks.init(x+7+3,false,109+x*18,37);
-			stacks.init(x+7,false,109+x*18,6);
+			stacks.init(x+4,false,109+x*18,37);
+			//stacks.init(x+7,false,109+x*18,6);
 		}
 		stacks.set(ingredients);
-		stacks.set(13,JeiRecipes.getBatteries());
+		stacks.set(7,JeiRecipes.getBatteries());
 	}
 }

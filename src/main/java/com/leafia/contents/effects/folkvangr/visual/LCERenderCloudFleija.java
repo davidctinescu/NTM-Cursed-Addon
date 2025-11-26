@@ -1,7 +1,7 @@
 package com.leafia.contents.effects.folkvangr.visual;
 
 import com.hbm.entity.effect.EntityCloudFleija;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.render.loader.HFRWavefrontObject;
 import com.hbm.render.loader.IModelCustom;
 import com.hbm.render.loader.WaveFrontObjectVAO;
@@ -27,7 +27,7 @@ public class LCERenderCloudFleija extends Render<EntityCloudFleija> {
 
     public float scale = 0;
     public float ring = 0;
-	public static final WaveFrontObjectVAO cloudFleija = getVAO(new ResourceLocation(RefStrings.MODID, "models/Sphere.obj"));
+	public static final WaveFrontObjectVAO cloudFleija = getVAO(new ResourceLocation("hbm", "models/Sphere.obj"));
     
     public static final IRenderFactory<EntityCloudFleija> FACTORY = LCERenderCloudFleija::new;
 	

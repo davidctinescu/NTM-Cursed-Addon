@@ -11,8 +11,9 @@ import com.hbm.inventory.recipes.loader.GenericRecipes.IOutput;
 import com.hbm.items.ModItems;
 import com.hbm.items.machine.ItemBlueprints;
 import com.hbm.items.machine.ItemFluidIcon;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.util.I18nUtil;
+import com.leafia.dev.LeafiaClientUtil;
 import com.leafia.jei.JEIAssembler.Recipe;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
@@ -25,6 +26,8 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -46,11 +49,11 @@ public class JEIAssembler implements IRecipeCategory<Recipe> {
 
 		final List<List<ItemStack>> inputs = new ArrayList<>();
 		final List<ItemStack> outputs = new ArrayList<>();
+		final List<FluidStack> inputFluid;
+		final List<FluidStack> outputFluid;
 		public Recipe(GenericRecipe recipe) {
-			List<FluidStack> inputFluid =
-					(recipe.inputFluid == null ? new ArrayList<>() : Arrays.asList(recipe.inputFluid));
-			List<FluidStack> outputFluid =
-					(recipe.outputFluid == null ? new ArrayList<>() : Arrays.asList(recipe.outputFluid));
+			inputFluid = (recipe.inputFluid == null ? new ArrayList<>() : Arrays.asList(recipe.inputFluid));
+			outputFluid = (recipe.outputFluid == null ? new ArrayList<>() : Arrays.asList(recipe.outputFluid));
 			List<AStack> inputItem =
 					(recipe.inputItem == null ? new ArrayList<>() : Arrays.asList(recipe.inputItem));
 			List<IOutput> outputItem =
@@ -62,12 +65,12 @@ public class JEIAssembler implements IRecipeCategory<Recipe> {
 				} else
 					inputs.add(Collections.singletonList(new ItemStack(Items.AIR)));
 			}
-			if (!inputFluid.isEmpty()) {
+			/*if (!inputFluid.isEmpty()) {
 				ItemStack icon = ItemFluidIcon.make(inputFluid.get(0));
 				inputs.add(Collections.singletonList(icon));
 			} else {
 				inputs.add(Collections.singletonList(new ItemStack(Items.AIR)));
-			}
+			}*/
 			if (recipe.isPooled()) {
 				String[] pools = recipe.getPools();
 				if (pools.length > 0)
@@ -80,18 +83,39 @@ public class JEIAssembler implements IRecipeCategory<Recipe> {
 			if (stacks != null) {
 				outputs.add(stacks[0]);
 			}
-			if (!outputFluid.isEmpty()) {
+			/*if (!outputFluid.isEmpty()) {
 				ItemStack icon = ItemFluidIcon.make(outputFluid.get(0));
 				outputs.add(icon);
 			} else {
 				outputs.add(new ItemStack(Items.AIR));
-			}
+			}*/
 		}
 
 		@Override
 		public void getIngredients(IIngredients ingredients) {
 			ingredients.setInputLists(VanillaTypes.ITEM,inputs);
 			ingredients.setOutputs(VanillaTypes.ITEM,outputs);
+		}
+		@SideOnly(Side.CLIENT)
+		@Override
+		public void drawInfo(Minecraft minecraft,int recipeWidth,int recipeHeight,int mouseX,int mouseY) {
+			List<FluidStack> stacks = new ArrayList<>();
+			stacks.addAll(inputFluid);
+			stacks.addAll(outputFluid);
+			if (!inputFluid.isEmpty())
+				LeafiaClientUtil.jeiFluidRenderTank(stacks,inputFluid.get(0),28,55,52,16,true);
+			if (!outputFluid.isEmpty())
+				LeafiaClientUtil.jeiFluidRenderTank(stacks,outputFluid.get(0),100,55,52,16,true);
+		}
+		@SideOnly(Side.CLIENT)
+		@Override
+		public List<String> getTooltipStrings(int mouseX,int mouseY) {
+			List<String> list = new ArrayList<>();
+			if (!inputFluid.isEmpty())
+				LeafiaClientUtil.jeiFluidRenderInfo(inputFluid.get(0),list,mouseX,mouseY,28,55,52,16);
+			if (!outputFluid.isEmpty())
+				LeafiaClientUtil.jeiFluidRenderInfo(outputFluid.get(0),list,mouseX,mouseY,100,55,52,16);
+			return list;
 		}
 	}
 
@@ -112,7 +136,7 @@ public class JEIAssembler implements IRecipeCategory<Recipe> {
 	@Override public String getTitle() {
 		return I18nUtil.resolveKey(ModBlocks.machine_assembly_machine.getTranslationKey()+".name");
 	}
-	@Override public String getModName() { return RefStrings.MODID; }
+	@Override public String getModName() { return "hbm"; }
 	@Override public IDrawable getBackground() { return background; }
 
 	@Override
@@ -128,12 +152,12 @@ public class JEIAssembler implements IRecipeCategory<Recipe> {
 			for (int y = 0; y < 3; y++)
 				stacks.init(x+y*4,true,28+x*18,1+y*18);
 		}
-		stacks.init(12,true,46,55);
-		stacks.init(13,true,109,1);
-		stacks.init(14,false,136,19);
-		stacks.init(15,false,118,55);
-		stacks.init(16,true,1,55);
+		//stacks.init(12,true,46,55);
+		stacks.init(12,true,109,1);
+		stacks.init(13,false,136,19);
+		//stacks.init(15,false,118,55);
+		stacks.init(14,true,1,55);
 		stacks.set(ingredients);
-		stacks.set(16,JeiRecipes.getBatteries());
+		stacks.set(14,JeiRecipes.getBatteries());
 	}
 }

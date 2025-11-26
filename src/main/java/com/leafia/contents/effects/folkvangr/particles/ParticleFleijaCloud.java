@@ -1,6 +1,6 @@
 package com.leafia.contents.effects.folkvangr.particles;
 
-import com.hbm.lib.RefStrings;
+
 import com.hbm.render.NTMRenderHelper;
 import com.leafia.overwrite_contents.interfaces.IMixinEntityCloudFleija;
 import net.minecraft.client.Minecraft;
@@ -20,7 +20,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ParticleFleijaCloud extends Particle {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/particle/particle_base.png");
+	private static final ResourceLocation texture = new ResourceLocation("hbm" + ":textures/particle/particle_base.png");
 	IMixinEntityCloudFleija cloud;
 	Vec3d lookVector;
 	Vec3d rightVector;

@@ -1,6 +1,6 @@
 package com.leafia.contents.machines.powercores.dfc.particles;
 
-import com.hbm.lib.RefStrings;
+
 import com.hbm.main.ResourceManager;
 import com.hbm.render.NTMRenderHelper;
 import com.leafia.dev.math.FiaMatrix;
@@ -22,7 +22,7 @@ import org.lwjgl.opengl.GL11;
 
 public class ParticleEyeOfHarmony extends Particle {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/particle/leafia/particle_balefire.png");
+	private static final ResourceLocation texture = new ResourceLocation("hbm" + ":textures/particle/leafia/particle_balefire.png");
 
 	float curPercentage = 0;
 	float speed = 1/30f;

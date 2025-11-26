@@ -2,7 +2,7 @@ package com.leafia.dev.gui;
 
 import com.hbm.inventory.gui.GuiInfoContainer;
 import com.hbm.lib.Library;
-import com.hbm.lib.RefStrings;
+
 import com.leafia.init.LeafiaSoundEvents;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.audio.PositionedSoundRecord;
@@ -22,7 +22,7 @@ import java.util.List;
 
 public abstract class LCEGuiInfoContainer extends GuiContainerLeafia {
 
-	ResourceLocation guiUtil =  new ResourceLocation(RefStrings.MODID + ":textures/gui/gui_utility.png");
+	ResourceLocation guiUtil =  new ResourceLocation("hbm" + ":textures/gui/gui_utility.png");
 	protected void playClick(float pitch) {
 		mc.getSoundHandler().playSound(PositionedSoundRecord.getMasterRecord(SoundEvents.UI_BUTTON_CLICK,pitch));
 	}

@@ -61,7 +61,7 @@ import java.io.IOException;
 import java.util.*;
 import java.util.Map.Entry;
 
-import static com.hbm.main.ModEventHandlerClient.swapModels;
+import static com.hbm.main.client.NTMClientRegistry.swapModels;
 
 public class LeafiaClientListener {
 	public static class HandlerClient {

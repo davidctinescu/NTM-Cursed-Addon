@@ -2,7 +2,7 @@ package com.leafia.contents.machines.powercores.dfc.core;
 
 import com.hbm.inventory.container.ContainerCore;
 import com.hbm.inventory.gui.GuiInfoContainer;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.tileentity.machine.TileEntityCore;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntityCore;
 import com.leafia.transformer.LeafiaGls;

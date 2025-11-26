@@ -4,7 +4,7 @@ import com.hbm.handler.jei.JEIConfig;
 import com.hbm.handler.jei.JeiRecipes;
 import com.hbm.inventory.RecipesCommon.AStack;
 import com.hbm.inventory.recipes.CentrifugeRecipes;
-import com.hbm.lib.RefStrings;
+
 import com.hbm.util.I18nUtil;
 import com.leafia.jei.JEICentrifuge.Recipe;
 import mezz.jei.api.IGuiHelper;
@@ -100,7 +100,7 @@ public class JEICentrifuge implements IRecipeCategory<Recipe> {
 
 	@Override
 	public String getModName() {
-		return RefStrings.MODID;
+		return "hbm";
 	}
 
 	@Override

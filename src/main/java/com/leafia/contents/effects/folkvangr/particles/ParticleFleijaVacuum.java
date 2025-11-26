@@ -1,6 +1,6 @@
 package com.leafia.contents.effects.folkvangr.particles;
 
-import com.hbm.lib.RefStrings;
+
 import com.hbm.render.NTMRenderHelper;
 import com.leafia.contents.effects.folkvangr.EntityNukeFolkvangr.VacuumInstance;
 import net.minecraft.client.Minecraft;
@@ -23,7 +23,7 @@ import static com.leafia.contents.effects.folkvangr.EntityNukeFolkvangr.vacuumFo
 
 public class ParticleFleijaVacuum extends Particle {
 
-	private static final ResourceLocation texture = new ResourceLocation(RefStrings.MODID + ":textures/particle/particle_base.png");
+	private static final ResourceLocation texture = new ResourceLocation("hbm" + ":textures/particle/particle_base.png");
 	private float baseScale;
 	VacuumInstance instance;
 	double startDistance;
