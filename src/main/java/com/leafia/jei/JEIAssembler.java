@@ -65,12 +65,6 @@ public class JEIAssembler implements IRecipeCategory<Recipe> {
 				} else
 					inputs.add(Collections.singletonList(new ItemStack(Items.AIR)));
 			}
-			/*if (!inputFluid.isEmpty()) {
-				ItemStack icon = ItemFluidIcon.make(inputFluid.get(0));
-				inputs.add(Collections.singletonList(icon));
-			} else {
-				inputs.add(Collections.singletonList(new ItemStack(Items.AIR)));
-			}*/
 			if (recipe.isPooled()) {
 				String[] pools = recipe.getPools();
 				if (pools.length > 0)
@@ -83,12 +77,20 @@ public class JEIAssembler implements IRecipeCategory<Recipe> {
 			if (stacks != null) {
 				outputs.add(stacks[0]);
 			}
-			/*if (!outputFluid.isEmpty()) {
+
+			// for searching
+			if (!inputFluid.isEmpty()) {
+				ItemStack icon = ItemFluidIcon.make(inputFluid.get(0));
+				inputs.add(Collections.singletonList(icon));
+			} else {
+				inputs.add(Collections.singletonList(new ItemStack(Items.AIR)));
+			}
+			if (!outputFluid.isEmpty()) {
 				ItemStack icon = ItemFluidIcon.make(outputFluid.get(0));
 				outputs.add(icon);
 			} else {
 				outputs.add(new ItemStack(Items.AIR));
-			}*/
+			}
 		}
 
 		@Override

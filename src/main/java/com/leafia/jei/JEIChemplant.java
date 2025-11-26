@@ -58,21 +58,6 @@ public class JEIChemplant implements IRecipeCategory<Recipe> {
 					(recipe.inputItem == null ? new ArrayList<>() : Arrays.asList(recipe.inputItem));
 			List<IOutput> outputItem =
 					(recipe.outputItem == null ? new ArrayList<>() : Arrays.asList(recipe.outputItem));
-			/*
-			for (int i = 0; i < 3; i++) {
-				if (inputFluid.size() > i) {
-					ItemStack icon = ItemFluidIcon.make(inputFluid.get(i));
-					inputs.add(Collections.singletonList(icon));
-				} else
-					inputs.add(Collections.singletonList(new ItemStack(Items.AIR)));
-			}
-			for (int i = 0; i < 3; i++) {
-				if (outputFluid.size() > i) {
-					ItemStack icon = ItemFluidIcon.make(outputFluid.get(i));
-					outputs.add(icon);
-				} else
-					outputs.add(new ItemStack(Items.AIR));
-			}*/
 			for (int i = 0; i < 3; i++) {
 				if (inputItem.size() > i) {
 					List<ItemStack> stacks = inputItem.get(i).getStackList();
@@ -97,6 +82,23 @@ public class JEIChemplant implements IRecipeCategory<Recipe> {
 					}
 				}
 				outputs.add(new ItemStack(Items.AIR));
+			}
+
+
+			// for searching
+			for (int i = 0; i < 3; i++) {
+				if (inputFluid.size() > i) {
+					ItemStack icon = ItemFluidIcon.make(inputFluid.get(i));
+					inputs.add(Collections.singletonList(icon));
+				} else
+					inputs.add(Collections.singletonList(new ItemStack(Items.AIR)));
+			}
+			for (int i = 0; i < 3; i++) {
+				if (outputFluid.size() > i) {
+					ItemStack icon = ItemFluidIcon.make(outputFluid.get(i));
+					outputs.add(icon);
+				} else
+					outputs.add(new ItemStack(Items.AIR));
 			}
 		}
 
