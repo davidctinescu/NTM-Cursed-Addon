@@ -37,7 +37,7 @@ public class ItemNTMFBottle extends AddonItemBaked {
 	}
 	public ModelResourceLocation getModelLocation(int meta) {
 		if (!models.containsKey(meta))
-			models.put(meta,new ModelResourceLocation(new ResourceLocation("leafia","drinkable_bottle_"+meta), "inventory"));
+			models.put(meta,new ModelResourceLocation(new ResourceLocation("leafia","ntmfbottle-"+meta), "inventory"));
 		return models.get(meta);
 	}
 	@Override
