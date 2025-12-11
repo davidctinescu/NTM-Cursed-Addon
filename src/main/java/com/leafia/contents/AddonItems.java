@@ -7,6 +7,7 @@ import com.leafia.AddonBase;
 import com.leafia.contents.building.pinkdoor.ItemPinkDoor;
 import com.leafia.contents.building.sign.SignBlock;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodItem;
+import com.leafia.contents.gear.ntmfbottle.ItemNTMFBottle;
 import com.leafia.contents.gear.utility.ItemFuzzyIdentifier;
 import com.leafia.contents.gear.wands.ItemWandV;
 import com.leafia.contents.machines.powercores.dfc.CrucifixItem;
@@ -407,6 +408,8 @@ public class AddonItems {
 			LeafiaRodItem.confirmDecayProducts();
 		}
 	}
+
+	public static Item ntmfbottle = new ItemNTMFBottle("ntmfbottle");
 
 	public static void preInit(){
 		AddonBase._initMemberClasses(AddonItems.class);

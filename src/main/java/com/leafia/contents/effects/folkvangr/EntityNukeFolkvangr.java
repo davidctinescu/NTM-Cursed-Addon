@@ -1,6 +1,5 @@
 package com.leafia.contents.effects.folkvangr;
 
-import com.hbm.entity.effect.EntityCloudFleija;
 import com.hbm.entity.logic.IChunkLoader;
 import com.hbm.items.ModItems;
 import com.hbm.main.MainRegistry;
@@ -11,8 +10,7 @@ import com.leafia.dev.optimization.bitbyte.LeafiaBuf;
 import com.leafia.dev.optimization.diagnosis.RecordablePacket;
 import com.leafia.init.LeafiaSoundEvents;
 import com.leafia.overwrite_contents.interfaces.IMixinEntityCloudFleija;
-import com.leafia.overwrite_contents.mixin.mod.hbm.MixinEntityCloudFleija;
-import com.leafia.unsorted.LeafiaDamageSource;
+import com.leafia.init.LeafiaDamageSource;
 import com.llib.exceptions.messages.TextWarningLeafia;
 import com.llib.technical.LeafiaEase;
 import io.netty.buffer.ByteBuf;

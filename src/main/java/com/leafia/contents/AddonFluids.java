@@ -47,16 +47,12 @@ public class AddonFluids {
 	public static FluidType UF6_235;
 	public static FluidType HOT_WATER;
 	public static FluidType HOT_AIR;
-	public static FluidType LIF;
-	public static FluidType BEF2;
 	public static void init() {
-		FLUORIDE = new AddonFluidType("FLUORIDE",0xd3d8b9,5,0,0,EnumSymbol.NONE).setTemp(500).addTraits(LIQUID).setFFNameOverride("fluoride");
+		FLUORIDE = new AddonFluidType("FLUORIDE",0xd3d8b9,5,0,0,EnumSymbol.NONE).setTemp(500).addTraits(LIQUID,new FT_Polluting().release(PollutionHandler.PollutionType.POISON, POISON_EXTREME)).setFFNameOverride("fluoride");
 		//FLUORINE = new FluidType("FLUORINE",0xc5b055,4,0,4,EnumSymbol.NOWATER).addTraits(GASEOUS);
 		UF6_233 = new AddonFluidType("UF6_233",UF6);
 		UF6_235 = new AddonFluidType("UF6_235",UF6);
-		HOT_WATER = new AddonFluidType("HOT_WATER",WATER);
-		HOT_AIR = new AddonFluidType("HOT_AIR",AIR);
-		LIF = new AddonFluidType("LIF",0xdedbce,3,0,0,EnumSymbol.NONE).setTemp(845).addTraits(LIQUID,new FT_Polluting().release(PollutionHandler.PollutionType.POISON, POISON_EXTREME/3));
-		BEF2 = new AddonFluidType("BEF2",0xa4a298,5,0,0,EnumSymbol.NONE).setTemp(554).addTraits(LIQUID,new FT_Polluting().release(PollutionHandler.PollutionType.POISON, POISON_EXTREME));
+		HOT_WATER = new AddonFluidType("HOT_WATER",WATER).setTemp(70);
+		HOT_AIR = new AddonFluidType("HOT_AIR",AIR).setTemp(50);
 	}
 }

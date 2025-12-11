@@ -2,10 +2,9 @@ package com.leafia.unsorted.explosion_vnt;
 
 import com.hbm.explosion.vanillant.ExplosionVNT;
 import com.hbm.explosion.vanillant.standard.EntityProcessorCrossSmooth;
-import com.hbm.items.weapon.sedna.BulletConfig;
 import com.hbm.items.weapon.sedna.factory.ConfettiUtil;
 import com.hbm.util.EntityDamageUtil;
-import com.leafia.unsorted.LeafiaDamageSource;
+import com.leafia.init.LeafiaDamageSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.DamageSource;
