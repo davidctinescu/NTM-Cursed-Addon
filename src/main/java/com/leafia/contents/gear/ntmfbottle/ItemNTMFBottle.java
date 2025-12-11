@@ -32,7 +32,7 @@ public class ItemNTMFBottle extends AddonItemBaked {
 		this.setMaxDamage(0);
 		FluidType[] order = Fluids.getInNiceOrder();
 		for (FluidType fluidType : order) {
-			ModelLoader.setCustomModelResourceLocation(this, fluidType.getID(), /*getModelLocation(fluidType.getID())*/new ModelResourceLocation(new ResourceLocation("leafia:leafia_rod_balefire"),"inventory"));
+			ModelLoader.setCustomModelResourceLocation(this, fluidType.getID(), getModelLocation(fluidType.getID()));
 		}
 	}
 	public ModelResourceLocation getModelLocation(int meta) {
@@ -49,8 +49,8 @@ public class ItemNTMFBottle extends AddonItemBaked {
 			FluidType[] order = Fluids.getInNiceOrder();
 			for (FluidType fluidType : order) {
 				ImmutableMap.Builder<String,String> textures = ImmutableMap.builder();
-				textures.put("layer0","leafia:items/"+this.getRegistryName()+"_overlay_"+fluidType.getID());
-				textures.put("layer1",this.baseTextureLocation.toString());
+				textures.put("layer1","leafia:items/"+this.getRegistryName()+"_overlay_"+fluidType.getID());
+				textures.put("layer0",this.baseTextureLocation.toString());
 
 				IModel retexturedModel = baseModel.retexture(textures.build());
 				IBakedModel bakedModel = retexturedModel.bake(ModelRotation.X0_Y0,DefaultVertexFormats.ITEM,ModelLoader.defaultTextureGetter());
