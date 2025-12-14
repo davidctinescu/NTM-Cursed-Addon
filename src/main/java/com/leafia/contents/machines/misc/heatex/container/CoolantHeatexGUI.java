@@ -163,7 +163,7 @@ public class CoolantHeatexGUI extends LCEGuiInfoContainer {
 		}
 		if (this.fieldDelay.textboxKeyTyped(c, i)) {
 			int delay = Math.max(NumberUtils.toInt(this.fieldDelay.getText()), 1);
-			LeafiaPacket._start(heatex).__write(1,delay).__sendToServer();
+			LeafiaPacket._start(heatex).__write(2,delay).__sendToServer();
 			return;
 		}
 

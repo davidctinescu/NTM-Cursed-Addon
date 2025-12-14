@@ -16,6 +16,7 @@ import com.leafia.contents.machines.powercores.dfc.AddonCoreComponent;
 import com.leafia.contents.machines.processing.mixingvat.MixingVatBlock;
 import com.leafia.contents.machines.reactors.lftr.components.arbitrary.MSRArbitraryBlock;
 import com.leafia.contents.machines.reactors.lftr.components.control.MSRControlBlock;
+import com.leafia.contents.machines.reactors.lftr.components.control.MSRControlExtension;
 import com.leafia.contents.machines.reactors.lftr.components.ejector.MSREjectorBlock;
 import com.leafia.contents.machines.reactors.lftr.components.element.MSRElementBlock;
 import com.leafia.contents.machines.reactors.lftr.components.plug.MSRPlugBlock;
@@ -172,7 +173,7 @@ public class AddonBlocks {
 		public static final Block element = new MSRElementBlock(Material.IRON,"msr_element").setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness);
 		public static final Block plug = new MSRPlugBlock(Material.IRON,"msr_plug").setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness);
 		public static final Block control = new MSRControlBlock(Material.IRON,"msr_control").setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness);
-		public static final Block extension = new BlockPipe(Material.IRON,"msr_control_extension").setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness);
+		public static final Block extension = new MSRControlExtension(Material.IRON,"msr_control_extension").setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness);
 		public static final Block arbitrary = new MSRArbitraryBlock(Material.IRON,"msr_arbitrary").setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness);
 		public static final Block ejector = new MSREjectorBlock(Material.IRON,"msr_ejector").setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness);
 	}

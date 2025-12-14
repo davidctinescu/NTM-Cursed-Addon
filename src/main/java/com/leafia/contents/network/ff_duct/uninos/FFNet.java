@@ -46,6 +46,32 @@ public class FFNet extends NodeNet<IFFReceiver,IFFProvider,FFNode,FFNet> {
 				Set<FluidTank> tanks = tankMap.get(prov);
 				if (tanks != null) {
 					for (FluidTank tank : tanks) {
+						/*{
+							ObjectIterator<Object2LongMap.Entry<IFFReceiver>> recIt = receiverEntries.object2LongEntrySet().fastIterator();
+							int totalDemand = 0;
+							while (recIt.hasNext()) {
+								Object2LongMap.Entry<IFFReceiver> entry1 = recIt.next();
+								IFFReceiver rec = entry1.getKey();
+								if (timestamp-entry1.getLongValue() > timeout || isBadLink(rec)) {
+									recIt.remove();
+									continue;
+								}
+								if (prov instanceof TileEntity te) {
+									if (te.getWorld() != null) {
+										World world = te.getWorld();
+										LeafiaDebug.debugPos(world,te.getPos().up(2),0.05f,0x00FFFF,"Tank ID: "+tank.toString(),"","","",tank.getFluidAmount()+"mB");
+									}
+								}
+								if (rec instanceof TileEntity te) {
+									if (te.getWorld() != null) {
+										World world = te.getWorld();
+										LeafiaDebug.debugPos(world,te.getPos(),0.05f,0xFF00FF,"Tank ID: "+tank.toString(),"","","",tank.getFluidAmount()+"mB");
+									}
+								}
+							}
+						}*/
+
+
 						if (tank == null) continue;
 						if (tank.getFluid() == null || tank.getFluidAmount() <= 0) continue;
 						final List<IFFReceiver> receivers = new ArrayList<>();
@@ -54,11 +80,12 @@ public class FFNet extends NodeNet<IFFReceiver,IFFProvider,FFNode,FFNet> {
 						while (recIt.hasNext()) {
 							Object2LongMap.Entry<IFFReceiver> entry1 = recIt.next();
 							IFFReceiver rec = entry1.getKey();
-							if (timestamp - entry.getLongValue() > timeout || isBadLink(rec)) {
+							if (timestamp - entry1.getLongValue() > timeout || isBadLink(rec)) {
 								recIt.remove();
 								continue;
 							}
-							if (prov instanceof TileEntity te) {
+							if (rec.equals(prov)) continue;
+							/*if (prov instanceof TileEntity te) {
 								if (te.getWorld() != null) {
 									World world = te.getWorld();
 									LeafiaDebug.debugPos(world,te.getPos(),0.05f,0x00FFFF,"PROVIDER","","REGISTERED");
@@ -69,7 +96,7 @@ public class FFNet extends NodeNet<IFFReceiver,IFFProvider,FFNode,FFNet> {
 									World world = te.getWorld();
 									LeafiaDebug.debugPos(world,te.getPos(),0.05f,0xFF00FF,"RECEIVER","","REGISTERED");
 								}
-							}
+							}*/
 							FluidTank receiving = rec.getCorrespondingTank(tank.getFluid());
 							if (receiving == null) continue;
 							if (receiving.equals(tank)) continue;
@@ -83,13 +110,12 @@ public class FFNet extends NodeNet<IFFReceiver,IFFProvider,FFNode,FFNet> {
 						}
 						int totalAmt = tank.getFluidAmount();
 						for (IFFReceiver rec : receivers) {
-							if (tank.getFluid() == null) break; // genuinely fuck you
 							FluidTank receiving = rec.getCorrespondingTank(tank.getFluid());
 							int demand = receiving.getCapacity()-receiving.getFluidAmount();
 							float ratio = demand/(float)totalDemand;
 							int toTransfer = Math.min(demand,(int)Math.ceil(totalAmt*ratio)); // just to be safe
 							if (toTransfer > 0) {
-								if (prov instanceof TileEntity te) {
+								/*if (prov instanceof TileEntity te) {
 									if (te.getWorld() != null) {
 										World world = te.getWorld();
 										LeafiaDebug.debugPos(world,te.getPos(),0.05f,0x00FFFF,"PROVIDER",toTransfer+"mB","");
@@ -100,11 +126,12 @@ public class FFNet extends NodeNet<IFFReceiver,IFFProvider,FFNode,FFNet> {
 										World world = te.getWorld();
 										LeafiaDebug.debugPos(world,te.getPos(),0.05f,0xFF00FF,"RECEIVER",toTransfer+"mB","");
 									}
-								}
+								}*/
 								// at this point, transferring is confirmed, no turning back
 								int sent = LeafiaUtil.fillFF(tank,receiving,toTransfer);
-								if (sent != toTransfer)
-									throw new LeafiaDevFlaw("net: confirmed transfer amount ("+toTransfer+"mB) and actual amount transferred ("+sent+"mB) doesn't match, wtf");
+								// VV removed this because it now ceil()s the value instead of flooring it
+								//if (sent != toTransfer)
+									//throw new LeafiaDevFlaw("net: confirmed transfer amount ("+toTransfer+"mB) and actual amount transferred ("+sent+"mB) doesn't match, wtf");
 							}
 						}
 					}

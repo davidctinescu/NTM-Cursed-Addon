@@ -233,6 +233,7 @@ public class LeafiaUtil {
 
 	public static int fillFF(FluidTank sending,FluidTank receiving,int amount) {
 		if (sending.getFluid() == null) return 0;
+		if (amount <= 0) return 0;
 		FFNBT.transferTags(sending,receiving);
 		if (receiving.getFluid() == null) {
 			FluidStack stack = sending.getFluid().copy();

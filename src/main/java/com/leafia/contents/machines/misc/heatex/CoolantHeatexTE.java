@@ -157,6 +157,10 @@ public class CoolantHeatexTE extends TileEntityMachineBase implements ITickable,
 			ff_inputA.readFromNBT(compound.getCompoundTag("ff_inputA"));
 			ff_outputA.readFromNBT(compound.getCompoundTag("ff_outputA"));
 		}
+		if (compound.hasKey("cycle"))
+			amountToCool = compound.getInteger("cycle");
+		if (compound.hasKey("delay"))
+			tickDelay = compound.getInteger("delay");
 	}
 
 	@Override

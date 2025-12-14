@@ -22,9 +22,11 @@ public class FFTankTE extends TileEntity implements ITickable, LeafiaPacketRecei
 
 	@Override
 	public void update() {
-		for (EnumFacing facing : EnumFacing.values())
-			trySubscribe(zaza,new FluidStack(AddonFF.fluoride,0),world,pos.offset(facing),ForgeDirection.getOrientation(facing));
-		LeafiaPacket._start(this).__write(0,zaza.writeToNBT(new NBTTagCompound())).__sendToAffectedClients();
+		if (!world.isRemote) {
+			for (EnumFacing facing : EnumFacing.values())
+				trySubscribe(zaza,new FluidStack(AddonFF.fluoride,0),world,pos.offset(facing),ForgeDirection.getOrientation(facing));
+			LeafiaPacket._start(this).__write(0,zaza.writeToNBT(new NBTTagCompound())).__sendToAffectedClients();
+		}
 	}
 
 	@Override
