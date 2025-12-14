@@ -25,7 +25,7 @@ public class FFNet extends NodeNet<IFFReceiver,IFFProvider,FFNode,FFNet> {
 	@Override
 	public void update() {
 		if (scheduled) return;
-		//scheduled = true;
+		//scheduled = true; this made it buggier
 		LeafiaPassiveServer.queueFunction(()->{ // bullshit threading, so here we are
 			scheduled = false;
 			if (providerEntries.isEmpty()) { tankMap.clear(); return; }
