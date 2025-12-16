@@ -1,0 +1,7 @@
+{
+	"variants": {
+		"normal": { "model": "leafia:lwr_control" },
+		"activated=true": { "model": "leafia:reactor_control" },
+     	   	"activated=false": { "model": "leafia:reactor_control" }
+	}
+}

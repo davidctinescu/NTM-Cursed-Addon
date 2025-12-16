@@ -27,7 +27,6 @@ public class CoolantHeatexBlock extends AddonBlockDummyable {
 
 	@Override
 	public void addInformation(ItemStack stack,@Nullable World worldIn,List<String> tooltip,ITooltipFlag flagIn) {
-		MachineTooltip.addWIP(tooltip);
 		MachineTooltip.addBoiler(tooltip);
 		MachineTooltip.addCondenser(tooltip);
 		tooltip.add("Yes, yes, I know this is just a sloppy recolor.");

@@ -1,0 +1,8 @@
+{
+	"variants": {
+		"facing=north": { "model": "leafia:lwr_terminal" },
+     	   	"facing=south": { "model": "leafia:lwr_terminal", "y": 180 },
+      	  	"facing=west":  { "model": "leafia:lwr_terminal", "y": 270 },
+      		"facing=east":  { "model": "leafia:lwr_terminal", "y": 90 }
+	}
+}

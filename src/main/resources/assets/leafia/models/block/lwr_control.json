@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_column",
+	"textures": {
+		"side": "leafia:blocks/pwr/pwr_control_side",
+		"end": "leafia:blocks/pwr/pwr_control_top"
+	}
+}

@@ -9,8 +9,10 @@ import com.leafia.jei.*;
 import com.leafia.jei.JEICentrifuge.Recipe;
 import com.llamalad7.mixinextras.sugar.Local;
 import mezz.jei.api.IGuiHelper;
+import mezz.jei.api.IModRegistry;
 import mezz.jei.api.ISubtypeRegistry;
 import mezz.jei.api.ISubtypeRegistry.ISubtypeInterpreter;
+import mezz.jei.api.ingredients.IIngredientBlacklist;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import org.spongepowered.asm.mixin.Final;
@@ -78,6 +80,11 @@ public class MixinJEIConfig {
 	@Inject(method = "registerSubtypes",at = @At(value = "TAIL"),require = 1)
 	public void onRegisterSubtypes(ISubtypeRegistry subtypeRegistry,CallbackInfo ci) {
 		subtypeRegistry.registerSubtypeInterpreter(AddonItems.ntmfbottle, metadataBottleInterpreter);
+	}
+
+	@Inject(method = "register",at = @At(value = "TAIL"),require = 1)
+	public void onRegister(IModRegistry registry,CallbackInfo ci,@Local(type = IIngredientBlacklist.class) IIngredientBlacklist blacklist) {
+		_JEIBlacklist.blacklistRecipes(blacklist);
 	}
 
 	@Redirect(method = "register",at = @At(value = "INVOKE", target = "Lcom/hbm/handler/jei/CentrifugeRecipeHandler;getRecipes()Ljava/util/List;"),require = 1)

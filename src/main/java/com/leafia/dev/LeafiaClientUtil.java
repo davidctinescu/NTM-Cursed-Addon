@@ -57,6 +57,11 @@ import java.util.Map.Entry;
  * <br>cause issues for dedicated server saying the entire class is missing.
  */
 public class LeafiaClientUtil {
+	@SideOnly(Side.CLIENT)
+	public static String[] statusDecimals(String template,double value,int decimals) {
+		double mul = Math.pow(10,decimals);
+		return I18nUtil.resolveKeyArray(template,String.format("%01."+decimals+"f",Math.floor(value*mul+0.5)/mul));
+	}
 	static boolean lastClicked = false;
 	/// add NTMFluid type fluid info for JEI
 	@SideOnly(Side.CLIENT)

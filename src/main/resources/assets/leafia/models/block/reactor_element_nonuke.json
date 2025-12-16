@@ -1,0 +1,7 @@
+{
+	"parent": "block/cube_column",
+	"textures": {
+		"end": "leafia:blocks/reactor_element_top",
+		"side": "leafia:blocks/reactor_element_base"
+	}
+}

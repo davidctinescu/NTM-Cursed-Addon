@@ -9,15 +9,23 @@ import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonItems;
 import com.leafia.contents.AddonItems.LeafiaRods;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodItem;
+import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisCrafting;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.registries.ForgeRegistry;
+
+import java.util.Objects;
 
 import static com.hbm.inventory.OreDictManager.*;
 import static com.hbm.inventory.OreDictManager.ZR;
-import static com.hbm.main.CraftingManager.addRecipeAuto;
-import static com.hbm.main.CraftingManager.addShapelessAuto;
+import static com.hbm.main.CraftingManager.*;
 
 public class AddonCraftingRecipes {
 	public static void craftingRegister() {
+		ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>)hack.getRegistry();
+
 		addRecipeAuto(new ItemStack(AddonBlocks.spk_cable, 16), " W ", "RRR", " W ", 'W', ModItems.plate_dineutronium, 'R',OreDictManager.MAGTUNG.wireFine());
 		addShapelessAuto(new ItemStack(ModBlocks.dfc_receiver, 1), AddonItems.dfcsh_beam, AddonItems.dfcsh_cable, AddonItems.dfcsh_corner, AddonItems.dfcsh_core, OreDictManager.STEEL.heavyBarrel(), AddonItems.dfcsh_front, AddonItems.dfcsh_corner, AddonItems.dfcsh_beam, AddonItems.dfcsh_beam);
 		addRecipeAuto(new ItemStack(AddonBlocks.dfc_reinforced, 1), "SDS", "TXL", "SDS", 'S', OSMIRIDIUM.plateWelded(), 'D', ModItems.plate_dineutronium, 'T', ModItems.thermo_unit_endo, 'L', ModBlocks.dfc_receiver, 'X', ModBlocks.block_dineutronium);
@@ -31,6 +39,20 @@ public class AddonCraftingRecipes {
 				addShapelessAuto(new ItemStack(rod,1),LeafiaRods.leafRod,new ItemStack(rod.baseItem,1,rod.baseMeta));
 				addShapelessAuto(new ItemStack(rod.baseItem,1,rod.baseMeta),rod);
 			}
+		}
+
+		removeRecipesForItem(reg,ModItems.ams_lens);
+
+		hack.getRegistry().register(new PWRDebrisCrafting().setRegistryName(new ResourceLocation("leafia", "lwr_debris_crafting_handler")));
+	}
+	static void removeRecipesForItem(ForgeRegistry<IRecipe> reg,Item item) {
+		ResourceLocation loc = new ResourceLocation("hbm", Objects.requireNonNull(item.getRegistryName()).getPath());
+		int i = 0;
+		ResourceLocation r_loc = loc;
+		while(net.minecraft.item.crafting.CraftingManager.REGISTRY.containsKey(r_loc)) {
+			i++;
+			reg.remove(r_loc);
+			r_loc = new ResourceLocation("hbm", loc.getPath() + "_" + i);
 		}
 	}
 }

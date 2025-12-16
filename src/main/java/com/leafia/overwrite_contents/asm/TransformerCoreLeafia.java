@@ -1,5 +1,6 @@
 package com.leafia.overwrite_contents.asm;
 
+import com.hbm.core.MinecraftClassWriter;
 import com.leafia.contents.worldgen.biomes.effects.HasAcidicRain;
 import com.leafia.dev.machine.MachineTooltip;
 import com.leafia.passive.LeafiaPassiveServer;
@@ -110,7 +111,7 @@ public class TransformerCoreLeafia implements IClassTransformer {
 				}
 			}
 
-			ClassWriter classWriter = new ClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
+			ClassWriter classWriter = new MinecraftClassWriter(ClassWriter.COMPUTE_MAXS | ClassWriter.COMPUTE_FRAMES);
 			classNode.accept(classWriter);
 			System.out.println("#Leaf: Transform Complete: " + name + " ("+classBeingTransformed.length+" -> "+classWriter.toByteArray().length+")");
 			return classWriter.toByteArray();
@@ -837,7 +838,7 @@ public class TransformerCoreLeafia implements IClassTransformer {
 											new VarInsnNode(ALOAD,lastALOADTarget2)
 									); // Loads tooltip list
 									helper.method.instructions.insertBefore(copycat1,new MethodInsnNode(INVOKESTATIC,Type.getInternalName(helper.listener),"addInfoASM","(Lnet/minecraft/item/Item;Ljava/util/List;)V",false));
-									printBytecodes(helper.method.instructions);
+									//printBytecodes(helper.method.instructions);
 									return true;
 								}
 							}

@@ -1,12 +1,26 @@
 package com.leafia.transformer;
 
+import com.hbm.blocks.ModBlocks;
+import com.hbm.blocks.generic.BlockCoalOil;
+import com.hbm.items.tool.ItemToolAbility;
+import com.hbm.lib.Library;
+import com.leafia.dev.optimization.LeafiaParticlePacket.FiaSpark;
+import com.leafia.dev.optimization.LeafiaParticlePacket.VanillaExt;
+import com.leafia.init.LeafiaSoundEvents;
 import com.llib.group.LeafiaSet;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockOre;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item.ToolMaterial;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemTool;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fluids.FluidStack;
@@ -19,6 +33,46 @@ import java.util.Arrays;
 import java.util.List;
 
 public class WorldServerLeafia {
+	public static void onBreakBlockProgress(World world,BlockPos pos,EntityPlayer player) {
+		if(player.getHeldItemMainhand().isEmpty())
+			return;
+
+		if(!(player.getHeldItemMainhand().getItem() instanceof ItemTool || player.getHeldItemMainhand().getItem() instanceof ItemToolAbility))
+			return;
+
+		ItemTool tool = (ItemTool)player.getHeldItemMainhand().getItem();
+
+		if(!tool.getToolMaterialName().equals(ToolMaterial.WOOD.toString())) {
+			world.playSound(null,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,LeafiaSoundEvents.sbPickaxeOre,SoundCategory.BLOCKS,0.4f+world.rand.nextFloat()*0.2f,1);
+			if (world.rand.nextBoolean()) {
+				RayTraceResult res = Library.rayTrace(player,20,0);
+				FiaSpark spark = new FiaSpark();
+				spark.color = 0xFFEE80;
+				spark.count = world.rand.nextInt(3)+1;
+				spark.thickness = 0.014f;
+				//spark.speed = 0.15+world.rand.nextDouble()*0.2;
+
+				spark.emit(res.hitVec,new Vec3d(res.sideHit.getDirectionVec()),world.provider.getDimension());
+				if (world.getBlockState(pos).getBlock() instanceof BlockCoalOil) {
+					int rand = world.rand.nextInt(4);
+					for (int i = 0; i <= rand; i++)
+						VanillaExt.Smoke().emit(res.hitVec.add(world.rand.nextDouble()*0.2-0.1,world.rand.nextDouble()*0.2-0.1,world.rand.nextDouble()*0.2-0.1),new Vec3d(0,0,0),world.provider.getDimension());
+					if (rand == 3) {
+						VanillaExt.Lava().emit(res.hitVec,new Vec3d(0,0,0),world.provider.getDimension());
+						if (world.rand.nextInt(3) == 0) {
+							world.playSound(null,pos,SoundEvents.ITEM_FIRECHARGE_USE,SoundCategory.BLOCKS,0.65F,0.9F+world.rand.nextFloat()*0.2F);
+							world.setBlockState(pos,ModBlocks.ore_coal_oil_burning.getDefaultState());
+						}
+					}
+				}
+			}
+//			TauSpark spark = new TauSpark();
+//			spark.color = 0xFFEE80;
+//			spark.life = 2;
+//			spark.width = 0.03F;
+//			spark.emit(res.hitVec,new Vec3d(res.sideHit.getDirectionVec()).scale(3F+world.rand.nextFloat()),world.provider.getDimension());
+		}
+	}
 	public static void player_onBreakBlockProgress(WorldServer world,int breakerId,BlockPos pos,int progress) {
 		EntityPlayer doxxed = null;
 		for (EntityPlayer entity : world.playerEntities) {
@@ -28,7 +82,8 @@ public class WorldServerLeafia {
 		if (doxxed != null) {
 			IBlockState state = world.getBlockState(pos);
 			Block block = state.getBlock();
-			//if (block instanceof BlockCoalOil && Math.floorMod(progress,2) == 0)
+			if (block instanceof BlockOre && Math.floorMod(progress,2) == 0)
+				onBreakBlockProgress(world,pos,doxxed);
 				//((BlockCoalOil) block).onBreakBlockProgress(world,pos,doxxed);
 		}
 	}

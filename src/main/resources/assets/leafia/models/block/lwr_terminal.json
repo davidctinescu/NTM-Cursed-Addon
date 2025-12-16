@@ -1,0 +1,8 @@
+{
+	"parent": "block/orientable",
+	"textures": {
+		"top": "leafia:blocks/pwr/pwr_casing_blank",
+		"front": "leafia:blocks/pwr/pwr_controller",
+		"side": "leafia:blocks/pwr/pwr_casing_blank"
+	}
+}

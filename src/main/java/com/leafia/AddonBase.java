@@ -14,6 +14,7 @@ import com.leafia.init.*;
 import com.leafia.eventbuses.LeafiaServerListener;
 import com.leafia.init.proxy.LeafiaServerProxy;
 import com.leafia.init.recipes.AddonChemplantRecipes;
+import com.leafia.init.recipes.AddonGasCentRecipes;
 import com.leafia.overwrite_contents.asm.TransformerCoreLeafia;
 import com.leafia.overwrite_contents.other.LCEItemCatalyst;
 import com.leafia.settings.AddonConfig;
@@ -38,7 +39,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 
 @Mod(modid = Tags.MODID, version = Tags.VERSION, name = Tags.MODNAME, acceptedMinecraftVersions = "[1.12.2]",
-		dependencies = "required-after:hbm@[1.2.3.0,);required:mixinbooter")
+		dependencies = "required-after:hbm@[1.2.3.3,);required:mixinbooter")
 public class AddonBase {
 
 	public static final Logger LOGGER = LogManager.getLogger(Tags.MODID);
@@ -141,6 +142,7 @@ public class AddonBase {
 	public void postInit(FMLPostInitializationEvent event) {
 		AddonFF.setFromRegistry();
 		AddonChemplantRecipes.register();
+		AddonGasCentRecipes.register();
 		if (TransformerCoreLeafia.loadFailed != null)
 			TransformerCoreLeafia.loadFailed.run();
 	}

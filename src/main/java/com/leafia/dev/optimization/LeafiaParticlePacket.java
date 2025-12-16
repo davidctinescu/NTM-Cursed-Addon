@@ -1,5 +1,6 @@
 package com.leafia.dev.optimization;
 
+import com.custom_hbm.effectNT.EffectNT;
 import com.hbm.main.MainRegistry;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.particle.ParticleRBMKMush;
@@ -109,6 +110,11 @@ public class LeafiaParticlePacket extends RecordablePacket {
 					buf.writeInt(blockdust_block);
 					break;
 			}
+		}
+		@SideOnly(Side.CLIENT)
+		@Override
+		protected void emit(NBTTagCompound nbt) {
+			EffectNT.effectNT(nbt);
 		}
 	}
 	public static class Sweat extends LeafiaParticle {

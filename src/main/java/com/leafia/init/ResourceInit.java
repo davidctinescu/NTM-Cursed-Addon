@@ -9,6 +9,8 @@ import com.leafia.contents.machines.powercores.dfc.render.DFCComponentRender;
 import com.leafia.contents.machines.powercores.dfc.render.DFCCoreRender;
 import com.leafia.contents.machines.processing.mixingvat.MixingVatRender;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSeparatorRender;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.control.PWRControlRender;
+import com.leafia.contents.machines.reactors.pwr.debris.RenderPWRDebris;
 import com.leafia.contents.network.ff_duct.utility.FFDuctUtilityRender;
 import com.leafia.contents.network.spk_cable.SPKCableRender;
 import net.minecraft.util.ResourceLocation;
@@ -18,7 +20,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodType;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static com.leafia.AddonBase._initClass;
 
@@ -28,6 +32,14 @@ public class ResourceInit {
 	private static final MethodHandle pauseSplash = MethodHandleHelper.findStatic(ResourceManager.class, "pauseSplash", MethodType.methodType(void.class));
 	private static final MethodHandle resumeSplash = MethodHandleHelper.findStatic(ResourceManager.class, "resumeSplash", MethodType.methodType(void.class));
 
+	/*public static Map<String,WaveFrontObjectVAO> LWRWreckModels = new HashMap<>();
+	private static WaveFrontObjectVAO getWreckModel(String name) {
+		return getVAO(new ResourceLocation("leafia", "models/leafia/pwrwreck/"+name+".obj"));
+	}
+	private static void setWreckModel(String s) {
+		LWRWreckModels.put(s,getWreckModel(s));
+	}*/
+
 	static {
 		_initClass(LCERenderCloudFleija.class);
 		_initClass(DFCCoreRender.class);
@@ -36,6 +48,24 @@ public class ResourceInit {
 		_initClass(FFDuctUtilityRender.class);
 		_initClass(SaltSeparatorRender.class);
 		_initClass(MixingVatRender.class);
+		_initClass(RenderPWRDebris.Meshes.class);
+		/*{
+			setWreckModel("intact");
+			setWreckModel("metal_rubble_0");
+			for (int i = 0; i <= 1; i++)
+				setWreckModel("metal_slight_"+i);
+			setWreckModel("metal_wreck_0");
+			setWreckModel("stone_rubble_0_flip");
+			for (int i = 0; i <= 3; i++)
+				setWreckModel("stone_rubble_"+i);
+			for (int i = 0; i <= 2; i++)
+				setWreckModel("stone_slight"+i);
+			setWreckModel("stone_slight_2_old");
+			setWreckModel("wreck_stone");
+			setWreckModel("wreck_stone_2");
+			setWreckModel("wreck_stone_3");
+		}*/
+		_initClass(PWRControlRender.class);
 	}
 
 	public static void init() {

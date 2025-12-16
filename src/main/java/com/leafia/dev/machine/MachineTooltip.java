@@ -22,7 +22,83 @@ public class MachineTooltip {
                 case "machine_turbine":
                 case "machine_large_turbine":
                 case "machine_chungus":
-
+                case "machine_generator":
+                case "machine_diesel":
+                case "machine_rtg_grey":
+                case "machine_flare":
+                case "machine_turbofan":
+                case "machine_radgen":
+                case "machine_amgen":
+                case "machine_geo":
+                case "machine_minirtg":
+                case "rtg_polonium":
+                case "machine_spp_bottom":
+                case "machine_spp_top":
+                    MachineTooltip.addGenerator(tooltip);
+                    break;
+                case "machine_solar_boiler":
+                case "heat_boiler":
+                case "machine_industrial_boiler":
+                case "machine_hephaestus":
+                    MachineTooltip.addBoiler(tooltip);
+                    break;
+                case "machine_zirnox":
+                    MachineTooltip.addBoiler(tooltip);
+                    MachineTooltip.addNuclear(tooltip);
+                    break;
+                case "fusion_boiler":
+                    MachineTooltip.addMultiblock(tooltip);
+                    MachineTooltip.addModular(tooltip);
+                    MachineTooltip.addBoiler(tooltip);
+                    break;
+                case "fusion_torus":
+                    MachineTooltip.addMultiblock(tooltip);
+                    MachineTooltip.addModular(tooltip);
+                    MachineTooltip.addNuclear(tooltip);
+                    break;
+                case "fusion_klystron":
+                    MachineTooltip.addMultiblock(tooltip);
+                    MachineTooltip.addModular(tooltip);
+                    MachineTooltip.addBoiler(tooltip);
+                    break;
+                case "fusion_breeder":
+                case "fusion_collector":
+                case "fusion_coupler":
+                    MachineTooltip.addMultiblock(tooltip);
+                    MachineTooltip.addModular(tooltip);
+                    break;
+                case "fusion_mhdt":
+                    MachineTooltip.addMultiblock(tooltip);
+                    MachineTooltip.addModular(tooltip);
+                    MachineTooltip.addGenerator(tooltip);
+                    break;
+                case "rbmk_blank":
+                case "rbmk_moderator":
+                case "rbmk_control":
+                case "rbmk_control_mod":
+                case "rbmk_control_auto":
+                case "rbmk_reflector":
+                case "rbmk_absorber":
+                case "rbmk_outgasser":
+                case "rbmk_cooler":
+                case "rbmk_storage":
+                    MachineTooltip.addMultiblock(tooltip);
+                    MachineTooltip.addModular(tooltip);
+                    break;
+                case "rbmk_fuel_rod":
+                case "rbmk_rod_mod":
+                case "rbmk_rod_reasim":
+                case "rbmk_rod_reasim_mod":
+                    MachineTooltip.addMultiblock(tooltip);
+                    MachineTooltip.addModular(tooltip);
+                    MachineTooltip.addNuclear(tooltip);
+                    break;
+                case "rbmk_boiler":
+                case "rbmk_heater":
+                    MachineTooltip.addMultiblock(tooltip);
+                    MachineTooltip.addModular(tooltip);
+                    MachineTooltip.addBoiler(tooltip);
+                    break;
             }
         }
     }

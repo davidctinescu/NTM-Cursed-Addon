@@ -11,6 +11,7 @@ import com.hbm.items.ModItems;
 import com.hbm.render.GuiCTMWarning;
 import com.custom_hbm.util.LCETuple.*;
 import com.hbm.render.item.ItemRenderBase;
+import com.hbm.render.item.TEISRBase;
 import com.hbm.util.I18nUtil;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonItems;
@@ -181,7 +182,7 @@ public class LeafiaClientListener {
 		@SubscribeEvent
 		public void modelBaking(ModelBakeEvent evt) {
 			IRegistry<ModelResourceLocation,IBakedModel> reg = evt.getModelRegistry();
-			for(Entry<Item,ItemRenderBase> entry : ItemRendererInit.renderers.entrySet()){
+			for(Entry<Item,TEISRBase> entry : ItemRendererInit.renderers.entrySet()){
 				swapModels(entry.getKey(), reg);
 			}
 			{

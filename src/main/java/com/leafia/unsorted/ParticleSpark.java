@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.GlStateManager.DestFactor;
 import net.minecraft.client.renderer.GlStateManager.SourceFactor;
+import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
@@ -73,11 +74,16 @@ public class ParticleSpark extends Particle {
 			this.motionZ *= 0.699999988079071D;
 		}
 	}
-	
+
+	@Override
+	public int getBrightnessForRender(float partialTick) {
+		return 240;
+	}
+
 	@Override
 	public void renderParticle(BufferBuilder buffer, Entity entityIn, float partialTicks, float rotationX, float rotationZ, float rotationYZ, float rotationXY, float rotationXZ){
 		NTMRenderHelper.resetParticleInterpPos(entityIn, partialTicks);
-
+		OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit,240,240);
 		float f = ((float)this.particleAge + partialTicks) / (float)this.particleMaxAge;
 
 		double curTime = (world.getTotalWorldTime()-startTick)+partialTicks;

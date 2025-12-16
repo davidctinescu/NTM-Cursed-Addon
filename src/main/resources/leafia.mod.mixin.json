@@ -10,9 +10,11 @@
     "hbm.MixinFolderButton",
     "hbm.MixinItemRenderLaserDetonator",
     "hbm.MixinParticleRBMKMush",
-    "hbm.MixinRenderTorex"
+    "hbm.MixinRenderTorex",
+    "hbm.MixinItemFluidIcon"
   ],
   "mixins": [
+    "hbm.MixinBlockCoalOil",
     "hbm.MixinBlockStorageCrate",
     "hbm.MixinControlEvent",
     "hbm.MixinCoreComponent",
@@ -39,6 +41,8 @@
     "hbm.MixinModEventHandler",
     "hbm.MixinModItems",
     "hbm.MixinPacketDispatcher",
+    "hbm.MixinSerializableRecipe",
+    "hbm.MixinTileEntityBarrel",
     "hbm.MixinTileEntityChungus",
     "hbm.MixinTileEntityCondenser",
     "hbm.MixinTileEntityCore",

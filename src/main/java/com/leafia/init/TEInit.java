@@ -15,6 +15,11 @@ import com.leafia.contents.machines.reactors.lftr.components.ejector.MSREjectorT
 import com.leafia.contents.machines.reactors.lftr.components.element.MSRElementTE;
 import com.leafia.contents.machines.reactors.lftr.components.plug.MSRPlugTE;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSeparatorTE;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.control.PWRControlTE;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.element.PWRElementTE;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.port.PWRPortTE;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.terminal.PWRTerminalTE;
+import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreckEntity;
 import com.leafia.contents.network.ff_duct.FFDuctTE;
 import com.leafia.contents.network.ff_duct.utility.pump.FFPumpTE;
 import com.leafia.contents.network.spk_cable.SPKCableTE;
@@ -44,6 +49,11 @@ public class TEInit {
 		register(MixingVatTE.class,"mixing_vat_te");
 		register(MixingVatProxy.class,"mixing_vat_proxy_te");
 		register(CoolantHeatexTE.class,"coolant_heatex_te");
+		register(PWRControlTE.class,"lwr_control_te");
+		register(PWRElementTE.class,"lwr_element_te");
+		register(PWRPortTE.class,"lwr_port_te");
+		register(PWRTerminalTE.class,"lwr_terminal_te");
+		register(PWRMeshedWreckEntity.class,"lwr_wreck_te");
 	}
 	private static void register(Class<? extends TileEntity> clazz,String res) {
 		GameRegistry.registerTileEntity(clazz,new ResourceLocation(AddonBase.MODID,res));

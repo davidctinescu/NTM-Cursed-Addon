@@ -1,6 +1,10 @@
 package com.leafia.init;
 
 import com.hbm.inventory.fluid.Fluids;
+import com.hbm.inventory.fluid.trait.FT_Coolable;
+import com.hbm.inventory.fluid.trait.FT_Coolable.CoolingType;
+import com.hbm.inventory.fluid.trait.FT_Heatable;
+import com.hbm.inventory.fluid.trait.FT_Heatable.HeatingType;
 import com.hbm.inventory.fluid.trait.FluidTrait;
 import com.leafia.contents.AddonFluids;
 import com.leafia.contents.fluids.traits.FT_DFCFuel;
@@ -37,6 +41,16 @@ public class AddonFluidTraits {
 		Fluids.XENON.addTraits(new FT_DFCFuel(1.25F));
 		Fluids.BALEFIRE.addTraits(new FT_DFCFuel(2.4F));
 		Fluids.STELLAR_FLUX.addTraits(new FT_DFCFuel(2.65F));
+
+		Fluids.COOLANT_HOT.addTraits(new FT_Heatable().setEff(HeatingType.BOILER, 1.0D).setEff(HeatingType.HEATEXCHANGER, 1.0D).addStep(700, 1, AddonFluids.COOLANT_MAL, 1));
+		AddonFluids.COOLANT_MAL.addTraits(new FT_Coolable(Fluids.COOLANT_HOT, 1, 1, 700).setEff(CoolingType.HEATEXCHANGER, 1.0D));
+
+		double eff_steam_boil = 1.0D;
+		double eff_steam_heatex = 0.25D;
+		Fluids.ULTRAHOTSTEAM.addTraits(new FT_Heatable().setEff(HeatingType.BOILER, eff_steam_boil).setEff(HeatingType.HEATEXCHANGER, eff_steam_heatex).addStep(960, 10, AddonFluids.DEATHSTEAM, 1));
+
+		double eff_steam_cool = 0.5D;
+		AddonFluids.DEATHSTEAM.addTraits(new FT_Coolable(Fluids.ULTRAHOTSTEAM, 1, 10, 960).setEff(CoolingType.HEATEXCHANGER, eff_steam_cool));
 	}
 	private static void registerTrait(String name, Class<? extends FluidTrait> clazz) {
 		traitNameMap.put(name, clazz);

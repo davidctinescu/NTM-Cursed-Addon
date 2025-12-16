@@ -34,6 +34,13 @@ import com.leafia.contents.machines.reactors.lftr.components.arbitrary.MSRArbitr
 import com.leafia.contents.machines.reactors.lftr.components.control.MSRControlTE;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSeparatorRender;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSeparatorTE;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.control.PWRControlRender;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.control.PWRControlTE;
+import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreckEntity;
+import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.RenderPWRMeshedWreck;
+import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisEntity;
+import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisItemRender;
+import com.leafia.contents.machines.reactors.pwr.debris.RenderPWRDebris;
 import com.leafia.contents.network.ff_duct.utility.FFDuctUtilityRender;
 import com.leafia.contents.network.ff_duct.utility.pump.FFPumpTE;
 import com.leafia.contents.network.spk_cable.SPKCableRender;
@@ -82,6 +89,7 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 			RenderingRegistry.registerEntityRenderingHandler(LCETorex.class,LCETorexRender.FACTORY);
 
 			RenderingRegistry.registerEntityRenderingHandler(AbsorberShrapnelEntity.class,AbsorberShrapnelRender.FACTORY);
+			RenderingRegistry.registerEntityRenderingHandler(PWRDebrisEntity.class,RenderPWRDebris.FACTORY);
 		}
 		{
 			ClientRegistry.bindTileEntitySpecialRenderer(TileEntitySpinnyLight.class,new LCERenderSpinnyLight());
@@ -105,6 +113,9 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 			ClientRegistry.bindTileEntitySpecialRenderer(MSRArbitraryTE.class,new MSRArbitraryRender());
 			ClientRegistry.bindTileEntitySpecialRenderer(MixingVatTE.class,new MixingVatRender());
 			ClientRegistry.bindTileEntitySpecialRenderer(CoolantHeatexTE.class,new CoolantHeatexRender());
+
+			ClientRegistry.bindTileEntitySpecialRenderer(PWRControlTE.class,new PWRControlRender());
+			ClientRegistry.bindTileEntitySpecialRenderer(PWRMeshedWreckEntity.class,new RenderPWRMeshedWreck());
 		}
 	}
 	@Override
@@ -142,6 +153,12 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 			rod.setTileEntityItemStackRenderer(LeafiaRodRender.INSTANCE);
 			//ItemRendererInit.fixFuckingLocations.add(rod);
 		}
+
+		/*{
+			AddonItems.pwr_piece.setTileEntityItemStackRenderer(new PWRDebrisItemRender());
+			AddonItems.pwr_shrapnel.setTileEntityItemStackRenderer(new PWRDebrisItemRender());
+			AddonItems.pwr_shard.setTileEntityItemStackRenderer(new PWRDebrisItemRender());
+		}*/
 
 		for (Item item : AddonItems.ALL_ITEMS) {
 

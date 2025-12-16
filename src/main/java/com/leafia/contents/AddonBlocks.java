@@ -1,7 +1,8 @@
 package com.leafia.contents;
 
 import com.hbm.blocks.ModBlocks;
-import com.hbm.blocks.generic.BlockPipe;
+import com.hbm.blocks.ModSoundType;
+import com.hbm.lib.HBMSoundHandler;
 import com.hbm.main.MainRegistry;
 import com.leafia.AddonBase;
 import com.leafia.contents.AddonFluids.AddonFF;
@@ -21,16 +22,30 @@ import com.leafia.contents.machines.reactors.lftr.components.ejector.MSREjectorB
 import com.leafia.contents.machines.reactors.lftr.components.element.MSRElementBlock;
 import com.leafia.contents.machines.reactors.lftr.components.plug.MSRPlugBlock;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSeparatorBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.PWRHullBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.PWRReflectorBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.channel.PWRChannelBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.channel.PWRConductorBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.channel.PWRExchangerBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.control.PWRControlBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.element.PWRElementBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.port.PWRPortBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.terminal.PWRTerminalBlock;
+import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRMeshedWreck;
+import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRWreckMetal;
+import com.leafia.contents.machines.reactors.pwr.blocks.wreckage.PWRWreckStone;
 import com.leafia.contents.network.ff_duct.FFDuctStandard;
 import com.leafia.contents.network.ff_duct.utility.pump.FFPumpBlock;
 import com.leafia.contents.network.spk_cable.SPKCableBlock;
 import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import java.util.*;
 import java.util.Map.Entry;
+import static com.leafia.contents.AddonBlocks.GenericBlockResistance.*;
 
 public class AddonBlocks {
 	public static final List<Block> ALL_BLOCKS = new ArrayList();
@@ -180,6 +195,36 @@ public class AddonBlocks {
 	public static final Block mixingvat = new MixingVatBlock(Material.IRON,"mixingvat").setCreativeTab(MainRegistry.machineTab);
 	public static final Block coolant_heatex = new CoolantHeatexBlock(Material.IRON, "coolant_heatex").setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.machineTab);
 
+	public static class PWR {
+		public static final int guiID = 273;
+		public static final float generalHardness = 24;
+		public static final float innerHardness = 8;
+		public static SoundType soundTypePWRTube = ModSoundType.placeBreakStep(HBMSoundHandler.pipePlaced, HBMSoundHandler.metalBlock, HBMSoundHandler.metalBlock, 0.5F, 1.0F);
+		public static final Block hull = new PWRHullBlock().setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness).setResistance(PWR_CASING.v);
+		public static final Block reflector = new PWRReflectorBlock().setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness).setResistance(PWR_CASING.v);
+
+		public static final Block element = new PWRElementBlock("lwr_element").setCreativeTab(MainRegistry.machineTab).setHardness(innerHardness).setResistance(PWR_INSIDE.v);
+		public static final Block element_old = new PWRElementBlock("reactor_element").setCreativeTab(MainRegistry.machineTab).setHardness(innerHardness).setResistance(PWR_INSIDE.v);
+		public static final Block element_old_blank = new PWRElementBlock("reactor_element_blank").setCreativeTab(MainRegistry.machineTab).setHardness(innerHardness).setResistance(PWR_INSIDE.v);
+		public static final Block control = new PWRControlBlock("lwr_control").setCreativeTab(MainRegistry.machineTab).setHardness(innerHardness).setResistance(PWR_INSIDE.v);
+		public static final Block reactor_control = new PWRControlBlock("reactor_control").setCreativeTab(MainRegistry.machineTab).setHardness(innerHardness).setResistance(PWR_INSIDE.v);
+
+		public static final Block channel = new PWRChannelBlock().setCreativeTab(MainRegistry.machineTab).setHardness(innerHardness).setResistance(PWR_INSIDE.v);
+		public static final Block conductor = new PWRConductorBlock().setCreativeTab(MainRegistry.machineTab).setHardness(innerHardness).setResistance(PWR_INSIDE.v);
+		public static final Block exchanger = new PWRExchangerBlock().setCreativeTab(MainRegistry.machineTab).setHardness(innerHardness).setResistance(PWR_INSIDE.v);
+
+		public static final Block terminal = new PWRTerminalBlock().setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness).setResistance(PWR_CASING.v);
+		public static final Block port = new PWRPortBlock().setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness).setResistance(PWR_CASING.v);
+
+		/*public static final Block ventElement = new PWRVentElementBlock().setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness).setResistance(PWR_CASING.v);
+		public static final Block ventOutlet = new PWRVentOutletBlock().setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness).setResistance(PWR_CASING.v);
+		public static final Block ventInlet = new PWRVentInletBlock().setCreativeTab(MainRegistry.machineTab).setHardness(generalHardness).setResistance(PWR_CASING.v);
+		public static final Block ventDuct = new PWRVentDuctBlock().setCreativeTab(null).setHardness(generalHardness).setResistance(PWR_CASING.v);*/
+
+		public static final PWRMeshedWreck wreck_stone = new PWRWreckStone();
+		public static final PWRMeshedWreck wreck_metal = new PWRWreckMetal();
+	}
+
 	private static void modifyBlockParams() {
 		ModBlocks.dfc_core.setResistance(65000000);
 		ModBlocks.dfc_emitter.setResistance(50);
@@ -201,6 +246,18 @@ public class AddonBlocks {
 		ModBlocks.steel_scaffold.setResistance(30);
 		ModBlocks.steel_grate.setResistance(15);
 		ModBlocks.steel_grate_wide.setResistance(15);
+
+		ModBlocks.pwr_block.setCreativeTab(null);
+		ModBlocks.pwr_casing.setCreativeTab(null);
+		ModBlocks.pwr_channel.setCreativeTab(null);
+		ModBlocks.pwr_control.setCreativeTab(null);
+		ModBlocks.pwr_fuelrod.setCreativeTab(null);
+		ModBlocks.pwr_controller.setCreativeTab(null);
+		ModBlocks.pwr_heatex.setCreativeTab(null);
+		ModBlocks.pwr_heatsink.setCreativeTab(null);
+		ModBlocks.pwr_neutron_source.setCreativeTab(null);
+		ModBlocks.pwr_port.setCreativeTab(null);
+		ModBlocks.pwr_reflector.setCreativeTab(null);
 	}
 
 	public static void preInit(){

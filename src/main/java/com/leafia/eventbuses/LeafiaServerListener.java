@@ -5,6 +5,7 @@ import com.hbm.entity.logic.EntityNukeExplosionMK3.ATEntry;
 import com.hbm.hazard.HazardEntry;
 import com.hbm.hazard.HazardSystem;
 import com.hbm.lib.HBMSoundHandler;
+import com.leafia.contents.machines.reactors.pwr.PWRDiagnosis;
 import com.leafia.contents.potion.LeafiaPotion;
 import com.leafia.dev.hazards.types.HazardTypeSharpEdges;
 import com.leafia.dev.optimization.LeafiaParticlePacket;
@@ -40,14 +41,21 @@ import java.util.List;
 import java.util.Random;
 
 public class LeafiaServerListener {
-	public static class Unsorted {
+	public static class HandlerServer {
 		@SubscribeEvent
-		public void onWorldTick(WorldTickEvent evt) {
-			if (evt.phase == Phase.START)
-				LeafiaPassiveServer.priorTick(evt.world);
-			if (evt.phase == Phase.END)
-				LeafiaPassiveServer.onTick(evt.world);
+		public void worldTick(WorldTickEvent evt) {
+			if (evt.world != null && !evt.world.isRemote) {
+				if (evt.phase == Phase.START)
+					LeafiaPassiveServer.priorTick(evt.world);
+				if(evt.world.getTotalWorldTime() % 100 == 97) {
+					PWRDiagnosis.cleanup();
+				}
+				if (evt.phase == Phase.END)
+					LeafiaPassiveServer.onTick(evt.world);
+			}
 		}
+	}
+	public static class Unsorted {
 		@SubscribeEvent
 		public void onGetEntityCollision(GetCollisionBoxesEvent evt) {
 			if (evt.getEntity() == null) return;

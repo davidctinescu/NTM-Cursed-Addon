@@ -12,6 +12,9 @@ import com.leafia.contents.gear.utility.ItemFuzzyIdentifier;
 import com.leafia.contents.gear.wands.ItemWandV;
 import com.leafia.contents.machines.powercores.dfc.CrucifixItem;
 import com.leafia.contents.machines.powercores.dfc.LCEItemLens;
+import com.leafia.contents.machines.reactors.lftr.processing.separator.recipes.icon.SaltSeparatorRecipeIcon;
+import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisEntity.DebrisType;
+import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisItem;
 import com.leafia.dev.hazards.ItemRads;
 import com.leafia.dev.items.itembase.AddonItemBaked;
 import net.minecraft.block.Block;
@@ -411,7 +414,18 @@ public class AddonItems {
 
 	public static Item ntmfbottle = new ItemNTMFBottle("ntmfbottle");
 
-	public static void preInit(){
+	public static final Item pwr_piece = new PWRDebrisItem("lwr_piece",DebrisType.CONCRETE);
+	public static final Item pwr_shrapnel = new PWRDebrisItem("lwr_shrapnel",DebrisType.SHRAPNEL);
+	public static final Item pwr_shard = new PWRDebrisItem("lwr_shard",DebrisType.BLANK).disableCrafting();
+
+	private static void modifyItemParams() {
+		ModItems.pwr_fuel.setCreativeTab(null);
+		ModItems.pwr_fuel_hot.setCreativeTab(null);
+		ModItems.pwr_fuel_depleted.setCreativeTab(null);
+	}
+
+	public static void preInit() {
+		modifyItemParams();
 		AddonBase._initMemberClasses(AddonItems.class);
 
 		for(Item item : ALL_ITEMS){
