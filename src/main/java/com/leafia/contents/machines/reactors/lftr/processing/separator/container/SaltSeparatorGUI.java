@@ -2,35 +2,27 @@ package com.leafia.contents.machines.reactors.lftr.processing.separator.containe
 
 import com.hbm.inventory.gui.GUIScreenRecipeSelector;
 import com.hbm.inventory.gui.GuiInfoContainer;
-import com.hbm.inventory.recipes.ChemicalPlantRecipes;
 import com.hbm.inventory.recipes.loader.GenericRecipe;
 import com.hbm.items.machine.ItemBlueprints;
 import com.hbm.util.I18nUtil;
-import com.leafia.contents.machines.misc.heatex.CoolantHeatexTE;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.SaltSeparatorTE;
 import com.leafia.contents.machines.reactors.lftr.processing.separator.recipes.SaltSeparatorRecipes;
 import com.leafia.dev.LeafiaClientUtil;
-import com.leafia.dev.container_utility.LeafiaPacket;
-import com.leafia.dev.gui.FiaUIRect;
 import com.leafia.dev.gui.LCEGuiInfoContainer;
+import com.leafia.transformer.LeafiaGls;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.gui.GuiTextField;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
-import org.apache.commons.lang3.math.NumberUtils;
-import org.lwjgl.input.Keyboard;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL12;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 public class SaltSeparatorGUI extends LCEGuiInfoContainer {
 	private final SaltSeparatorTE separator;
@@ -61,11 +53,15 @@ public class SaltSeparatorGUI extends LCEGuiInfoContainer {
 		for(int i = 0; i < 3; i++)
 			LeafiaClientUtil.renderTankInfo(separator.outputTanks[i], this, mouseX, mouseY, guiLeft + 80 + i * 18, guiTop + 18, 16, 34);
 
+		LeafiaClientUtil.renderTankInfo(this,mouseX,mouseY,guiLeft+8,guiTop+18,16,70,separator.saltTank,separator.saltType.getFF());
+		LeafiaClientUtil.renderTankInfo(this,mouseX,mouseY,guiLeft+8,guiTop+99,52,16,separator.bufferIn,separator.saltType.getFF());
+		LeafiaClientUtil.renderTankInfo(this,mouseX,mouseY,guiLeft+80,guiTop+99,52,16,separator.bufferOut,separator.saltType.getFF());
+
 		this.drawElectricityInfo(this, mouseX, mouseY, guiLeft + 152, guiTop + 18, 16, 61, separator.power, separator.maxPower);
 
 		if(guiLeft + 7 <= mouseX && guiLeft + 7 + 18 > mouseX && guiTop + 125 < mouseY && guiTop + 125 + 18 >= mouseY) {
-			if(this.separator.module.recipe != null && ChemicalPlantRecipes.INSTANCE.recipeNameMap.containsKey(this.separator.module.recipe)) {
-				GenericRecipe recipe = ChemicalPlantRecipes.INSTANCE.recipeNameMap.get(this.separator.module.recipe);
+			if(this.separator.module.recipe != null && SaltSeparatorRecipes.INSTANCE.recipeNameMap.containsKey(this.separator.module.recipe)) {
+				GenericRecipe recipe = SaltSeparatorRecipes.INSTANCE.recipeNameMap.get(this.separator.module.recipe);
 				this.drawHoveringText(recipe.print(), mouseX, mouseY);
 			} else {
 				this.drawHoveringText(TextFormatting.YELLOW + I18nUtil.resolveKey("gui.recipe.setRecipe"), mouseX, mouseY);
@@ -114,7 +110,7 @@ public class SaltSeparatorGUI extends LCEGuiInfoContainer {
 			drawTexturedModalRect(guiLeft + 62, guiTop + 126, 176, 61, j, 16);
 		}
 
-		GenericRecipe recipe = ChemicalPlantRecipes.INSTANCE.recipeNameMap.get(separator.module.recipe);
+		GenericRecipe recipe = SaltSeparatorRecipes.INSTANCE.recipeNameMap.get(separator.module.recipe);
 
 		/// LEFT LED
 		if(separator.didProcess) {
@@ -154,8 +150,18 @@ public class SaltSeparatorGUI extends LCEGuiInfoContainer {
 
 		for (int i = 0; i < 2; i++)
 			separator.inputTanks[i].renderTank(guiLeft + 26+i*18, guiTop + 52, this.zLevel, 16, 34);
-		for(int i = 0; i < 3; i++) {
+		for(int i = 0; i < 3; i++)
 			separator.outputTanks[i].renderTank(guiLeft + 80 + i * 18, guiTop + 52, this.zLevel, 16, 34);
-		}
+		LeafiaClientUtil.drawLiquid(separator.saltTank,guiLeft+8,guiTop+88,zLevel,16,70,0,28);
+		LeafiaGls.pushMatrix(); {
+			LeafiaGls.translate(guiLeft+8,guiTop+99,0);
+			LeafiaGls.rotate(90,0,0,1);
+			LeafiaClientUtil.drawLiquid(separator.bufferIn,0,0,zLevel,16,52,0,28);
+		} LeafiaGls.popMatrix();
+		LeafiaGls.pushMatrix(); {
+			LeafiaGls.translate(guiLeft+80,guiTop+99,0);
+			LeafiaGls.rotate(90,0,0,1);
+			LeafiaClientUtil.drawLiquid(separator.bufferOut,0,0,zLevel,16,52,0,28);
+		} LeafiaGls.popMatrix();
 	}
 }

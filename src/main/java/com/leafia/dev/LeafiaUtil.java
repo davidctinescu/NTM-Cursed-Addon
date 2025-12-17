@@ -245,13 +245,11 @@ public class LeafiaUtil {
 			stack.amount = amount;
 			receiving.setFluid(stack);
 			sending.drain(amount,true);
-			System.out.println("case A");
 			return amount;
 		} else {
 			int toFill = Math.min(receiving.getCapacity()-receiving.getFluidAmount(),amount);
 			receiving.getFluid().amount += toFill;
 			sending.drain(amount,true);
-			System.out.println("case B");
 			return toFill;
 		}
 	}
