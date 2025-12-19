@@ -2,6 +2,8 @@ package com.leafia.contents.machines.reactors.pwr.blocks.components.control;
 
 import com.hbm.main.MainRegistry;
 import com.hbm.sound.AudioWrapper;
+import com.leafia.contents.AddonBlocks;
+import com.leafia.contents.AddonBlocks.PWR;
 import com.leafia.contents.machines.reactors.pwr.PWRData;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.PWRComponentEntity;
 import com.leafia.dev.LeafiaDebug.Tracker;
@@ -37,7 +39,7 @@ public class PWRControlTE extends TileEntity implements PWRComponentEntity, ITic
     public static final String defaultName = "00.Unsorted";
     AudioWrapper sound = null;
 
-    public static final double speed = 0.1/20;
+    public double speed = -1;
     public double targetPosition = 0;
     List<Block> bluk = new ArrayList<>();
     boolean initialTick = true;
@@ -201,6 +203,13 @@ public class PWRControlTE extends TileEntity implements PWRComponentEntity, ITic
             initialTick = false;
             connectUpper();
             updateHeight();
+        }
+        if (speed <= 0) { // check block type
+            Block block = world.getBlockState(pos).getBlock();
+            if (block == PWR.control)
+                speed = 0.22/20;
+            else
+                speed = 0.1/20;
         }
         if (this.data != null)
             this.data.update();

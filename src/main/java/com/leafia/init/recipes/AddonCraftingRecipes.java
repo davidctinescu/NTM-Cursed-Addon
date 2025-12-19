@@ -7,6 +7,7 @@ import com.hbm.inventory.material.Mats;
 import com.hbm.items.ItemEnums.EnumCircuitType;
 import com.hbm.items.ModItems;
 import com.leafia.contents.AddonBlocks;
+import com.leafia.contents.AddonBlocks.PWR;
 import com.leafia.contents.AddonItems;
 import com.leafia.contents.AddonItems.LeafiaRods;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodItem;
@@ -56,6 +57,17 @@ public class AddonCraftingRecipes {
 		addShapelessAuto(new ItemStack(AddonBlocks.ff_converter),new ItemStack(AddonBlocks.ff_duct,1,2),AL.plate());
 
 		removeRecipesForItem(reg,ModItems.ams_lens);
+
+		addShapelessAuto(new ItemStack(PWR.element_old_blank),new ItemStack(PWR.element_old));
+		addShapelessAuto(new ItemStack(PWR.element_old),new ItemStack(PWR.element_old_blank));
+
+		addRecipeAuto(new ItemStack(AddonItems.ams_focus_blank),"PTP","GSG","PJP",'P',ModItems.plate_dineutronium,'T',ModItems.rune_thurisaz,'G',ModBlocks.reinforced_glass,'S',AL.shell(),'J',ModItems.rune_jera);
+		addRecipeAuto(new ItemStack(ModItems.ams_lens, 1), "PFP", "GEG", "PFP", 'P', ModItems.rune_dagaz, 'G', AddonItems.ams_focus_blank, 'E', ModItems.upgrade_overdrive_3, 'F', ModItems.fusion_shield_tungsten);
+		addRecipeAuto(new ItemStack(AddonItems.ams_focus_omega, 1), "PFP", "REG", "PFP", 'P', ModBlocks.dfc_stabilizer, 'R', AddonItems.ams_focus_limiter, 'G', AddonItems.ams_focus_booster, 'E', ModItems.laser_crystal_digamma, 'F', ModItems.fusion_shield_vaporwave);
+		addRecipeAuto(new ItemStack(AddonItems.ams_focus_booster, 1), "PFP", "GEG", "PFP", 'P', ModItems.rune_hagalaz, 'G', ModItems.ams_lens, 'E', ModItems.upgrade_screm, 'F', ModItems.fusion_shield_desh);
+		addRecipeAuto(new ItemStack(AddonItems.ams_focus_limiter, 1), "PFP", "GEG", "PFP", 'P', ModItems.rune_isa, 'G', AddonItems.ams_focus_blank, 'E', ModItems.upgrade_power_3, 'F', ModItems.inf_water_mk2);
+		addRecipeAuto(new ItemStack(AddonItems.ams_focus_safe, 1), "PFP", "GEG", "PFP", 'P', ModItems.rune_isa, 'G', AddonItems.ams_focus_limiter, 'E', ModItems.upgrade_effect_3, 'F', ModItems.thermo_unit_endo);
+		addRecipeAuto(new ItemStack(ModItems.ams_catalyst_blank, 1), "TET", "ETE", "TET", 'T', TS.dust(), 'E', EUPH.ingot());
 
 		hack.getRegistry().register(new PWRDebrisCrafting().setRegistryName(new ResourceLocation("leafia", "lwr_debris_crafting_handler")));
 	}
