@@ -4,12 +4,16 @@ import com.hbm.blocks.ModBlocks;
 import com.hbm.inventory.OreDictManager;
 import com.hbm.inventory.RecipesCommon.ComparableStack;
 import com.hbm.inventory.RecipesCommon.OreDictStack;
+import com.hbm.inventory.fluid.FluidStack;
+import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.recipes.AssemblyMachineRecipes;
 import com.hbm.inventory.recipes.loader.GenericRecipe;
 import com.hbm.items.ItemEnums.EnumExpensiveType;
 import com.hbm.items.ModItems;
+import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonBlocks.PWR;
 import com.llib.exceptions.LeafiaDevFlaw;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 
 import static com.hbm.inventory.OreDictManager.*;
@@ -53,6 +57,16 @@ public class AddonAssemblerRecipes {
 		replaceOutput("ass.pwrport",new ItemStack(PWR.port));
 		remove("ass.pwrneutronsource");
 		remove("ass.pwrheatsink");
+		INSTANCE.register(new GenericRecipe("ass.leafia.light").setup(20,50)
+				.outputItems(new ItemStack(AddonBlocks.lightUnlit))
+				.inputItems(
+						new OreDictStack(STEEL.plate()),
+						new OreDictStack(IRON.nugget(),2),
+						new ComparableStack(Blocks.GLASS_PANE),
+						new OreDictStack(MINGRADE.wireFine())
+				)
+				.inputFluids(new FluidStack(Fluids.MERCURY,5))
+		);
 	}
 	public static void remove(String entry) {
 		GenericRecipe recipe = INSTANCE.recipeNameMap.get(entry);

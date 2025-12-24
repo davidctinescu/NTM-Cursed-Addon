@@ -1,6 +1,7 @@
 package com.leafia.init;
 
 import com.leafia.AddonBase;
+import com.leafia.contents.building.light.LightTE;
 import com.leafia.contents.building.sign.SignTE;
 import com.leafia.contents.debug.ff_test.source.FFSourceTE;
 import com.leafia.contents.debug.ff_test.tank.FFTankTE;
@@ -60,6 +61,7 @@ public class TEInit {
 		register(PWRMeshedWreckEntity.class,"lwr_wreck_te");
 		register(AmatDuctTE.class,"pipe_amat_te");
 		register(AmatDuctChargerTE.class,"charger_amat_te");
+		register(LightTE.class,"fluorescent_light_te");
 	}
 	private static void register(Class<? extends TileEntity> clazz,String res) {
 		GameRegistry.registerTileEntity(clazz,new ResourceLocation(AddonBase.MODID,res));

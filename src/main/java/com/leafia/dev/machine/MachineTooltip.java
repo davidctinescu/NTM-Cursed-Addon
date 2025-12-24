@@ -85,7 +85,7 @@ public class MachineTooltip {
                     MachineTooltip.addMultiblock(tooltip);
                     MachineTooltip.addModular(tooltip);
                     break;
-                case "rbmk_fuel_rod":
+                case "rbmk_rod":
                 case "rbmk_rod_mod":
                 case "rbmk_rod_reasim":
                 case "rbmk_rod_reasim_mod":

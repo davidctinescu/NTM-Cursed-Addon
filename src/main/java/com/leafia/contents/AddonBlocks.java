@@ -6,6 +6,8 @@ import com.hbm.lib.HBMSoundHandler;
 import com.hbm.main.MainRegistry;
 import com.leafia.AddonBase;
 import com.leafia.contents.AddonFluids.AddonFF;
+import com.leafia.contents.building.light.LightBlock;
+import com.leafia.contents.building.light.LightEmitter;
 import com.leafia.contents.building.mixed.BlockMixedConcrete;
 import com.leafia.contents.building.pinkdoor.BlockPinkDoor;
 import com.leafia.contents.building.sign.SignBlock;
@@ -234,6 +236,10 @@ public class AddonBlocks {
 		public static final PWRMeshedWreck wreck_stone = new PWRWreckStone();
 		public static final PWRMeshedWreck wreck_metal = new PWRWreckMetal();
 	}
+
+	public static final Block lightUnlit = new LightBlock(Material.IRON,"light_unlit",false).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.blockTab);
+	public static final Block lightLit = new LightBlock(Material.IRON,"light_lit",true).setHardness(5.0F).setResistance(10.0F).setCreativeTab(MainRegistry.blockTab);
+	public static final Block lightEmitter = new LightEmitter(Material.AIR,"light_emitter");
 
 	private static void modifyBlockParams() {
 		ModBlocks.dfc_core.setResistance(65000000);

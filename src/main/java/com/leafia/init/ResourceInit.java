@@ -4,6 +4,7 @@ import com.hbm.lib.internal.MethodHandleHelper;
 import com.hbm.main.ResourceManager;
 import com.hbm.render.loader.HFRWavefrontObject;
 import com.hbm.render.loader.WaveFrontObjectVAO;
+import com.leafia.contents.building.light.LightRender;
 import com.leafia.contents.effects.folkvangr.visual.LCERenderCloudFleija;
 import com.leafia.contents.machines.powercores.dfc.render.DFCComponentRender;
 import com.leafia.contents.machines.powercores.dfc.render.DFCCoreRender;
@@ -66,6 +67,7 @@ public class ResourceInit {
 			setWreckModel("wreck_stone_3");
 		}*/
 		_initClass(PWRControlRender.class);
+		_initClass(LightRender.class);
 	}
 
 	public static void init() {

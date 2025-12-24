@@ -1,5 +1,6 @@
 package com.leafia.contents.machines.reactors.lftr.components.plug;
 
+import com.hbm.handler.radiation.ChunkRadiationManager;
 import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.lib.ForgeDirection;
@@ -135,8 +136,11 @@ public class MSRPlugTE extends MSRTEBase implements IFluidHandler, IFFReceiver, 
 					this.world.playSound(null,pos,SoundEvents.ENTITY_GENERIC_SPLASH,SoundCategory.BLOCKS,3.0F,0.5F);
 					world.setBlockState(pos.down(),AddonBlocks.fluid_fluoride.getDefaultState());
 				}
-				if (world.getBlockState(pos.down()).getBlock() == AddonBlocks.fluid_fluoride)
+				if (molten && world.getBlockState(pos.down()).getBlock() == AddonBlocks.fluid_fluoride) {
 					tank.drain(1000,true);
+					double rad = ChunkRadiationManager.proxy.getRadiation(world,pos.up());
+					ChunkRadiationManager.proxy.incrementRad(world,pos.down(),rad,rad);
+				}
 			}
 			LeafiaDebug.debugPos(world,pos,0.05f,0xFFFF00,tank.getFluidAmount()+"mB");
 			generateTankPacket().__write(0,molten).__sendToAffectedClients();

@@ -40,12 +40,12 @@ public class MSREjectorBlock extends BlockContainer implements ITooltipProvider,
 	}
 	@Override
 	public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
-		RadiationSystemNT.markChunkForRebuild(worldIn, pos);
+		RadiationSystemNT.markSectionForRebuild(worldIn, pos);
 		super.onBlockAdded(worldIn, pos, state);
 	}
 	@Override
 	public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-		RadiationSystemNT.markChunkForRebuild(worldIn, pos);
+		RadiationSystemNT.markSectionForRebuild(worldIn, pos);
 		super.breakBlock(worldIn, pos, state);
 	}
 	@Override

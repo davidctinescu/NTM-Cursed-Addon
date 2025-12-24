@@ -12,8 +12,11 @@ import com.hbm.tileentity.deco.TileEntitySpinnyLight;
 import com.hbm.tileentity.machine.*;
 import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonItems;
+import com.leafia.contents.building.light.LightRender;
+import com.leafia.contents.building.light.LightTE;
 import com.leafia.contents.building.sign.SignRender;
 import com.leafia.contents.building.sign.SignTE;
+import com.leafia.contents.cannery.AddonJars;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodItem;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodRender;
 import com.leafia.contents.effects.folkvangr.visual.LCERenderCloudFleija;
@@ -118,7 +121,10 @@ public class LeafiaClientProxy extends LeafiaServerProxy {
 
 			ClientRegistry.bindTileEntitySpecialRenderer(PWRControlTE.class,new PWRControlRender());
 			ClientRegistry.bindTileEntitySpecialRenderer(PWRMeshedWreckEntity.class,new RenderPWRMeshedWreck());
+
+			ClientRegistry.bindTileEntitySpecialRenderer(LightTE.class,new LightRender());
 		}
+		AddonJars.initJars();
 	}
 	@Override
 	public File getDataDir() {

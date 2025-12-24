@@ -24,18 +24,20 @@ import java.util.Random;
 public class HazardTypeAlkaline implements IHazardType {
 	@Override
 	public void onUpdate(EntityLivingBase entity,double v,ItemStack held) {
-		EntityPlayer player = (EntityPlayer) entity;
+
 		if(!entity.world.isRemote && entity.isInWater()) {
 
 			int damage = reactAlkaline(entity.world,held,entity.posX,entity.posY,entity.posZ,(int)v);
 			if (damage > 200) {
-				player.inventory.mainInventory.set(player.inventory.currentItem, held.getItem().getContainerItem(held));
-				player.inventoryContainer.detectAndSendChanges();
+				if (entity instanceof EntityPlayer player) {
+					player.inventory.mainInventory.set(player.inventory.currentItem,held.getItem().getContainerItem(held));
+					player.inventoryContainer.detectAndSendChanges();
+				}
 			}
 
 			//player.world.newExplosion(null, player.posX, player.posY + player.getEyeHeight() - player.getYOffset(), player.posZ, 2F, true, true);
 		}
-		if (tickAlkaline(player.world,held,entity.posX,entity.posY,entity.posZ,(int)v))
+		if (tickAlkaline(entity.world,held,entity.posX,entity.posY,entity.posZ,(int)v))
 			entity.setFire(3);
 	}
 	@Override

@@ -9,6 +9,8 @@ import com.leafia.contents.AddonBlocks;
 import com.leafia.contents.AddonBlocks.LetterSigns;
 import com.leafia.contents.AddonItems;
 import com.leafia.contents.AddonItems.LeafiaRods;
+import com.leafia.contents.building.light.LightRender;
+import com.leafia.contents.building.light.LightRender.LightItemRender;
 import com.leafia.contents.building.sign.SignRender;
 import com.leafia.contents.building.sign.SignRender.SignItemRender;
 import com.leafia.contents.machines.misc.heatex.CoolantHeatexRender;
@@ -55,6 +57,8 @@ public class ItemRendererInit {
 		register(AddonItems.pwr_piece,lwrDebrisRender);
 		register(AddonItems.pwr_shard,lwrDebrisRender);
 		register(AddonItems.pwr_shrapnel,lwrDebrisRender);
+
+		register(AddonBlocks.lightUnlit,new LightItemRender());
 
 		/*fix(AddonItems.ams_focus_blank);
 		fix(AddonItems.ams_focus_booster);
