@@ -21,6 +21,7 @@ import com.hbm.items.machine.ItemZirnoxRod;
 import com.hbm.lib.DirPos;
 import com.hbm.lib.ForgeDirection;
 import com.hbm.lib.HBMSoundHandler;
+import com.hbm.main.AdvancementManager;
 import com.hbm.main.MainRegistry;
 import com.hbm.packet.PacketDispatcher;
 import com.hbm.packet.toclient.AuxParticlePacketNT;
@@ -409,9 +410,12 @@ public abstract class MixinTileEntityReactorZIRNOX extends TileEntityMachineBase
 		world.createExplosion(null, pos.getX()+0.5, pos.getY()+2.5, pos.getZ()+0.5, 24.0F, true);
 		zirnoxDebris();
 
-		if(MobConfig.enableElementals) {
-			List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5).grow(100, 100, 100));
+		List<EntityPlayer> players = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos).grow(100));
+		for (EntityPlayer player : players) {
+			AdvancementManager.grantAchievement(player, AdvancementManager.achZIRNOXBoom);
+		}
 
+		if(MobConfig.enableElementals) {
 			for(EntityPlayer player : players) {
 				player.getEntityData().getCompoundTag(EntityPlayer.PERSISTED_NBT_TAG).setBoolean("radMark", true);
 			}
