@@ -108,6 +108,7 @@ item.lwrdebris.shard=破片
 item.lwrdebris.shrapnel=破片
 item.ntmfbottle.name=%s入り瓶
 item.wand_v.name=可視化の杖
+potion.hbm_skindamage=皮膚の損傷
 separator.u233=ウラニウム233 フッ素添加
 separator.u235=ウラニウム235 フッ素添加
 subtitles.weapon.nuke=核爆発

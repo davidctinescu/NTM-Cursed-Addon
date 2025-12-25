@@ -62,7 +62,8 @@
     "hbm.MixinTileEntityMachineBase",
     "hbm.MixinTileEntityMachineFluidTank",
     "hbm.MixinTileEntityMachineLargeTurbine",
-    "hbm.MixinTileEntityMachineTurbine"
+    "hbm.MixinTileEntityMachineTurbine",
+    "hbm.MixinTileEntityReactorZIRNOX"
   ],
   "server": [
   ],

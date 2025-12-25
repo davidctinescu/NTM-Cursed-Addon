@@ -106,6 +106,7 @@ item.lwrdebris.shard=Shards
 item.lwrdebris.shrapnel=Shrapnel
 item.ntmfbottle.name=%s Bottle
 item.wand_v.name=Visualizer Wand
+potion.hbm_skindamage=Damaged Skin
 separator.u233=Uranium-233 Fluorination
 separator.u235=Uranium-235 Fluorination
 subtitles.weapon.nuke=Nuclear Explosion
