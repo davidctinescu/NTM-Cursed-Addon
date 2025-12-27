@@ -294,8 +294,8 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 	public int lastConductors = 0;
 	public void resizeTanks(int channels, int conductors) {
 		tanks[0] = resizeTank(tanks[0], 3200 * channels); // coolant
-		tanks[1] = resizeTank(tanks[1], 3200 * (int)(channels/(tankTypes[1].hasTrait(FT_Gaseous.class) ? 1.5 : 1))); // hot coolant
-		tanks[2] = resizeTank(tanks[2], toughness/(tankTypes[1].hasTrait(FT_Gaseous.class) ? 10 : 1)); // emergency buffer
+		tanks[1] = resizeTank(tanks[1], 3200 * (int)Math.ceil(channels/(tankTypes[1].hasTrait(FT_Gaseous.class) ? 1.5 : 1)*multiplier)); // hot coolant
+		tanks[2] = resizeTank(tanks[2], (int)Math.ceil(toughness/(float)(tankTypes[1].hasTrait(FT_Gaseous.class) ? 10 : 1)*multiplier)); // emergency buffer
 		tanks[3] = resizeTank(tanks[3], 25600 * conductors); // water
 		tanks[4] = resizeTank(tanks[4], 12800 * conductors); // steam
 	}
@@ -1035,9 +1035,9 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 
 		PWRExplosion boom = new PWRExplosion(world, centerPoint, minX, minY, minZ, maxX, maxY, maxZ);
 		if (forceLevel == 0) {
-			if (toughness >= 15_000)
+			if (toughness >= 13_000)
 				boom.explodeLv3();
-			else if (toughness >= 10_000)
+			else if (toughness >= 7_000)
 				boom.explodeLv2();
 			else
 				boom.explodeLv1();
