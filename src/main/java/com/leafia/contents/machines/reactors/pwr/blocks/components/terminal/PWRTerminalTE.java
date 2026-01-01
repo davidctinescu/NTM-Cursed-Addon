@@ -6,11 +6,13 @@ import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.lib.ForgeDirection;
 import com.hbm.tileentity.IGUIProvider;
 import com.leafia.contents.machines.reactors.pwr.PWRData;
+import com.leafia.contents.machines.reactors.pwr.blocks.components.PWRComponentBlock;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.PWRComponentEntity;
 import com.leafia.contents.machines.reactors.pwr.container.PWRTerminalContainer;
 import com.leafia.contents.machines.reactors.pwr.container.PWRTerminalUI;
 import com.leafia.dev.container_utility.LeafiaPacket;
 import com.leafia.dev.container_utility.LeafiaPacketReceiver;
+import net.minecraft.block.Block;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -45,6 +47,18 @@ public class PWRTerminalTE extends TileEntity implements PWRComponentEntity, Lea
 	@Override
 	public PWRData getLinkedCore() {
 		return PWRComponentEntity.getCoreFromPos(world,corePos);
+	}
+
+	public PWRData getLinkedCoreDiagnosis() {
+		PWRData data = getLinkedCore();
+		if (data == null) {
+			Block block = world.getBlockState(pos).getBlock();
+			if (block instanceof PWRComponentBlock pwr) {
+				pwr.beginDiagnosis(world,pos,pos);
+				data = getLinkedCore();
+			}
+		}
+		return data;
 	}
 
 	@Override
@@ -156,7 +170,7 @@ public class PWRTerminalTE extends TileEntity implements PWRComponentEntity, Lea
 
 	@Override
 	public Container provideContainer(int i,EntityPlayer entityPlayer,World world,int i1,int i2,int i3) {
-		PWRData core = getLinkedCore();
+		PWRData core = getLinkedCoreDiagnosis();
 		if (core != null)
 			return new PWRTerminalContainer(entityPlayer.inventory,this,core);
 		return null;
@@ -165,7 +179,7 @@ public class PWRTerminalTE extends TileEntity implements PWRComponentEntity, Lea
 	@Override
 	@SideOnly(Side.CLIENT)
 	public GuiScreen provideGUI(int i,EntityPlayer entityPlayer,World world,int i1,int i2,int i3) {
-		PWRData core = getLinkedCore();
+		PWRData core = getLinkedCoreDiagnosis();
 		if (core != null)
 			return new PWRTerminalUI(entityPlayer.inventory,this,core);
 		return null;

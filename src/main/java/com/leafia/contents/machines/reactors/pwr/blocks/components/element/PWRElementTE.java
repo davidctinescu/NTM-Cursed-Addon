@@ -511,7 +511,7 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 						if (items != null) {
 							Tracker._endProfile(this);
 							double value = rod.getFlux(items.getStackInSlot(0))*(1-retrival.moderation)+rod.getFlux(items.getStackInSlot(0),true)*retrival.moderation;
-							Tracker._tracePosition(this,pos,value);
+							Tracker._tracePosition(this,pos,value,"moderation: "+retrival.moderation);
 							if (data != null) {
 								FluidType type = Fluids.fromID(data.coolantId);
 								if (type.hasTrait(FT_PWRModerator.class))
@@ -704,6 +704,7 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 			ItemStack stack = this.inventory.getStackInSlot(0);
 			if (!stack.isEmpty()) {
 				if (stack.getItem() instanceof LeafiaRodItem) {
+					Tracker._startProfile(this,"update");
 					int height = getHeight();
 					double coolin = 0;
 					PWRData gathered = gatherData();
@@ -730,7 +731,7 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 					//double coolingCap = MathHelper.clamp(heat,20,400+Math.pow(Math.max(heat-400,0),0.5));
 
 
-					rod.HeatFunction(stack,true,heatDetection,channelScale*coolin,coolantTemp,400*exchangerScale,required);
+					rod.HeatFunction(stack,true,heatDetection,channelScale*coolin,coolantTemp,400*exchangerScale,required,Math.pow(height,0.25));
 					double rad = Math.pow(heatDetection,0.65)/2;
 					ChunkRadiationManager.proxy.incrementRad(world,pos,(float)rad/8,(float)rad);
 					//DONE PROBABLY: add neutron radiations to indicate emitted chunk radiations
@@ -738,6 +739,7 @@ public class PWRElementTE extends TileEntityInventoryBase implements PWRComponen
 					rod.decay(stack,inventory,0);
 					NBTTagCompound data = stack.getTagCompound();
 					double cooled = 0;
+					Tracker._endProfile(this);
 					if (data != null) {
 						if (data.getBoolean("nuke")) {
 							if (gathered != null)

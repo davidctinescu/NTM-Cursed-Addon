@@ -537,7 +537,8 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 	}
 
 	int boilingAccum = 0;
-	public static final double transferMultiplier = 8;
+	public static final double transferMultiplier = 32;
+	public static final int boilingDivision = 48;
 
 	public void spendCoolant(double cooled, @Nullable ItemStack stack) {
 		double drainD = cooled * transferMultiplier/multiplier;
@@ -562,12 +563,12 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 					}
 					break;
 					case 2: {
-						int fill = drained / 4;
-						boilingAccum += Math.floorMod(drained, 4);
-						int fillAdd = boilingAccum / 4;
+						int fill = drained / boilingDivision;
+						boilingAccum += Math.floorMod(drained, boilingDivision);
+						int fillAdd = boilingAccum / boilingDivision;
 						boilingAccum -= fillAdd;
 						int filled = tanks[tank].fill(tankTypes[tank], fill + fillAdd, true);
-						drained -= filled * 4;
+						drained -= filled * boilingDivision;
 					}
 					break;
 					default:

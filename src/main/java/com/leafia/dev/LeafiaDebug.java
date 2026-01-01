@@ -435,16 +435,6 @@ public class LeafiaDebug {
 					highlight.colorTop = calculateColor(entry.getValue());
 				}
 			}
-			public static void localTick(EntityPlayer player) {
-				/*
-				boolean show = player.getHeldItemOffhand().getItem() == AddonItems.wand_v || player.getHeldItemMainhand().getItem() == AddonItems.wand_v;
-				for (Highlight subHighlight : TrackerLocal.subHighlights) {
-					if (subHighlight.getVisibility()) {
-						if (!show) subHighlight.hide();
-					} else if (show)
-						subHighlight.show();
-				}*/ // i changed my mind
-			}
 		}
 		public static void notifySubjectMapChanges(boolean remote) {
 			LeafiaTrackerPacket packet = new LeafiaTrackerPacket();

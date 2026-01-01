@@ -44,6 +44,7 @@ dependencies {
     implementation files("libs/Computronics-1.12.2-1.6.6-deobf.jar")
     runtimeOnlyNonPublishable rfg.deobf(files("libs/Backups-1.12.2-1.5.7.jar"))
     runtimeOnlyNonPublishable rfg.deobf(files("libs/worldedit-forge-mc1.12.2-6.1.10-dist (1).jar"))
+	//runtimeOnlyNonPublishable rfg.deobf(files("libs/NBTTooltipViewer-1.0.jar"))
     /*
     runtimeOnlyNonPublishable rfg.deobf(files("../RedstoneFlux-1.12-2.1.1.1-universal.jar"))
     runtimeOnlyNonPublishable rfg.deobf(files("../ThermalFoundation-1.12.2-2.6.7.1-universal.jar"))

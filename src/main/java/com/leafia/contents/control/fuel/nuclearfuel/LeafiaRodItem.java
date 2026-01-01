@@ -266,6 +266,19 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 	 * @return Tooltip message
 	 */
 	public String HeatFunction(@Nullable ItemStack stack, boolean updateHeat, double x, double cool, double desiredTemp, double coolingRate, double minimumRequired) {
+		return HeatFunction(stack,updateHeat,x,cool,desiredTemp,coolingRate,minimumRequired,1);
+	}
+	/**
+	 * Does nuclear fissions
+	 * @param stack The fuel rod stack to cause fission reaction
+	 * @param updateHeat true for fission reaction, false for item tooltip
+	 * @param x Incoming heat
+	 * @param cool Should represent coolant %, range 0~1
+	 * @param desiredTemp Temperature of coolant
+	 * @param coolingRate Temperature of hot coolant
+	 * @return Tooltip message
+	 */
+	public String HeatFunction(@Nullable ItemStack stack, boolean updateHeat, double x, double cool, double desiredTemp, double coolingRate, double minimumRequired, double heatMultiplier) {
 		NBTTagCompound data = null;
 		String flux = TextFormatting.RED+"0°C"+TextFormatting.YELLOW;
 		String temp = TextFormatting.GOLD+"ERROR°C"+TextFormatting.YELLOW;
@@ -452,6 +465,8 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				double curDepletion = data.getDouble("depletion") + Math.max(heatMg/2+Math.pow(x,0.95)/2000, 0); // +y is preferred but it doesnt really work with inert materials like lithium soo
 				data.setDouble("depletion", curDepletion);
 			}
+			if (heatMg > 0)
+				heatMg *= heatMultiplier;
 			double newTemp = heat+heatMg;
 			if (heatMg*2 > decay)
 				decay += (heatMg*2-decay)*0.01;
@@ -512,7 +527,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 		if(stack.getItem() instanceof LeafiaRodItem otherRod) {
 			double compat = 0.5;
 			if (this.splitWithAny || otherRod.splitIntoFast == this.splitWithFast)
-				compat = 2;
+				compat = 3;
 			compat = compat * otherRod.emission * this.reactivity;
 			NBTTagCompound data = stack.getTagCompound();
 			if (data != null)
@@ -526,7 +541,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 		if(stack.getItem() instanceof LeafiaRodItem otherRod) {
 			double compat = 0.5;
 			if (this.splitWithAny || (moderated != this.splitWithFast))
-				compat = 1;
+				compat = 3;
 			compat = compat * otherRod.emission * this.reactivity;
 			NBTTagCompound data = stack.getTagCompound();
 			if (data != null)

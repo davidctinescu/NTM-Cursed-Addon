@@ -1,9 +1,8 @@
 package com.leafia.contents.machines.reactors.pwr.blocks.components.control;
 
+import com.custom_hbm.sound.LCEAudioWrapper;
 import com.hbm.inventory.control_panel.*;
-import com.hbm.main.MainRegistry;
-import com.hbm.sound.AudioWrapper;
-import com.leafia.contents.AddonBlocks;
+import com.leafia.AddonBase;
 import com.leafia.contents.AddonBlocks.PWR;
 import com.leafia.contents.machines.reactors.pwr.PWRData;
 import com.leafia.contents.machines.reactors.pwr.blocks.components.PWRComponentEntity;
@@ -39,7 +38,7 @@ public class PWRControlTE extends TileEntity implements PWRComponentEntity, ITic
     public double position = 0;
     public String name = defaultName;
     public static final String defaultName = "00.Unsorted";
-    AudioWrapper sound = null;
+    LCEAudioWrapper sound = null;
 
     public double speed = -1;
     public double targetPosition = 0;
@@ -226,7 +225,7 @@ public class PWRControlTE extends TileEntity implements PWRComponentEntity, ITic
                     }
                 } else if (sound == null) {
                     if (targetPosition != position) {
-                        sound = MainRegistry.proxy.getLoopedSoundStartStop(world,LeafiaSoundEvents.pwrRodLoop,LeafiaSoundEvents.pwrRodStart,LeafiaSoundEvents.pwrRodStop,SoundCategory.BLOCKS,pos.getX(),pos.getY(),pos.getZ(),0.0175f,0.75f);
+                        sound = AddonBase.proxy.getLoopedSoundStartStop(world,LeafiaSoundEvents.pwrRodLoop,LeafiaSoundEvents.pwrRodStart,LeafiaSoundEvents.pwrRodStop,SoundCategory.BLOCKS,pos.getX(),pos.getY(),pos.getZ(),0.0175f,0.75f);
                         sound.startSound();
                     }
                 }

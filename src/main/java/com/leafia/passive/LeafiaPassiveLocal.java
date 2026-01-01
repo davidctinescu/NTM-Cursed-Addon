@@ -22,7 +22,6 @@ public class LeafiaPassiveLocal {
 	public static LeafiaSet<IMixinTileEntityCore> trackingCores = new LeafiaSet<>();
 
 	public static void onTick(World world) {
-		//TrackerLocal.localTick(Minecraft.getMinecraft().player);
 		Digamma.update();
 		for (Runnable callback : queue)
 			callback.run();

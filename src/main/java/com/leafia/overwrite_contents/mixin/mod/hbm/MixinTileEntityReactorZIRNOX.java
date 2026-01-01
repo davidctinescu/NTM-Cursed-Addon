@@ -249,7 +249,7 @@ public abstract class MixinTileEntityReactorZIRNOX extends TileEntityMachineBase
 			}
 			double coolin = (float) Math.pow(carbonDioxide.getFill()/16000f,0.4);
 
-			hulltemp += (heat*0.00001*780)*coolin  /5; // haha
+			hulltemp += (heat*0.00001*780)*coolin  /3.5; // haha
 			heat = 0;
 			double feedwatr = (float) Math.pow(water.getFill()/32000f,0.4);
 			double cooledSum = 0;
