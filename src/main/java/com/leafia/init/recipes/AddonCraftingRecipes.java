@@ -34,7 +34,7 @@ public class AddonCraftingRecipes {
 		addRecipeAuto(new ItemStack(AddonBlocks.dfc_reinforced, 1), "SDS", "TXL", "SDS", 'S', OSMIRIDIUM.plateWelded(), 'D', ModItems.plate_dineutronium, 'T', ModItems.thermo_unit_endo, 'L', ModBlocks.dfc_receiver, 'X', ModBlocks.block_dineutronium);
 		addRecipeAuto(new ItemStack(AddonBlocks.dfc_exchanger, 1), "SCS", "HMP", "SCS", 'S', OSMIRIDIUM.plateWelded(), 'C', ModItems.plate_combine_steel, 'H', ModBlocks.heater_heatex, 'M', ModItems.motor, 'P', ModItems.pipes_steel);
 
-		addRecipeAuto(new ItemStack(AddonItems.fuzzy_identifier, 1), "=  ", "@CS", "@MP", '@', OreDictManager.GOLD.wireFine(), 'P', ANY_PLASTIC.ingot(), '=', DictFrame.fromOne(ModItems.circuit, EnumCircuitType.ADVANCED), 'M', ModItems.motor_desh, 'C', ModItems.coil_gold, 'S', ModItems.screwdriver_desh);
+		addRecipeAuto(new ItemStack(AddonItems.fuzzy_identifier, 1), "=  ", "@CS", "@MP", '@', OreDictManager.GOLD.wireFine(), 'P', ANY_PLASTIC.ingot(), '=', DictFrame.fromOne(ModItems.circuit, EnumCircuitType.BASIC), 'M', ModItems.motor_desh, 'C', ModItems.coil_gold, 'S', ModItems.screwdriver_desh);
 
 		addRecipeAuto(new ItemStack(LeafiaRods.leafRod, 4), "O", "I", "O", 'O', ZR.billet(), 'I', ZR.nugget());
 		for (LeafiaRodItem rod : LeafiaRodItem.fromResourceMap.values()) {
@@ -75,6 +75,10 @@ public class AddonCraftingRecipes {
 
 		addShapelessAuto(new ItemStack(AddonBlocks.fluid_duct_valve_mdl),new ItemStack(ModBlocks.fluid_duct_neo,1,2),AL.plate());
 		addShapelessAuto(new ItemStack(AddonBlocks.fluid_duct_valve_mdl_rs),new ItemStack(ModBlocks.fluid_duct_neo,1,2),new ItemStack(ModItems.motor));
+
+		// make laser detonator cheap af
+		removeRecipesForItem(reg,ModItems.detonator_laser);
+		addShapelessAuto(new ItemStack(ModItems.detonator_laser, 1), ModItems.rangefinder, new ItemStack(ModItems.circuit, 2, EnumCircuitType.BASIC.ordinal()), ANY_RUBBER.ingot(), GOLD.wireFine() );
 
 		hack.getRegistry().register(new PWRDebrisCrafting().setRegistryName(new ResourceLocation("leafia", "lwr_debris_crafting_handler")));
 	}
