@@ -38,6 +38,7 @@ public class PWRTerminalTE extends TileEntity implements PWRComponentEntity, Lea
 	//	MainRegistry.registerTileEntities.put(TileEntityPWRTerminal.class,"pwr_terminal"); // didnt work. I hate this game
 	//}
 	BlockPos corePos = null;
+	PWRData data = null;
 	@Override
 	public void setCoreLink(@Nullable BlockPos pos) {
 		corePos = pos;
@@ -62,9 +63,16 @@ public class PWRTerminalTE extends TileEntity implements PWRComponentEntity, Lea
 	}
 
 	@Override
-	public void assignCore(@Nullable PWRData data) {}
+	public void assignCore(@Nullable PWRData data) {
+		if (this.data != data) {
+			PWRData.addDataToPacket(LeafiaPacket._start(this),data).__sendToAffectedClients();
+		}
+		this.data = data;
+	}
 	@Override
-	public PWRData getCore() { return null; }
+	public PWRData getCore() {
+		return data;
+	}
 	@Nullable
 	PWRData gatherData() {
 		if (this.corePos != null) {
@@ -87,7 +95,7 @@ public class PWRTerminalTE extends TileEntity implements PWRComponentEntity, Lea
 			);
 		super.readFromNBT(compound);
 		if (compound.hasKey("data")) { // DO NOT MOVE THIS ABOVE SUPER CALL! super.readFromNBT() is where this.pos gets initialized!!
-			PWRData data = new PWRData(this);
+			data = new PWRData(this);
 			data.readFromNBT(compound);
 		}
 	}
