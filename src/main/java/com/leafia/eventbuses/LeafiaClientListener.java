@@ -421,6 +421,7 @@ public class LeafiaClientListener {
 			LeafiaShakecam.noise = new NoiseGeneratorPerlin(new Random(),1);
 			this.addShader("tom",new ResourceLocation("leafia:shaders/help/tom_desat.json"));
 			this.addShader("nuclear",new ResourceLocation("leafia:shaders/help/nuclear.json"));
+			this.addShader("drx",new ResourceLocation("hbm:shaders/help/digamma.json"));
 		}
 		@SubscribeEvent
 		public void renderTick(RenderTickEvent e){
@@ -527,6 +528,9 @@ public class LeafiaClientListener {
 					for (String s : shaderGroups.keySet()) {
 						BigBruh shader = shaderGroups.get(s);
 						switch(s) {
+							case "drx":
+								shader.accessor.get("intensity").set(Digamma.digammaDose);
+								break;
 							case "tom":
 								//shader.accessor.get("intensity").set((float)(IdkWhereThisShitBelongs.darkness)*(IdkWhereThisShitBelongs.dustDisplayTicks/30f)/2f);
 								break;
