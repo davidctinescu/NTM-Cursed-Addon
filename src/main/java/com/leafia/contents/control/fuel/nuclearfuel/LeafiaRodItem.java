@@ -10,6 +10,7 @@ import com.hbm.entity.logic.EntityNukeExplosionMK5;
 import com.hbm.explosion.ExplosionNukeGeneric;
 import com.hbm.handler.ArmorUtil;
 import com.hbm.handler.radiation.ChunkRadiationManager;
+import com.hbm.hazard.modifier.IHazardModifier;
 import com.hbm.interfaces.IHasCustomModel;
 import com.hbm.items.ModItems;
 import com.hbm.lib.Library;
@@ -18,11 +19,13 @@ import com.leafia.contents.AddonItems.LeafiaRods;
 import com.leafia.init.hazards.ItemRads.MultiRadContainer;
 import com.leafia.dev.items.itembase.AddonItemBase;
 import com.leafia.dev.items.itembase.AddonItemHazardBase;
+import com.leafia.init.hazards.types.radiation.Neutrons;
 import com.llib.LeafiaLib;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -756,8 +759,24 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 
 		this.setContainerItem(LeafiaRods.leafRod);
 
+		addRad(emptyRad);
+		addModifier(Neutrons.class,genericRodRadModifier);
+
 		detonate(null,null);
 	}
+	static final MultiRadContainer emptyRad = new MultiRadContainer(0,0,0,0,0);
+	static final IHazardModifier genericRodRadModifier = (stack,entityLivingBase,baseLevel)->{
+		double add = 0;
+		if (baseLevel < 0)
+			baseLevel = 0;
+		NBTTagCompound nbt = stack.getTagCompound();
+		if (nbt != null) {
+			if (nbt.hasKey("incoming"))
+				add = Math.pow(nbt.getDouble("incoming"),0.65)/2;
+		}
+		return baseLevel+add;
+	};
+
 	public LeafiaRodItem setAppearance(Item baseItem,ItemType baseItemType,Purity purity) {
 		return setAppearance(baseItem,0,baseItemType,purity);
 	}
@@ -780,7 +799,10 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 
 	@Override
 	public AddonItemHazardBase addRad(MultiRadContainer container) {
-		return super.addRad(container.multiply(0.5));
+		container = container.copy().multiply(0.5);
+		if (container.neutrons == 0)
+			container.neutrons = -1;
+		return super.addRad(container);
 	}
 
 	public static void confirmDecayProducts() {

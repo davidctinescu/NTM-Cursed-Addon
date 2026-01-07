@@ -69,11 +69,11 @@ public class ItemRads {
 	public static MultiRadContainer thorium232 = new MultiRadContainer(0.1,0,0,0,0);
 	public static MultiRadContainer thoriumFuel = new MultiRadContainer(1.75,0,0,0,0);
 
-	public static MultiRadContainer uranium = new MultiRadContainer(0.35,0,0,0,0,2,0);
-	public static MultiRadContainer uranium233 = new MultiRadContainer(5,0,0,0,0,2,0);
-	public static MultiRadContainer uranium235 = new MultiRadContainer(1,0,0,0,0,2,0);
-	public static MultiRadContainer uranium238 = new MultiRadContainer(0.25,0,0,0,0,2,0);
-	public static MultiRadContainer uraniumFuel = new MultiRadContainer(0.5,0,0,0,0,2,0);
+	public static MultiRadContainer uranium = new MultiRadContainer(0.35,0,0,0,0,0.5,0);
+	public static MultiRadContainer uranium233 = new MultiRadContainer(5,0,0,0,0,0.85,0);
+	public static MultiRadContainer uranium235 = new MultiRadContainer(1,0,0,0,0,0.75,0);
+	public static MultiRadContainer uranium238 = new MultiRadContainer(0.25,0,0,0,0,0.4,0);
+	public static MultiRadContainer uraniumFuel = new MultiRadContainer(0.5,0,0,0,0,0.65,0);
 
 	public static MultiRadContainer waste = new MultiRadContainer(0,125,125,50,25);
 	public static MultiRadContainer waste_v = waste.copy().multiply(1/2f);

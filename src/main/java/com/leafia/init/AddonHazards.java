@@ -5,6 +5,7 @@ import static com.hbm.hazard.HazardRegistry.*;
 
 import com.hbm.hazard.HazardEntry;
 import com.hbm.hazard.HazardSystem;
+import com.hbm.hazard.modifier.IHazardModifier;
 import com.hbm.hazard.type.HazardTypeHydroactive;
 import com.hbm.hazard.type.IHazardType;
 import com.hbm.inventory.OreDictManager;
@@ -13,11 +14,14 @@ import com.hbm.inventory.RecipesCommon;
 import com.hbm.items.ModItems;
 import com.leafia.contents.AddonItems;
 import com.leafia.database.AddonOreDictHazards;
+import com.leafia.dev.items.itembase.AddonItemHazardBase;
 import com.leafia.init.hazards.ItemRads;
 import com.leafia.init.hazards.types.HazardTypeAlkaline;
 import com.leafia.init.hazards.types.HazardTypeSharpEdges;
+import com.leafia.init.hazards.types.radiation.*;
 import net.minecraft.item.Item;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
@@ -85,6 +89,55 @@ public class AddonHazards {
 		registerHazard(OreDictManager.PB,new HazardEntry(TOXIC,1.75));
 		registerHazard(OreDictManager.BE,new HazardEntry(TOXIC,1.75));
 
+		for (AddonItemHazardBase hazardItem : AddonItemHazardBase.ALL_HAZARD_ITEMS) {
+			HazardEntry entry_contamination = null;
+			HazardEntry entry_alpha = null;
+			HazardEntry entry_beta = null;
+			HazardEntry entry_gamma = null;
+			HazardEntry entry_x = null;
+			HazardEntry entry_neutrons = null;
+			HazardEntry entry_radon = null;
+			if (hazardItem.radContainer != null) {
+				entry_contamination = generateHazEntry(RADIATION,hazardItem.radContainer.activation,hazardItem.mods);
+				entry_alpha = generateHazEntry(Alpha.INSTANCE,hazardItem.radContainer.alpha,hazardItem.mods);
+				entry_beta = generateHazEntry(Beta.INSTANCE,hazardItem.radContainer.beta,hazardItem.mods);
+				entry_gamma = generateHazEntry(Gamma.INSTANCE,hazardItem.radContainer.gamma,hazardItem.mods);
+				entry_x = generateHazEntry(XRay.INSTANCE,hazardItem.radContainer.x,hazardItem.mods);
+				entry_neutrons = generateHazEntry(Neutrons.INSTANCE,hazardItem.radContainer.neutrons,hazardItem.mods);
+				entry_radon = generateHazEntry(Radon.INSTANCE,hazardItem.radContainer.radon,hazardItem.mods);
+			}
+			HazardEntry entry_digamma = generateHazEntry(DIGAMMA,hazardItem.digamma,hazardItem.mods);
+			HazardEntry entry_fire = generateHazEntry(HOT,hazardItem.fire,hazardItem.mods);
+			HazardEntry entry_cryogenic = generateHazEntry(COLD,hazardItem.cryogenic,hazardItem.mods);
+			HazardEntry entry_toxic = generateHazEntry(TOXIC,hazardItem.toxic,hazardItem.mods);
+			HazardEntry entry_blinding = generateHazEntry(BLINDING,hazardItem.blinding ? 110 : 0,hazardItem.mods);
+			HazardEntry entry_asbestos = generateHazEntry(ASBESTOS,hazardItem.asbestos,hazardItem.mods);
+			HazardEntry entry_coal = generateHazEntry(COAL,hazardItem.coal,hazardItem.mods);
+			HazardEntry entry_alkaline = generateHazEntry(ALKALINE,hazardItem.alkaline,hazardItem.mods);
+			HazardEntry entry_explosive = generateHazEntry(EXPLOSIVE,hazardItem.explosive,hazardItem.mods);
+			HazardEntry entry_sharp = generateHazEntry(SHARP,hazardItem.sharp,hazardItem.mods);
+			HazardData data = new HazardData();
+			if (entry_alpha != null) data.addEntry(entry_alpha);
+			if (entry_beta != null) data.addEntry(entry_beta);
+			if (entry_gamma != null) data.addEntry(entry_gamma);
+			if (entry_x != null) data.addEntry(entry_x);
+			if (entry_neutrons != null) data.addEntry(entry_neutrons);
+			if (entry_contamination != null) data.addEntry(entry_contamination);
+			if (entry_radon != null) data.addEntry(entry_radon);
+			if (entry_digamma != null) data.addEntry(entry_digamma);
+			if (entry_fire != null) data.addEntry(entry_fire);
+			if (entry_cryogenic != null) data.addEntry(entry_cryogenic);
+			if (entry_toxic != null) data.addEntry(entry_toxic);
+			if (entry_blinding != null) data.addEntry(entry_blinding);
+			if (entry_asbestos != null) data.addEntry(entry_asbestos);
+			if (entry_coal != null) data.addEntry(entry_coal);
+			if (entry_alkaline != null) data.addEntry(entry_alkaline);
+			if (entry_explosive != null) data.addEntry(entry_explosive);
+			if (entry_sharp != null) data.addEntry(entry_sharp);
+			if (!data.entries.isEmpty())
+				HazardSystem.register(hazardItem,data);
+		}
+
 		compute((object,data)->{
 			// do not fucking modify this array, modify data.entries
 			List<HazardEntry> ____________ = new ArrayList<>(data.entries);
@@ -94,6 +147,15 @@ public class AddonHazards {
 					entries.remove(entry);
 			}
 		});
+	}
+	public static @Nullable HazardEntry generateHazEntry(IHazardType template,double value,@Nullable Map<Class<? extends IHazardType>,IHazardModifier> mods) {
+		if (value == 0) return null;
+		HazardEntry entry = new HazardEntry(template,value);
+		if (mods != null) {
+			if (mods.containsKey(template.getClass()))
+				entry.addMod(mods.get(template.getClass()));
+		}
+		return entry;
 	}
 	public static void registerHazard(DictFrame frame,HazardEntry... entries) {
 		Map<String,Float> map = AddonOreDictHazards.dictMap.get(frame);
