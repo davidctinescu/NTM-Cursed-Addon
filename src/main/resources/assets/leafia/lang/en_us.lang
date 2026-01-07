@@ -120,6 +120,7 @@ info.leafiarod.jei.message=Can't uncraft with$depletion > 5%%
 item.advisor.name=High-Tech Advisor
 item.advisor.message.asbestos=Maybe, just maybe it's not a very good idea$to build something out of asbestos..
 item.advisor.message.coal=You're inhaling coal dust! Create some protection.$Start with a Crude Protective Mask.
+item.advisor.message.lava=Lava behind you!
 item.advisor.message.pyro=You're holding pyrophoric / hot item!$Craft a tungsten reacher to safely hold them.
 item.advisor.message.skindmg2=You have moderate skin damage.$You should avoid beta radiation until it cures.
 item.advisor.message.skindmg3=You have severe skin damage.$Avoid alpha radiation at all costs!

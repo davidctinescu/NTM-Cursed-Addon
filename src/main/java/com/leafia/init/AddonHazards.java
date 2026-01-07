@@ -27,6 +27,7 @@ import java.util.Map;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.function.BiConsumer;
+import java.util.function.Function;
 
 public class AddonHazards {
 	public static final IHazardType SHARP = new HazardTypeSharpEdges();
@@ -76,18 +77,18 @@ public class AddonHazards {
 		HazardSystem.register(AddonItems.dfcsh_front,makeData(DIGAMMA,0.004F));
 		HazardSystem.register(AddonItems.dfcsh_beam,makeData(SHARP,25).addEntry(DIGAMMA,0.002));
 
-		registerHazard(OreDictManager.LI,new HazardEntry(ALKALINE,1));
-		registerHazard(OreDictManager.NA,new HazardEntry(ALKALINE,2));
-		registerHazard(AddonOreDict.K,new HazardEntry(ALKALINE,3));
-		registerHazard(AddonOreDict.RB,new HazardEntry(ALKALINE,4));
-		registerHazard(OreDictManager.CS,new HazardEntry(ALKALINE,5));
-		registerHazard(OreDictManager.CS137,new HazardEntry(ALKALINE,5));
-		registerHazard(AddonOreDict.FR,new HazardEntry(ALKALINE,6));
-		registerHazard(OreDictManager.SR,new HazardEntry(ALKALINE,1.5));
-		registerHazard(OreDictManager.SR90,new HazardEntry(ALKALINE,1.5));
+		registerHazardRegular(OreDictManager.LI,new HazardEntry(ALKALINE,1));
+		registerHazardRegular(OreDictManager.NA,new HazardEntry(ALKALINE,2));
+		registerHazardRegular(AddonOreDict.K,new HazardEntry(ALKALINE,3));
+		registerHazardRegular(AddonOreDict.RB,new HazardEntry(ALKALINE,4));
+		registerHazardRegular(OreDictManager.CS,new HazardEntry(ALKALINE,5));
+		registerHazardRegular(OreDictManager.CS137,new HazardEntry(ALKALINE,5));
+		registerHazardRegular(AddonOreDict.FR,new HazardEntry(ALKALINE,6));
+		registerHazardRegular(OreDictManager.SR,new HazardEntry(ALKALINE,1.5));
+		registerHazardRegular(OreDictManager.SR90,new HazardEntry(ALKALINE,1.5));
 
-		registerHazard(OreDictManager.PB,new HazardEntry(TOXIC,1.75));
-		registerHazard(OreDictManager.BE,new HazardEntry(TOXIC,1.75));
+		registerHazardRegular(OreDictManager.PB,new HazardEntry(TOXIC,1.75));
+		registerHazardRegular(OreDictManager.BE,new HazardEntry(TOXIC,1.75));
 
 		for (AddonItemHazardBase hazardItem : AddonItemHazardBase.ALL_HAZARD_ITEMS) {
 			HazardEntry entry_contamination = null;
@@ -158,15 +159,35 @@ public class AddonHazards {
 		return entry;
 	}
 	public static void registerHazard(DictFrame frame,HazardEntry... entries) {
+		registerHazard(frame,(s)->true,entries);
+	}
+	public static void registerHazardRegular(DictFrame frame,HazardEntry... entries) {
+		registerHazard(
+				frame,
+				(s)->{
+					if (s.startsWith("ingot")) return true;
+					if (s.startsWith("dust")) return true;
+					if (s.startsWith("block")) return true;
+					if (s.startsWith("plate")) return true;
+					if (s.startsWith("bedrock")) return true;
+					if (s.startsWith("billet")) return true;
+					return false;
+				},
+				entries
+		);
+	}
+	public static void registerHazard(DictFrame frame,Function<String,Boolean> processor,HazardEntry... entries) {
 		Map<String,Float> map = AddonOreDictHazards.dictMap.get(frame);
 		if (map == null) {
 			System.out.println("\uD83C\uDF3FCAUTION: dictMap for "+frame.ingot()+" could not be captured");
 			return;
 		}
 		for (Entry<String,Float> entry : map.entrySet()) {
-			HazardData data = HazardSystem.oreMap.computeIfAbsent(entry.getKey(), k -> new HazardData());
-			for (HazardEntry hazard : entries)
-				data.addEntry(hazard);
+			if (processor.apply(entry.getKey())) {
+				HazardData data = HazardSystem.oreMap.computeIfAbsent(entry.getKey(),k->new HazardData());
+				for (HazardEntry hazard : entries)
+					data.addEntry(hazard);
+			}
 		}
 	}
 	public static void computeOreMap(Map<String,HazardData> map,BiConsumer<Object,HazardData> processor) {

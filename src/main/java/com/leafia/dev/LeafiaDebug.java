@@ -62,22 +62,30 @@ public class LeafiaDebug {
 		}
 	}
 	public static void debugPos(World world,BlockPos pos,float duration,int color,String... message) {
-		LeafiaTrackerPacket packet = null;
-		for (EntityPlayer plr : world.playerEntities) {
-			if (plr.getHeldItem(EnumHand.OFF_HAND).getItem() == AddonItems.wand_v || plr.getHeldItem(EnumHand.MAIN_HAND).getItem() == AddonItems.wand_v) {
-				if (packet == null) {
-					packet = new LeafiaTrackerPacket();
-					packet.mode = Action.SHOW_BOX;
-					packet.writer = (buf)->{
-						buf.writeFloat(duration);
-						buf.writeInt(color);
-						buf.writeByte(message.length);
-						for (String s : message)
-							buf.writeFifthString(new FifthString(s));
-						buf.writeVec3i(pos);
-					};
+		if (world.isRemote) {
+			Highlight highlight = new Highlight(pos);
+			highlight.setColor(color);
+			highlight.label = message;
+			highlight.lifetime = duration;
+			highlight.show();
+		} else {
+			LeafiaTrackerPacket packet = null;
+			for (EntityPlayer plr : world.playerEntities) {
+				if (plr.getHeldItem(EnumHand.OFF_HAND).getItem() == AddonItems.wand_v || plr.getHeldItem(EnumHand.MAIN_HAND).getItem() == AddonItems.wand_v) {
+					if (packet == null) {
+						packet = new LeafiaTrackerPacket();
+						packet.mode = Action.SHOW_BOX;
+						packet.writer = (buf)->{
+							buf.writeFloat(duration);
+							buf.writeInt(color);
+							buf.writeByte(message.length);
+							for (String s : message)
+								buf.writeFifthString(new FifthString(s));
+							buf.writeVec3i(pos);
+						};
+					}
+					LeafiaPacket._sendToClient(packet,plr);
 				}
-				LeafiaPacket._sendToClient(packet,plr);
 			}
 		}
 	}

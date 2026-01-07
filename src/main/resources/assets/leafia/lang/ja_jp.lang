@@ -120,6 +120,7 @@ info.leafiarod.jei.message=枯渇5%%超えの場合$分解できません
 item.advisor.name=ハイテックアドバイサー
 item.advisor.message.asbestos=アスベストで建築するのは良くないかもしれない..
 item.advisor.message.coal=炭塵を吸っています! 保護具を用意してください。$Crude Protective Maskから始めるといいでしょう。
+item.advisor.message.lava=溶岩注意!
 item.advisor.message.pyro=自然発火性または高温のアイテムを持っています!$るつぼばさみを作れば安全に運べます。
 item.advisor.message.skindmg2=中度の皮膚の負傷を負っています。$治るまでベータ線を放つ物には気をつけましょう。
 item.advisor.message.skindmg3=重度の皮膚の負傷を負っています。$絶対にアルファ線を放つ物を持たないでください。
