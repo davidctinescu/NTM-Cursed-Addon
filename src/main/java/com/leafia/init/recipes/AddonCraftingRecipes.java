@@ -6,13 +6,16 @@ import com.hbm.inventory.OreDictManager.DictFrame;
 import com.hbm.inventory.material.Mats;
 import com.hbm.items.ItemEnums.EnumCircuitType;
 import com.hbm.items.ModItems;
+import com.hbm.items.machine.ItemBatteryPack.EnumBatteryPack;
 import com.leafia.contents.AddonBlocks;
+import com.leafia.contents.AddonBlocks.LetterSigns;
 import com.leafia.contents.AddonBlocks.PWR;
 import com.leafia.contents.AddonItems;
 import com.leafia.contents.AddonItems.LeafiaRods;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodCrafting;
 import com.leafia.contents.control.fuel.nuclearfuel.LeafiaRodItem;
 import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisCrafting;
+import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -50,7 +53,7 @@ public class AddonCraftingRecipes {
 
 		// CraftingManager can suck my ass god fucking dammit
 		addRecipeAuto(new ItemStack(AddonBlocks.amat_duct,3),"CCC","DDD","CCC",'C',ALLOY.wireFine(),'D',new ItemStack(ModBlocks.fluid_duct_neo,1,0));
-		addRecipeAuto(new ItemStack(AddonBlocks.amat_charger)," D ","DED"," D ",'D',AddonBlocks.amat_duct,'E',ModBlocks.machine_battery);
+		addRecipeAuto(new ItemStack(AddonBlocks.amat_charger)," D ","DED"," D ",'D',AddonBlocks.amat_duct,'E',new ItemStack(ModItems.battery_pack,1,EnumBatteryPack.CAPACITOR_NIOBIUM.ordinal()));
 
 		for (int meta = 0; meta < 3; meta++) {
 			addRecipeAuto(new ItemStack(AddonBlocks.ff_duct,3,meta),"DDD",'D',new ItemStack(ModBlocks.fluid_duct_neo,1,meta));
@@ -93,6 +96,8 @@ public class AddonCraftingRecipes {
 			addRecipeAuto(new ItemStack(AddonBlocks.audio_cable, 4), "SCS", "CIC", "SCS", 'S', ModBlocks.concrete_smooth, 'I', IRON.ingot(), 'C', ForgeRegistries.ITEMS.getValue(new ResourceLocation("computronics", "audio_cable")));
 			addShapelessAuto(new ItemStack(AddonBlocks.audio_cable_rad),AddonBlocks.audio_cable,ModBlocks.brick_compound);
 		}
+		for (Block sign : LetterSigns.signs.values())
+			addShapelessAuto(new ItemStack(ModItems.plate_iron),new ItemStack(sign));
 
 		hack.getRegistry().register(new PWRDebrisCrafting().setRegistryName(new ResourceLocation("leafia", "lwr_debris_crafting_handler")));
 	}

@@ -12,12 +12,16 @@ import com.hbm.items.ItemEnums.EnumCircuitType;
 import com.hbm.items.ItemEnums.EnumExpensiveType;
 import com.hbm.items.ModItems;
 import com.leafia.contents.AddonBlocks;
+import com.leafia.contents.AddonBlocks.LetterSigns;
 import com.leafia.contents.AddonBlocks.PWR;
 import com.leafia.contents.AddonItems;
 import com.llib.exceptions.LeafiaDevFlaw;
+import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.Loader;
+
+import java.util.Map.Entry;
 
 import static com.hbm.inventory.OreDictManager.*;
 
@@ -101,6 +105,14 @@ public class AddonAssemblerRecipes {
 							new OreDictStack(REDSTONE.dust(), 12),
 							new ComparableStack(ModItems.circuit, 8, EnumCircuitType.BASIC),
 							new ComparableStack(ModItems.circuit, 2, EnumCircuitType.CAPACITOR)
+					)
+			);
+		}
+		for (Entry<String,Block> entry : LetterSigns.signs.entrySet()) {
+			INSTANCE.register(new GenericRecipe("ass.leafia.sign."+entry.getKey()).setup(20,10)
+					.outputItems(new ItemStack(entry.getValue()))
+					.inputItems(
+							new OreDictStack(IRON.plate(),1)
 					)
 			);
 		}

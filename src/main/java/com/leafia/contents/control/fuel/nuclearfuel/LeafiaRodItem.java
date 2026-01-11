@@ -45,6 +45,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.lwjgl.input.Keyboard;
 
 import javax.annotation.Nullable;
+import java.util.ConcurrentModificationException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -176,16 +177,18 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				break;
 			}
 			case "dgomega": {
-				for (Entity entity : world.loadedEntityList) {
-					if (entity instanceof EntityLivingBase living) {
-						Vec3d entityPos = new Vec3d(living.posX,living.posY,living.posZ);
-						Vec3d myPos = new Vec3d(x,y,z);
-						double distance = entityPos.distanceTo(myPos);
-						double dg = HbmLivingProps.getDigamma(living);
-						double level = Math.max(dg,Math.min(50-distance/20,9.99));
-						HbmLivingProps.setDigamma(living,level);
+				try {
+					for (Entity entity : world.loadedEntityList) {
+						if (entity instanceof EntityLivingBase living) {
+							Vec3d entityPos = new Vec3d(living.posX,living.posY,living.posZ);
+							Vec3d myPos = new Vec3d(x,y,z);
+							double distance = entityPos.distanceTo(myPos);
+							double dg = HbmLivingProps.getDigamma(living);
+							double level = Math.max(dg,Math.min(50-distance/20,9.99999999));
+							HbmLivingProps.setDigamma(living,level);
+						}
 					}
-				}
+				} catch (ConcurrentModificationException ignored) {} // fuck off
 				LCETorex.statFacDigamma(world,x,y,z,50);
 				EntityNukeExplosionMK5 mk5 = EntityNukeExplosionMK5.statFac(world,50,x,y,z);
 				((IMixinEntityNukeExploisonMK5)mk5).setDigammaFallout();
