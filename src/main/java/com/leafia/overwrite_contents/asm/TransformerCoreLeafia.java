@@ -1180,7 +1180,7 @@ public class TransformerCoreLeafia implements IClassTransformer {
 			case 14:
 				for (AbstractInsnNode node : helper.method.instructions.toArray()) {
 					if (node instanceof MethodInsnNode mthd) {
-						System.out.println("METHOD OWNER: "+mthd.owner);
+						//System.out.println("METHOD OWNER: "+mthd.owner);
 						if (mthd.owner.equals("net/minecraft/block/BlockAir"))
 							mthd.owner = "com/leafia/shit/BlockMetaAir";
 					}

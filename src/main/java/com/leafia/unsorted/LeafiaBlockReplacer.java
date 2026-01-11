@@ -80,7 +80,7 @@ public class LeafiaBlockReplacer {
 	}
 	public static IBlockState replaceBlock(IBlockState missingBlock) {
 		ResourceLocation reg = missingBlock.getBlock().getRegistryName();
-		System.out.println("LEAFIA: Replacing block "+reg.toString());
+		//System.out.println("LEAFIA: Replacing block "+reg.toString());
 		if (specialReplacer.containsKey(reg.toString())) {
 			BiFunction<String,IBlockState,IBlockState> processor = specialReplacer.get(reg.toString());
 			return processor.apply(reg.toString(),missingBlock);
