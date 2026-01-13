@@ -14,7 +14,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 import java.util.Arrays;
 
-@Mixin(targets = "com.hbm.items.machine.ItemBatteryPack$EnumBatteryPack", remap = false)
+@Mixin(value = ItemBatteryPack.EnumBatteryPack.class, remap = false)
 public abstract class MixinEnumBatteryPack {
 
     @Shadow
