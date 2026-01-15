@@ -12,6 +12,7 @@ import com.leafia.dev.optimization.diagnosis.RecordablePacket;
 import com.leafia.overwrite_contents.interfaces.IMixinParticleRBMKMush;
 import com.leafia.unsorted.ParticleFireK;
 import com.leafia.unsorted.ParticleFireLavaK;
+import com.leafia.unsorted.ParticleFlash;
 import com.leafia.unsorted.ParticleSpark;
 import com.llib.exceptions.LeafiaDevFlaw;
 import com.llib.group.LeafiaSet;
@@ -330,6 +331,42 @@ public class LeafiaParticlePacket extends RecordablePacket {
 				);
 				Minecraft.getMinecraft().effectRenderer.addEffect(particle);
 			}
+		}
+	}
+	public static class FlashParticle extends LeafiaParticle {
+		public int ticksIn = 5;
+		public int ticksOut = 10;
+		public float scale = 10;
+		public FlashParticle() { }
+		public FlashParticle(int ticksIn,int ticksOut,float scale) {
+			this.ticksIn = ticksIn;
+			this.ticksOut = ticksOut;
+			this.scale = scale;
+		}
+		@Override
+		protected LeafiaParticle fromBits(LeafiaBuf buf,NBTTagCompound nbt) {
+			return new FlashParticle(buf.readShort(),buf.readShort(),buf.readFloat());
+		}
+		@Override
+		protected void toBits(LeafiaBuf buf) {
+			buf.writeShort(ticksIn);
+			buf.writeShort(ticksOut);
+			buf.writeFloat(scale);
+		}
+		@Override
+		@SideOnly(Side.CLIENT)
+		protected void emit(NBTTagCompound nbt) {
+			World world = Minecraft.getMinecraft().world;
+			ParticleFlash particle = new ParticleFlash(
+					world,
+					nbt.getDouble("posX"),
+					nbt.getDouble("posY"),
+					nbt.getDouble("posZ"),
+					scale,
+					ticksIn,
+					ticksOut
+			);
+			Minecraft.getMinecraft().effectRenderer.addEffect(particle);
 		}
 	}
 

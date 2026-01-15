@@ -34,6 +34,7 @@ import com.leafia.dev.container_utility.LeafiaPacketReceiver;
 import com.leafia.dev.custompacket.LeafiaCustomPacket;
 import com.leafia.dev.math.FiaMatrix;
 import com.leafia.dev.optimization.LeafiaParticlePacket;
+import com.leafia.dev.optimization.LeafiaParticlePacket.FlashParticle;
 import com.leafia.init.LeafiaSoundEvents;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntityCore;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntityCoreReceiver;
@@ -169,6 +170,8 @@ public abstract class MixinTileEntityCore extends TileEntityMachineBase implemen
 	private final List<DFCShock> dfcShocks = new ArrayList<>();
 	@Unique
 	private boolean wasActive = false;
+	@Unique
+	private int particleTicks = 0;
 
 	public MixinTileEntityCore(int scount) {
 		super(scount);
@@ -281,7 +284,17 @@ public abstract class MixinTileEntityCore extends TileEntityMachineBase implemen
 					if (!wasActive) {
 						wasActive = true;
 						world.playSound(null,pos.getX()+0.5,pos.getY()+0.5,pos.getZ()+0.5,LeafiaSoundEvents.fuckingfortnite,SoundCategory.BLOCKS,100,1);
-						PacketThreading.createSendToAllTrackingThreadedPacket(new CommandLeaf.ShakecamPacket(new String[]{"type=smooth", "preset=QUAKE", "duration*4", "intensity/4", "range=100"}).setPos(pos), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 150));
+						PacketThreading.createSendToAllTrackingThreadedPacket(new CommandLeaf.ShakecamPacket(new String[]{"type=smooth", "preset=RUPTURE", "duration/4", "blurDulling*2", "intensity/2", "range=350"}).setPos(pos), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 400));
+						PacketThreading.createSendToAllTrackingThreadedPacket(new CommandLeaf.ShakecamPacket(new String[]{"type=smooth", "preset=QUAKE", "intensity/2", "range=500"}).setPos(pos), new NetworkRegistry.TargetPoint(world.provider.getDimension(), pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, 550));
+						particleTicks = 20;
+						FlashParticle flash = new FlashParticle();
+						flash.emit(new Vec3d(pos).add(0.5, 0.5, 0.5),new Vec3d(0, 1, 0),world.provider.getDimension(),500);
+					}
+					if (particleTicks > 0) {
+						LeafiaColor col = new LeafiaColor(colorCatalyst);
+						LeafiaParticlePacket.DFCBlastParticle blast = new LeafiaParticlePacket.DFCBlastParticle((float) col.red, (float) col.green, (float) col.blue, 250);
+						blast.emit(new Vec3d(pos).add(0.5, 0.5, 0.5), new Vec3d(0, 1, 0), world.provider.getDimension(), 200);
+						particleTicks--;
 					}
 					double randRange = Math.pow(tempRatio, 0.65) * 10;
 					potentialGain += world.rand.nextDouble() * randRange / getStabilizationDivAlt() / getStabilizationDiv() + Math.pow(collapsing, 0.666) * 66;
