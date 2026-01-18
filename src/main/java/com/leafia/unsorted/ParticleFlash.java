@@ -2,6 +2,7 @@ package com.leafia.unsorted;
 
 import com.hbm.main.ResourceManager;
 import com.hbm.render.NTMRenderHelper;
+import com.leafia.AddonBase;
 import com.leafia.transformer.LeafiaGls;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
@@ -35,6 +36,7 @@ public class ParticleFlash extends Particle {
 		NTMRenderHelper.resetParticleInterpPos(entityIn, partialTicks);
 		LeafiaGls.pushMatrix();
 		LeafiaGls.translate(posX-interpPosX,posY-interpPosY,posZ-interpPosZ);
+		NTMRenderHelper.bindTexture(AddonBase.solid_e);
 		float scale = 0;
 		if ((particleAge+partialTicks) < ticksIn)
 			scale = (particleAge+partialTicks)/(float)ticksIn;

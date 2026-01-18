@@ -7,6 +7,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Optional;
 import pl.asie.computronics.api.audio.AudioPacket;
 import pl.asie.computronics.api.audio.IAudioReceiver;
@@ -20,22 +21,30 @@ import java.lang.invoke.MethodType;
         @Optional.Interface(iface = "pl.asie.computronics.api.audio.IAudioReceiver", modid = "computronics")
 })
 public class TileEntityMachineSirenSounder extends TileEntity implements IAudioReceiver {
-    static final MethodHandle getSoundWorld =
-            MethodHandleHelper.findVirtual(
-                    TileEntityMachineSiren.class,"getSoundWorld",MethodType.methodType(World.class)
-            );
-    static final MethodHandle getSoundPos =
-            MethodHandleHelper.findVirtual(
-                    TileEntityMachineSiren.class,"getSoundPos",MethodType.methodType(Vec3d.class)
-            );
-    static final MethodHandle getSoundDistance =
-            MethodHandleHelper.findVirtual(
-                    TileEntityMachineSiren.class,"getSoundDistance",MethodType.methodType(int.class)
-            );
-    static final MethodHandle getID =
-            MethodHandleHelper.findVirtual(
-                    TileEntityMachineSiren.class,"getID",MethodType.methodType(String.class)
-            );
+    static MethodHandle getSoundWorld = null;
+    static MethodHandle getSoundPos = null;
+    static MethodHandle getSoundDistance = null;
+    static MethodHandle getID = null;
+	static {
+		if (Loader.isModLoaded("computronics")) {
+			getSoundWorld =
+					MethodHandleHelper.findVirtual(
+							TileEntityMachineSiren.class,"getSoundWorld",MethodType.methodType(World.class)
+					);
+			getSoundPos =
+					MethodHandleHelper.findVirtual(
+							TileEntityMachineSiren.class,"getSoundPos",MethodType.methodType(Vec3d.class)
+					);
+			getSoundDistance =
+					MethodHandleHelper.findVirtual(
+							TileEntityMachineSiren.class,"getSoundDistance",MethodType.methodType(int.class)
+					);
+			getID =
+					MethodHandleHelper.findVirtual(
+							TileEntityMachineSiren.class,"getID",MethodType.methodType(String.class)
+					);
+		}
+	}
 
     TileEntityMachineSiren host;
     int id;

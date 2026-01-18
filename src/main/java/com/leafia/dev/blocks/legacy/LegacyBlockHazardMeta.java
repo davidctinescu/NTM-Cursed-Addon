@@ -1,8 +1,10 @@
 package com.leafia.dev.blocks.legacy;
 
+import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.generic.BlockMeta;
 import com.hbm.hazard.HazardSystem;
 import com.hbm.render.block.BlockBakeFrame;
+import com.leafia.contents.AddonBlocks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -25,6 +27,8 @@ public class LegacyBlockHazardMeta extends BlockMeta {
             throw new IllegalArgumentException(String.format("metaCount must be between 0 and 15 (inclusive), in %s", registryName));
         }
         this.blockFrames = generateBlockFrames(registryName, locPrefix, bForm);
+        ModBlocks.ALL_BLOCKS.remove(this);
+        AddonBlocks.ALL_BLOCKS.add(this);
     }
 
     protected BlockBakeFrame[] generateBlockFrames(String registryName, String locPrefix, BlockBakeFrame.BlockForm blockForm) {

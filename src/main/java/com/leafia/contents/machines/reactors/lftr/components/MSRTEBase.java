@@ -1,6 +1,7 @@
 package com.leafia.contents.machines.reactors.lftr.components;
 
 import com.hbm.blocks.ModBlocks;
+import com.hbm.blocks.generic.BlockMeta;
 import com.hbm.forgefluid.FFUtils;
 import com.hbm.inventory.control_panel.ControlEventSystem;
 import com.hbm.inventory.control_panel.DataValue;
@@ -209,11 +210,11 @@ public abstract class MSRTEBase extends TileEntity implements ITickable, LeafiaP
 				nbt.setDouble("heat",Math.max(0,nbt.getDouble("heat")-1));
 				stack.tag = nbt;
 				if (nbt.getDouble("heat") >= 6000-getBaseTemperature(AddonFluids.fromFF(stack.getFluid()))) {
-					/*if (world.rand.nextInt(350) == 0) {
+					if (world.rand.nextInt(350) == 0) {
 						world.playEvent(2001,pos,Block.getStateId(world.getBlockState(pos)));
-						world.setBlockState(pos,ModBlocks.block_corium.getDefaultState());
+						world.setBlockState(pos,ModBlocks.sellafield.getDefaultState().withProperty(BlockMeta.META,5));
 						return;
-					}*/
+					}
 				}
 			}
 			sendFluids();
