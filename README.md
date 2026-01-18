@@ -27,6 +27,6 @@ I recommend you to install [Backups](https://www.curseforge.com/minecraft/mc-mo
 
 ---
 I'll try to keep this up to date with Leafia's mod<br>
-I can't spend too much time coding due to school, so most of the code is written by deepseek, this may be looked down upon, but i don't care!<br>
+I can't spend too much time coding due to school, so some of the custom code is written by deepseek, this may be looked down upon, but i don't care!<br>
 Feel free to contribute to this mod by creating pull requests.<br>
 I might introduce some suggestions from Leafia's [Discord Server](https://discord.gg/CKfuXcjRve)
