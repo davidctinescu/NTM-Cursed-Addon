@@ -2,6 +2,8 @@ package com.leafia.overwrite_contents.mixin.mod.hbm;
 
 import com.hbm.blocks.ModBlocks;
 import com.hbm.blocks.bomb.Landmine;
+import com.hbm.blocks.machine.MachineDiesel;
+import com.hbm.main.MainRegistry;
 import net.minecraft.block.material.Material;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
