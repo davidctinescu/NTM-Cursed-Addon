@@ -64,7 +64,12 @@ public class AddonFluids {
 	public static FluidType COOLANT_MAL;
 	public static FluidType DEATHSTEAM;
 	public static FluidType HF;
+
 	public static FluidType N2O; // will you stop begging me
+
+//	public static FluidType AMMONIA;
+	public static FluidType ANITRATE;
+
 	public static void init() {
 		Function<FluidTrait,Boolean> rejectBoiling = (trait)->{
 			if (trait instanceof FT_Heatable) return false;
@@ -82,6 +87,9 @@ public class AddonFluids {
 		COOLANT_MAL = new AddonFluidType("COOLANT_MAL",0x880f12,1,0,0,EnumSymbol.NONE).setTemp(1000).addTraits(GASEOUS);
 		DEATHSTEAM = new AddonFluidType("DEATHSTEAM",0x7c0000,4,0,0,EnumSymbol.NONE).setTemp(900).addTraits(GASEOUS,UNSIPHONABLE);
 		HF = new AddonFluidType("HF",0x3ea7ff,4,0,1,EnumSymbol.ACID).addTraits(GASEOUS,new FT_Corrosive(40),new FT_Poison(true, 1));
+		// laughing gas
 		N2O = new AddonFluidType("N2O",0x6faf30,2,0,0,EnumSymbol.OXIDIZER).addTraits(GASEOUS);
+//		AMMONIA = new AddonFluidType("AMMONIA",0xFFFFFF,3,1,0,EnumSymbol.NONE).addTraits(GASEOUS);
+		ANITRATE = new AddonFluidType("ANITRATE",0xFFFFFF,0,0,3,EnumSymbol.OXIDIZER).addTraits(LIQUID);
 	}
 }

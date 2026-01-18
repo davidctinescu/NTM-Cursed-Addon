@@ -1,6 +1,7 @@
 package com.leafia.overwrite_contents.mixin.mod.hbm;
 
 import com.hbm.blocks.machine.MachineSiren;
+import com.hbm.main.MainRegistry;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntitySiren;
 import net.minecraft.block.BlockContainer;
 import net.minecraft.block.material.Material;
@@ -11,6 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.network.internal.FMLNetworkHandler;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -31,5 +33,13 @@ public abstract class MixinMachineSiren extends BlockContainer {
 				cir.cancel();
 			}
 		}
+//		if (world.isRemote) {
+//			return true;
+//		} else if (!player.isSneaking()) {
+//			FMLNetworkHandler.openGui(player, MainRegistry.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+//			return true;
+//		} else {
+//			return false;
+//		}
 	}
 }

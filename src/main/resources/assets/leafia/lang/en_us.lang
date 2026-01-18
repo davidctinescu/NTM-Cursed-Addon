@@ -117,6 +117,10 @@ hbmfluid.n2o=Nitrous Oxide
 hbmfluid.radspice_slop=Neoveline Slop
 hbmfluid.uf6_233=Uranium-233 Hexafluoride
 hbmfluid.uf6_235=Uranium-235 Hexafluoride
+
+hbmfluid.anitrate=Ammonium Nitrate
+hbmfluid.ammonia=Ammonia
+
 hbmpseudofluid.u233f6=Uranium-233 Hexafluoride
 hbmpseudofluid.leu233f6=Low Enriched Uranium-233 Hexafluoride
 hbmpseudofluid.meu233f6=Medium Enriched Uranium-233 Hexafluoride
