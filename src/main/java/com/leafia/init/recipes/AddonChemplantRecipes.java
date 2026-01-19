@@ -94,17 +94,17 @@ public class AddonChemplantRecipes {
 
 		INSTANCE.register(new GenericRecipe("chem.leafia.ammonia").setup(60,2500)
 				.inputFluids(
-						new FluidStack(Fluids.AIR, 2)
+						new FluidStack(Fluids.AIR, 2000)
 				)
 				.outputFluids(
-						new FluidStack(Fluids.AMMONIA, 1),
-						new FluidStack(Fluids.HYDROGEN,1)
+						new FluidStack(Fluids.AMMONIA, 100),
+						new FluidStack(Fluids.HYDROGEN,1000)
 				)
 		);
 		INSTANCE.register(new GenericRecipe("chem.leafia.ammoniumnitrate").setup(60,2500)
 				.inputFluids(
-						new FluidStack(Fluids.AMMONIA, 10),
-						new FluidStack(Fluids.NITRIC_ACID, 10)
+						new FluidStack(Fluids.AMMONIA, 1000),
+						new FluidStack(Fluids.NITRIC_ACID, 1000)
 				)
 //				.outputFluids(
 //						new FluidStack(AddonFluids.ANITRATE, 1000)
@@ -113,31 +113,31 @@ public class AddonChemplantRecipes {
 						new ItemStack(ModItems.powder_fertilizer,1)
 				)
 		);
-		INSTANCE.register(new GenericRecipe("chem.leafia.ammoniumnitrate_liquid").setup(60,5000)
-				.inputItems(
+//		INSTANCE.register(new GenericRecipe("chem.leafia.ammoniumnitrate_liquid").setup(60,5000)
+//				.inputItems(
 //						 new ComparableStack(ModItems.powder_fertilizer,1)
-						new ComparableStack(AddonItems.anitrate_solid,1)
-				)
-				.outputFluids(
-						new FluidStack(AddonFluids.ANITRATE, 10)
-				)
-		);
-		INSTANCE.register(new GenericRecipe("chem.leafia.ammoniumnitrate_solid").setup(60,5000)
-				.inputFluids(
-						new FluidStack(AddonFluids.ANITRATE, 10)
-				)
-				.outputItems(
+//						new ComparableStack(AddonItems.anitrate_solid,1)
+//				)
+//				.outputFluids(
+//						new FluidStack(AddonFluids.ANITRATE, 10)
+//				)
+//		);
+//		INSTANCE.register(new GenericRecipe("chem.leafia.ammoniumnitrate_solid").setup(60,5000)
+//				.inputFluids(
+//						new FluidStack(AddonFluids.ANITRATE, 10)
+//				)
+//				.outputItems(
 //						new ItemStack(ModItems.powder_fertilizer,1)
-						new ItemStack(AddonItems.anitrate_solid,1)
-				)
-		);
+//						new ItemStack(AddonItems.anitrate_solid,1)
+//				)
+//		);
 		INSTANCE.register(new GenericRecipe("chem.leafia.laughinggas").setup(60,5000)
 				.inputFluids(
-						new FluidStack(AddonFluids.ANITRATE, 100)
+						new FluidStack(AddonFluids.ANITRATE, 1000)
 				)
 				.outputFluids(
-						new FluidStack(AddonFluids.N2O, 55),
-						new FluidStack(Fluids.WATER, 45)
+						new FluidStack(AddonFluids.N2O, 550),
+						new FluidStack(Fluids.WATER, 450)
 				)
 		);
 	}

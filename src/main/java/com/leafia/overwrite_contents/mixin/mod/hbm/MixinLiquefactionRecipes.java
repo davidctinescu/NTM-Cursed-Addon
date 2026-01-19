@@ -29,7 +29,7 @@ public class MixinLiquefactionRecipes {
             HashMap<Object, FluidStack> recipes = (HashMap<Object, FluidStack>) recipesField.get(null);
 
 //            recipes.put(new RecipesCommon.ComparableStack(Items.APPLE), new FluidStack(100, Fluids.WATER));
-            recipes.put(new RecipesCommon.ComparableStack(AddonItems.anitrate_solid), new FluidStack(10, AddonFluids.ANITRATE));
+            recipes.put(new RecipesCommon.ComparableStack(AddonItems.anitrate_solid), new FluidStack(100, AddonFluids.ANITRATE));
 
         } catch (Exception e) {
             e.printStackTrace();
