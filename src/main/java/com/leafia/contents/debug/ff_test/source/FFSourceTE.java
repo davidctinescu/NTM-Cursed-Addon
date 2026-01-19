@@ -2,9 +2,12 @@ package com.leafia.contents.debug.ff_test.source;
 
 import com.hbm.lib.ForgeDirection;
 import com.leafia.contents.AddonFluids.AddonFF;
+import com.leafia.contents.machines.reactors.lftr.components.element.MSRElementTE;
+import com.leafia.contents.machines.reactors.lftr.components.element.MSRElementTE.MSRFuel;
 import com.leafia.contents.network.ff_duct.uninos.IFFProvider;
 import com.leafia.dev.container_utility.LeafiaPacket;
 import com.leafia.dev.container_utility.LeafiaPacketReceiver;
+import com.llib.group.LeafiaMap;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -17,13 +20,23 @@ import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Map;
+
 public class FFSourceTE extends TileEntity implements ITickable, IFFProvider, LeafiaPacketReceiver {
 	FluidTank zaza = new FluidTank(10000);
 	public FFSourceTE() {
-		zaza.fill(new FluidStack(AddonFF.fluoride,10000),true);
+		//zaza.fill(new FluidStack(AddonFF.fluoride,10000),true);
 	}
 	@Override
 	public void update() {
+		FluidStack stacc = new FluidStack(AddonFF.fluoride,10000);
+		Map<String,Double> mix = new LeafiaMap<>();
+		//mix.put(MSRFuel.u233.name(),/*0.00000000001*/6d);
+		mix.put(MSRFuel.th232.name(),4d);
+		mix.put(MSRFuel.u235.name(),2d);
+		stacc.tag = MSRElementTE.writeMixture(mix,new NBTTagCompound());
+		zaza.drain(999999999,true); // reset shit
+		zaza.fill(stacc,true); // and refill shit
 		if (!world.isRemote) {
 			for (EnumFacing facing : EnumFacing.values())
 				tryProvide(zaza,world,pos.offset(facing),ForgeDirection.getOrientation(facing));

@@ -116,22 +116,23 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 			double sumRecipe = 0;
 			for (Entry<MSRFuel,Double> entry : recipe.entrySet())
 				sumRecipe += entry.getValue()*multiplier;
-			int conversion = Math.min(Math.min((int)(Math.min(bufferIn.getFluidAmount()*multiplier*(sumRecipe/sumAll),tankSpace)/multiplier/(sumRecipe/sumAll)),bufferSpace),bufferIn.getFluidAmount());
-			int actualConversion = (int)(conversion*(sumRecipe/sumAll));
-			return new Triplet<>(conversion,actualConversion,multiplier);
+			int total = Math.min(Math.min((int)(Math.min(bufferIn.getFluidAmount()*multiplier*(sumRecipe/sumAll),tankSpace)/multiplier/(sumRecipe/sumAll)),bufferSpace),bufferIn.getFluidAmount());
+			int conversion = (int)(total/* *(sumRecipe/sumAll)*/*Math.min(multiplier,1));
+			//LeafiaDebug.debugLog(world,multiplier);
+			return new Triplet<>(total,conversion,multiplier);
 		}
 		return null;
 	}
-	public void transferToTank(Map<MSRFuel,Double> recipe,int conversion,int actualConversion,double multiplier) {
-		if (bufferIn.getFluid() != null && saltType.getFF() != null && bufferIn.getFluidAmount() > 0 && conversion > 0 && actualConversion > 0 && bufferOut.getCapacity()-bufferOut.getFluidAmount() >= conversion-actualConversion) {
+	public void transferToTank(Map<MSRFuel,Double> recipe,int total,int conversion,double multiplier) {
+		if (bufferIn.getFluid() != null && saltType.getFF() != null && bufferIn.getFluidAmount() > 0 && total > 0 && conversion > 0 && bufferOut.getCapacity()-bufferOut.getFluidAmount() >= total-conversion) {
 			int inAmt = bufferIn.getFluidAmount();
 			NBTTagCompound tag = MSRElementTE.nbtProtocol(bufferIn.getFluid().tag);
 			bufferIn.getFluid().tag = tag;
 			Map<String,Double> mixture = MSRElementTE.readMixture(tag);
-			FluidStack stack = bufferIn.drain(conversion,true);
+			FluidStack stack = bufferIn.drain(total,true);
 			if (stack == null)
 				throw new LeafiaDevFlaw("Salt Separator: Could not drain input buffer. How did this happen?");
-			if (stack.amount != conversion)
+			if (stack.amount != total)
 				throw new LeafiaDevFlaw("Salt Separator: Drained amount does not match conversion value. How did this happen?");
 			Map<String,Double> outputMixture = MSRElementTE.readMixture(tag);
 			for (Entry<String,Double> entry : mixture.entrySet()) {
@@ -146,9 +147,9 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 			}
 			NBTTagCompound outTag = new NBTTagCompound();
 			outTag.setTag("itemMixture",MSRElementTE.writeMixture(outputMixture));
-			FluidTank buf = new FluidTank(conversion-actualConversion);
-			buf.setFluid(new FluidStack(saltType.getFF(),conversion-actualConversion,outTag));
-			LeafiaUtil.fillFF(buf,bufferOut,conversion-actualConversion);
+			FluidTank buf = new FluidTank(total-conversion);
+			buf.setFluid(new FluidStack(saltType.getFF(),total-conversion,outTag));
+			LeafiaUtil.fillFF(buf,bufferOut,total-conversion);
 			if (buf.getFluidAmount() > 0)
 				throw new LeafiaDevFlaw("Salt Separator: "+buf.getFluidAmount()+"mB was sent into the backrooms. How?\n\nExtended Information: Output was "+bufferOut.getFluidAmount()+"/"+bufferOut.getCapacity()+"mB");
 			Map<String,Double> fillMixture = new HashMap<>();
@@ -156,7 +157,7 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 				fillMixture.put(entry.getKey().name(),entry.getValue());
 			NBTTagCompound fillTag = new NBTTagCompound();
 			fillTag.setTag("itemMixture",MSRElementTE.writeMixture(fillMixture));
-			FluidStack tankFill = new FluidStack(saltType.getFF(),saltTank.getFluidAmount()+actualConversion,fillTag);
+			FluidStack tankFill = new FluidStack(saltType.getFF(),saltTank.getFluidAmount()+conversion,fillTag);
 			saltTank.setFluid(tankFill);
 		}
 	}
@@ -207,7 +208,7 @@ public class SaltSeparatorTE extends TileEntityMachineBase implements ITickable,
 			saltType = (curRecipe != null) ? curRecipe.saltType : Fluids.NONE;
 			if (curRecipe != null) {
 				Triplet<Integer,Integer,Double> conversion = getExtractionAmount(curRecipe.mixture);
-				if (conversion != null) {
+				if (conversion != null && conversion.getY() > 0) {
 					/*
 					int fuckoff = (int)(conversion.getY()*conversion.getZ());
 					if (fuckoff > 0)

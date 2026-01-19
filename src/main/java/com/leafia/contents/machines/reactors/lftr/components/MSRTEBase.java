@@ -76,6 +76,12 @@ public abstract class MSRTEBase extends TileEntity implements ITickable, LeafiaP
 		}
 		return 0;
 	}
+	/// automatically sets itemMixture tag
+	public static NBTTagCompound writeMixture(Map<String,Double> mixture,NBTTagCompound nbt) {
+		nbt.setTag("itemMixture",writeMixture(mixture));
+		return nbt;
+	}
+	/// do setTag with name itemMixture with return value of this
 	public static NBTTagList writeMixture(Map<String,Double> mixture) {
 		NBTTagList list = new NBTTagList();
 		for (Entry<String,Double> entry : mixture.entrySet()) {

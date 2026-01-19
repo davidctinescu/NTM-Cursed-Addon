@@ -111,6 +111,26 @@ public class PWRComputerTE extends PWRAssignableEntity implements SimpleComponen
 		return new Object[]{20,20,0};
 	}
 
+	@Callback(doc = "Returns coolant tank fill, hot coolant tank fill, and emergency buffer fill in order.")
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getTankFills(Context context,Arguments args) {
+		PWRData core = getLinkedCore();
+		if (core != null) {
+			return new Object[]{core.tanks[0].getFill(),core.tanks[1].getFill(),core.tanks[2].getFill()};
+		}
+		return new Object[]{0,0,0};
+	}
+
+	@Callback(doc = "Returns coolant tank capacity, hot coolant tank capacity, and emergency buffer capacity in order.")
+	@Optional.Method(modid = "opencomputers")
+	public Object[] getTankCapacities(Context context,Arguments args) {
+		PWRData core = getLinkedCore();
+		if (core != null) {
+			return new Object[]{core.tanks[0].getFill(),core.tanks[1].getFill(),core.tanks[2].getFill()};
+		}
+		return new Object[]{0,0,0};
+	}
+
 	@Override
 	public void receiveEvent(BlockPos from,ControlEvent e) {
 		PWRData core = getLinkedCore();
@@ -190,12 +210,24 @@ public class PWRComputerTE extends PWRAssignableEntity implements SimpleComponen
 		map.put("temp_lowest",new DataValueFloat(20));
 		map.put("temp_highest",new DataValueFloat(20));
 		map.put("temp_average",new DataValueFloat(0));
+		map.put("tank_coolant",new DataValueFloat(0));
+		map.put("tank_hotcoolant",new DataValueFloat(0));
+		map.put("tank_e_buffer",new DataValueFloat(0));
+		map.put("capacity_coolant",new DataValueFloat(0));
+		map.put("capacity_hotcoolant",new DataValueFloat(0));
+		map.put("capacity_e_buffer",new DataValueFloat(0));
 		if (core != null) {
 			map.put("master_level",new DataValueFloat((float)(core.masterControl*100)));
 			Triplet<Double,Double,Double> temps = getTemperatures(core);
 			map.put("temp_lowest",new DataValueFloat(temps.getA().floatValue()));
 			map.put("temp_highest",new DataValueFloat(temps.getB().floatValue()));
 			map.put("temp_average",new DataValueFloat(temps.getC().floatValue()));
+			map.put("tank_coolant",new DataValueFloat(core.tanks[0].getFill()));
+			map.put("tank_hotcoolant",new DataValueFloat(core.tanks[1].getFill()));
+			map.put("tank_e_buffer",new DataValueFloat(core.tanks[2].getFill()));
+			map.put("capacity_coolant",new DataValueFloat(core.tanks[0].getMaxFill()));
+			map.put("capacity_hotcoolant",new DataValueFloat(core.tanks[1].getMaxFill()));
+			map.put("capacity_e_buffer",new DataValueFloat(core.tanks[2].getMaxFill()));
 		}
 		return map;
 	}
