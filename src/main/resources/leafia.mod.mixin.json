@@ -68,6 +68,7 @@
     "hbm.MixinItemLaserDetonator",
     "hbm.MixinJEIConfig",
     "hbm.MixinLandmine",
+    "hbm.MixinLiquefactionRecipes",
     "hbm.MixinMachineChemicalPlant",
     "hbm.MixinMachineSiren",
     "hbm.MixinModBlocks",

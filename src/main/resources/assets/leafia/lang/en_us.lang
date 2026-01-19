@@ -132,6 +132,7 @@ hbmpseudofluid.heu235f6=Highly Enriched Uranium-235 Hexafluoride
 info.leafiarod.empty=Empty
 info.leafiarod.jei.name=Generic Rod Uncrafting
 info.leafiarod.jei.message=Can't uncraft with$depletion > 5%%
+item.anitrate_solid.name=Ammonium Nitrate
 item.advisor.name=High-Tech Advisor
 item.advisor.message.asbestos=Maybe, just maybe it's not a very good idea$to build something out of asbestos..
 item.advisor.message.coal=You're inhaling coal dust! Create some protection.$Start with a Crude Protective Mask.

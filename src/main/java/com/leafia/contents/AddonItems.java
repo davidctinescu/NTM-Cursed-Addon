@@ -2,7 +2,9 @@ package com.leafia.contents;
 
 import com.hbm.blocks.ICustomBlockItem;
 import com.hbm.blocks.generic.BlockModDoor;
+import com.hbm.items.ItemBakedBase;
 import com.hbm.items.ModItems;
+import com.hbm.items.tool.ItemFertilizer;
 import com.hbm.main.MainRegistry;
 import com.leafia.AddonBase;
 import com.leafia.contents.bomb.missile.customnuke.CustomNukeMissileItem;
@@ -457,6 +459,8 @@ public class AddonItems {
 	public static final Item component_limiter = new AddonItemBaked("component_limiter").setCreativeTab(MainRegistry.partsTab);
 	public static final Item component_emitter = new AddonItemBaked("component_emitter").setCreativeTab(MainRegistry.partsTab);
 	public static final Item supercooler = new AddonItemBaked("supercooler").setCreativeTab(MainRegistry.partsTab);
+
+	public static final Item anitrate_solid = new AddonItemBaked("anitrate_solid").setCreativeTab(MainRegistry.resourceTab);
 
 	private static void modifyItemParams() {
 		ModItems.pwr_fuel.setCreativeTab(null);
