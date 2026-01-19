@@ -10,6 +10,7 @@ import com.leafia.contents.machines.reactors.lftr.components.MSRTEBase;
 import com.leafia.contents.machines.reactors.lftr.components.arbitrary.MSRArbitraryBlock;
 import com.leafia.contents.machines.reactors.lftr.components.arbitrary.MSRArbitraryTE;
 import com.leafia.contents.machines.reactors.pwr.blocks.PWRReflectorBlock;
+import com.leafia.dev.LeafiaDebug;
 import com.leafia.dev.LeafiaDebug.Tracker;
 import com.leafia.dev.container_utility.LeafiaPacket;
 import com.leafia.dev.math.FiaMatrix;
@@ -167,6 +168,9 @@ public class MSRElementTE extends MSRTEBase {
 					try {
 						MSRFuel type = MSRFuel.valueOf(entry.getKey());
 						double tempAdd = type.function.apply(nbtProtocol(stack1.tag).getDouble("heat")+getBaseTemperature(AddonFluids.fromFF(stack0.getFluid())))*mix*B;
+						if (entry.getKey().equals("u233")) {
+							LeafiaDebug.debugLog(world,"U233: "+tempAdd);
+						}
 						y += tempAdd;
 						if (type.byproduct != null) {
 							double addAmt = tempAdd/type.life;
