@@ -145,7 +145,7 @@ public class JEISoldering implements IRecipeCategory<Recipe> {
 
 	@Override public String getUid() { return JEIConfig.SOLDERING_STATION; }
 	@Override public String getTitle() {
-		return I18nUtil.resolveKey(ModBlocks.machine_arc_welder.getTranslationKey()+".name");
+		return I18nUtil.resolveKey(ModBlocks.machine_soldering_station.getTranslationKey()+".name");
 	}
 	@Override public String getModName() { return "hbm"; }
 	@Override public IDrawable getBackground() { return background; }
