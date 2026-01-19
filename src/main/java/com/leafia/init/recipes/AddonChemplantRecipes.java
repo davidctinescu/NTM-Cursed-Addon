@@ -110,7 +110,7 @@ public class AddonChemplantRecipes {
 //						new FluidStack(AddonFluids.ANITRATE, 1000)
 //				)
 				.outputItems(
-						new ItemStack(ModItems.powder_fertilizer,1)
+						new ItemStack(AddonItems.anitrate_solid,1)
 				)
 		);
 //		INSTANCE.register(new GenericRecipe("chem.leafia.ammoniumnitrate_liquid").setup(60,5000)

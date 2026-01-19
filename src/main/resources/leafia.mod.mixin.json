@@ -76,6 +76,7 @@
     "hbm.MixinModItems",
     "hbm.MixinOreDictManager",
     "hbm.MixinSerializableRecipe",
+    "hbm.MixinSolidificationRecipes",
     "hbm.MixinTileEntityBarrel",
     "hbm.MixinTileEntityBatterySocket",
     "hbm.MixinTileEntityChungus",
