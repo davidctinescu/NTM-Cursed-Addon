@@ -26,6 +26,14 @@ public class CustomNukeMissileEntity extends EntityMissileTier0 implements IMixi
 		return (nuke > 0 || tnt >= 75) && schrab <= 0 && sol <= 0 && euph <= 0;
 	}
 
+	@Override
+	public boolean interactABMissile() {
+		if (tnt >= 75 || nuke > 0)
+			return true;
+		explodeAB();
+		return false;
+	}
+
 	// not really unused, required for loading save
 	public CustomNukeMissileEntity(World world) {
 		super(world);
