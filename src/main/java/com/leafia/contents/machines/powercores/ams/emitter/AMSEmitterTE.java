@@ -12,6 +12,7 @@ import com.hbm.lib.ForgeDirection;
 import com.hbm.lib.HBMSoundHandler;
 import com.hbm.lib.Library;
 import com.hbm.tileentity.IGUIProvider;
+import com.leafia.contents.AddonFluids;
 import com.leafia.contents.machines.powercores.ams.emitter.container.AMSEmitterContainer;
 import com.leafia.contents.machines.powercores.ams.emitter.container.AMSEmitterUI;
 import com.leafia.dev.LeafiaUtil;
@@ -136,7 +137,7 @@ public class AMSEmitterTE extends TileEntity implements ITickable, IFluidStandar
 					trySubscribe(world,con);
 					trySubscribe(tank.getTankType(),world,con);
 				}
-				LeafiaUtil.setTypeOnly(tank,0,1,inventory,Fluids.CRYOGEL,Fluids.COOLANT,Fluids.WATER);
+				LeafiaUtil.setTypeOnly(tank,0,1,inventory, AddonFluids.LIQUID_HE3,Fluids.CRYOGEL,Fluids.COOLANT,Fluids.WATER);
 				
 				if(power > 0) {
 					//" - (maxHeat / 2)" offsets center to 50% instead of 0%
@@ -148,7 +149,7 @@ public class AMSEmitterTE extends TileEntity implements ITickable, IFluidStandar
 					warning = 1;
 				}
 				
-				if(tank.getTankType().equals(Fluids.CRYOGEL)) {
+				if(tank.getTankType().equals(AddonFluids.LIQUID_HE3)) {
 					
 					if(tank.getFluidAmount() >= 15) {
 						if(heat > 0){
@@ -170,7 +171,7 @@ public class AMSEmitterTE extends TileEntity implements ITickable, IFluidStandar
 					} else {
 						heat += efficiency;
 					}
-				} else if(tank.getTankType().equals(Fluids.COOLANT)) {
+				} else if(tank.getTankType().equals(Fluids.COOLANT) || tank.getTankType().equals(Fluids.CRYOGEL)) {
 					
 					if(tank.getFluidAmount() >= 15) {
 						if(heat > 0){

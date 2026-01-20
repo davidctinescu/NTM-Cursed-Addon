@@ -2,7 +2,6 @@ package com.leafia.overwrite_contents.mixin.mod.hbm;
 
 import com.hbm.inventory.recipes.LiquefactionRecipes;
 import com.hbm.inventory.fluid.FluidStack;
-import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.RecipesCommon;
 import com.leafia.contents.AddonFluids;
 import com.leafia.contents.AddonItems;
@@ -10,12 +9,11 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import net.minecraft.init.Items;
 
 import java.util.HashMap;
 
 @Mixin(LiquefactionRecipes.class)
-public class MixinLiquefactionRecipes {
+public class MixinRecipesLiquefaction {
 
     @Inject(
             method = "registerDefaults()V",

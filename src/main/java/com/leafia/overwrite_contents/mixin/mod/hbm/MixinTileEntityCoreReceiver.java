@@ -15,6 +15,7 @@ import com.hbm.tileentity.machine.TileEntityCore;
 import com.hbm.tileentity.machine.TileEntityCoreInjector;
 import com.hbm.tileentity.machine.TileEntityCoreReceiver;
 import com.hbm.util.Tuple.Pair;
+import com.leafia.contents.AddonFluids;
 import com.leafia.contents.machines.powercores.dfc.components.absorber.CoreReceiverContainer;
 import com.leafia.contents.machines.powercores.dfc.components.absorber.CoreReceiverGUI;
 import com.leafia.contents.machines.powercores.dfc.components.injector.CoreInjectorContainer;
@@ -96,6 +97,14 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 	@Override
 	public TileEntityCore getCore() {
 		return core;
+	}
+
+
+
+	@Inject(method = "<init>", at = @At("TAIL"), remap = false)
+	private void onConstruct(CallbackInfo ci) {
+		//replace cryogel with liquid helium-3
+		this.tank = new FluidTankNTM(AddonFluids.LIQUID_HE3, 64000);
 	}
 
 	void spawnShrapnel(DebrisType type) {
@@ -309,7 +318,9 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 			case 0: joules = (long)value; break;
 			case 1: power = (long)value; break;
 			case 2: level = (double)value; break;
-			case 5: tank.setFill((int)value); tank.setTankType(Fluids.CRYOGEL);
+			case 5: tank.setFill((int)value);
+//			tank.setTankType(Fluids.CRYOGEL);
+			tank.setTankType(AddonFluids.LIQUID_HE3);
 			break;
 			case 4: syncSpk = (long)value; break;
 		}

@@ -12,6 +12,7 @@ import com.hbm.tileentity.TileEntityMachineBase;
 import com.hbm.tileentity.machine.TileEntityCore;
 import com.hbm.tileentity.machine.TileEntityCoreEmitter;
 import com.hbm.tileentity.machine.TileEntityCoreReceiver;
+import com.leafia.contents.AddonFluids;
 import com.leafia.contents.network.spk_cable.uninos.ISPKReceiver;
 import com.leafia.dev.LeafiaUtil;
 import com.leafia.dev.container_utility.LeafiaPacket;
@@ -82,6 +83,14 @@ public abstract class MixinTileEntityCoreEmitter extends TileEntityMachineBase i
 
     @Unique
     private boolean isActive;
+
+
+
+    @Inject(method = "<init>", at = @At("TAIL"), remap = false)
+    private void onConstruct(CallbackInfo ci) {
+        //replace cryogel with liquid helium-3
+        this.tank = new FluidTankNTM(AddonFluids.LIQUID_HE3, 64000);
+    }
 
 
     /**
@@ -309,7 +318,9 @@ public abstract class MixinTileEntityCoreEmitter extends TileEntityMachineBase i
                 break;
             case 4:
                 tank.setFill((int)value);
-                tank.setTankType(Fluids.CRYOGEL);
+                //tank.setTankType(Fluids.CRYOGEL);
+                //why wont the tank set to cryogel
+                tank.setTankType(AddonFluids.LIQUID_HE3);
                 break;
             case 5:
                 power = (long)value;
