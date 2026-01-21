@@ -144,7 +144,7 @@ public class AMSStabilizerTE extends TileEntity implements ITickable, IFluidStan
 		if (!world.isRemote) {
 			
 			if(!locked) {
-				LeafiaUtil.setTypeOnly(tank,0,1,inventory, AddonFluids.LIQUID_HE3,Fluids.WATER,Fluids.COOLANT,Fluids.CRYOGEL);
+				LeafiaUtil.setTypeOnly(tank,0,1,inventory, AddonFluids.LIQUID_HE4,Fluids.WATER,Fluids.COOLANT,Fluids.CRYOGEL);
 
 				for (DirPos con : getConPos()) {
 					trySubscribe(world,con);
@@ -165,7 +165,7 @@ public class AMSStabilizerTE extends TileEntity implements ITickable, IFluidStan
 					warning = 1;
 				}
 				
-				if(tank.getTankType() == AddonFluids.LIQUID_HE3) {
+				if(tank.getTankType() == AddonFluids.LIQUID_HE4) {
 					
 					if(tank.getFluidAmount() >= 5) {
 						if(heat > 0){

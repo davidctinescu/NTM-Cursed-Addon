@@ -4,7 +4,6 @@ import com.hbm.api.energymk2.IEnergyReceiverMK2;
 import com.hbm.api.fluid.IFluidStandardReceiver;
 import com.hbm.interfaces.ILaserable;
 import com.hbm.inventory.control_panel.*;
-import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.lib.ForgeDirection;
 import com.hbm.lib.ModDamageSource;
@@ -88,8 +87,8 @@ public abstract class MixinTileEntityCoreEmitter extends TileEntityMachineBase i
 
     @Inject(method = "<init>", at = @At("TAIL"), remap = false)
     private void onConstruct(CallbackInfo ci) {
-        //replace cryogel with liquid helium-3
-        this.tank = new FluidTankNTM(AddonFluids.LIQUID_HE3, 64000);
+        //replace cryogel with liquid helium-4 (not 3 anymore 3 is for lames)
+        this.tank = new FluidTankNTM(AddonFluids.LIQUID_HE4, 64000);
     }
 
 
@@ -118,8 +117,8 @@ public abstract class MixinTileEntityCoreEmitter extends TileEntityMachineBase i
 
             if (joules > 0 || prev > 0) {
 
-                if (tank.getFluidAmount() >= 20) {
-                    tank.drain(20, true);
+                if (tank.getFluidAmount() >= 5) {
+                    tank.drain(5, true);
                 } else {
                     world.setBlockState(pos, Blocks.FLOWING_LAVA.getDefaultState());
                     return;
@@ -320,7 +319,7 @@ public abstract class MixinTileEntityCoreEmitter extends TileEntityMachineBase i
                 tank.setFill((int)value);
                 //tank.setTankType(Fluids.CRYOGEL);
                 //why wont the tank set to cryogel
-                tank.setTankType(AddonFluids.LIQUID_HE3);
+                tank.setTankType(AddonFluids.LIQUID_HE4);
                 break;
             case 5:
                 power = (long)value;

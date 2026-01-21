@@ -6,31 +6,25 @@ import com.hbm.blocks.ModBlocks;
 import com.hbm.explosion.ExplosionLarge;
 import com.hbm.interfaces.ILaserable;
 import com.hbm.inventory.control_panel.*;
-import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.fluid.tank.FluidTankNTM;
 import com.hbm.lib.ForgeDirection;
 import com.hbm.tileentity.IGUIProvider;
 import com.hbm.tileentity.TileEntityMachineBase;
 import com.hbm.tileentity.machine.TileEntityCore;
-import com.hbm.tileentity.machine.TileEntityCoreInjector;
 import com.hbm.tileentity.machine.TileEntityCoreReceiver;
 import com.hbm.util.Tuple.Pair;
 import com.leafia.contents.AddonFluids;
 import com.leafia.contents.machines.powercores.dfc.components.absorber.CoreReceiverContainer;
 import com.leafia.contents.machines.powercores.dfc.components.absorber.CoreReceiverGUI;
-import com.leafia.contents.machines.powercores.dfc.components.injector.CoreInjectorContainer;
-import com.leafia.contents.machines.powercores.dfc.components.injector.CoreInjectorGUI;
 import com.leafia.contents.machines.powercores.dfc.debris.AbsorberShrapnelEntity;
 import com.leafia.contents.machines.powercores.dfc.debris.AbsorberShrapnelEntity.DebrisType;
 import com.leafia.contents.network.spk_cable.uninos.ISPKReceiver;
 import com.leafia.dev.LeafiaDebug;
-import com.leafia.dev.NTMFNBT;
 import com.leafia.dev.container_utility.LeafiaPacket;
 import com.leafia.dev.math.FiaMatrix;
 import com.leafia.init.LeafiaSoundEvents;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntityCore;
 import com.leafia.overwrite_contents.interfaces.IMixinTileEntityCoreReceiver;
-import com.leafia.overwrite_contents.interfaces.IMixinTileEntityInjector;
 import com.leafia.passive.LeafiaPassiveServer;
 import com.leafia.settings.AddonConfig;
 import com.llib.LeafiaLib.NumScale;
@@ -104,7 +98,7 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 	@Inject(method = "<init>", at = @At("TAIL"), remap = false)
 	private void onConstruct(CallbackInfo ci) {
 		//replace cryogel with liquid helium-3
-		this.tank = new FluidTankNTM(AddonFluids.LIQUID_HE3, 64000);
+		this.tank = new FluidTankNTM(AddonFluids.LIQUID_HE4, 64000);
 	}
 
 	void spawnShrapnel(DebrisType type) {
@@ -237,8 +231,8 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 
 			if (joules > 0) {
 
-				if (tank.getFluidAmount() >= 20) {
-					tank.drain(20, true);
+				if (tank.getFluidAmount() >= 5) {
+					tank.drain(5, true);
 				} else {
 					world.setBlockState(pos, Blocks.FLOWING_LAVA.getDefaultState());
 					return;
@@ -320,7 +314,7 @@ public abstract class MixinTileEntityCoreReceiver extends TileEntityMachineBase 
 			case 2: level = (double)value; break;
 			case 5: tank.setFill((int)value);
 //			tank.setTankType(Fluids.CRYOGEL);
-			tank.setTankType(AddonFluids.LIQUID_HE3);
+			tank.setTankType(AddonFluids.LIQUID_HE4);
 			break;
 			case 4: syncSpk = (long)value; break;
 		}

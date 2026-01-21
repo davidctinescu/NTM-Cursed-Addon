@@ -5,7 +5,7 @@ import com.hbm.inventory.fluid.FluidType;
 import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.recipes.CompressorRecipes;
 import com.hbm.util.Tuple;
-import com.leafia.contents.AddonFluids;
+//import com.leafia.contents.AddonFluids;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -54,43 +54,43 @@ public class MixinRecipesCompressor {
             ); */
 
             recipes.put(
-                    new Tuple.Pair(Fluids.HELIUM3, 0),
+                    new Tuple.Pair(Fluids.HELIUM4, 0),
                     new CompressorRecipes.CompressorRecipe(
                             1000,
-                            new FluidStack(Fluids.HELIUM3, 1000,1),
+                            new FluidStack(Fluids.HELIUM3, 100,1),
                             20
                     )
             );
             recipes.put(
-                    new Tuple.Pair(Fluids.HELIUM3, 1),
+                    new Tuple.Pair(Fluids.HELIUM4, 1),
                     new CompressorRecipes.CompressorRecipe(
                             1000,
-                            new FluidStack(Fluids.HELIUM3, 1000,2),
+                            new FluidStack(Fluids.HELIUM3, 1001,2),
                             40
                     )
             );
             recipes.put(
-                    new Tuple.Pair(Fluids.HELIUM3, 2),
+                    new Tuple.Pair(Fluids.HELIUM4, 2),
                     new CompressorRecipes.CompressorRecipe(
                             1000,
-                            new FluidStack(Fluids.HELIUM3, 1000,3),
+                            new FluidStack(Fluids.HELIUM3, 100,3),
                             60
                     )
             );
             recipes.put(
-                    new Tuple.Pair(Fluids.HELIUM3, 3),
+                    new Tuple.Pair(Fluids.HELIUM4, 3),
                     new CompressorRecipes.CompressorRecipe(
                             1000,
-                            new FluidStack(Fluids.HELIUM3, 1000,4),
+                            new FluidStack(Fluids.HELIUM3, 100,4),
                             80
                     )
             );
             recipes.put(
-                    new Tuple.Pair(Fluids.HELIUM3, 4),
+                    new Tuple.Pair(Fluids.HELIUM4, 4),
                     new CompressorRecipes.CompressorRecipe(
-                            16000,
-                            new FluidStack(AddonFluids.LIQUID_HE3, 160,0),
-                            200
+                            1000,
+                            new FluidStack(Fluids.HELIUM3, 100,5),
+                            100
                     )
             );
         } catch (NoSuchFieldException | IllegalAccessException e) {

@@ -70,7 +70,7 @@ public class AddonFluids {
 //	public static FluidType AMMONIA;
 	public static FluidType ANITRATE;
 
-	public static FluidType LIQUID_HE3;
+	public static FluidType LIQUID_HE4;
 
 	public static void init() {
 		Function<FluidTrait,Boolean> rejectBoiling = (trait)->{
@@ -93,6 +93,6 @@ public class AddonFluids {
 		N2O = new AddonFluidType("N2O",0x6faf30,2,0,0,EnumSymbol.OXIDIZER).addTraits(GASEOUS);
 //		AMMONIA = new AddonFluidType("AMMONIA",0xFFFFFF,3,1,0,EnumSymbol.NONE).addTraits(GASEOUS);
 		ANITRATE = new AddonFluidType("ANITRATE",0xFFFFFF,0,0,3,EnumSymbol.OXIDIZER).addTraits(LIQUID);
-		LIQUID_HE3 = new AddonFluidType("LIQUID_HE3", 0xE7B00C,2,0,0,EnumSymbol.CROYGENIC).setTemp(-269).addTraits(LIQUID,VISCOUS);
+		LIQUID_HE4 = new AddonFluidType("LIQUID_HE4", 0xE7B00C,3,0,0,EnumSymbol.ASPHYXIANT).setTemp(-270).addTraits(LIQUID,VISCOUS);
 	}
 }

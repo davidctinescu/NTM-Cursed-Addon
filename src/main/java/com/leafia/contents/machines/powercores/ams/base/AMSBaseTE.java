@@ -89,7 +89,7 @@ public class AMSBaseTE extends TileEntity implements ITickable, IFluidStandardRe
 		tanks[0] = new FluidTankNTM(Fluids.COOLANT,8000);
 		
 //		tanks[1] = new FluidTankNTM(Fluids.CRYOGEL,8000);
-		tanks[1] = new FluidTankNTM(AddonFluids.LIQUID_HE3, 8000);
+		tanks[1] = new FluidTankNTM(AddonFluids.LIQUID_HE4, 8000);
 
 		tanks[2] = new FluidTankNTM(Fluids.DEUTERIUM,8000);
 		
@@ -408,7 +408,7 @@ public class AMSBaseTE extends TileEntity implements ITickable, IFluidStandardRe
 	}
 
 	public static boolean isValidCoolant(FluidType type) {
-		return type.equals(Fluids.WATER) || type.equals(Fluids.OIL) || type.equals(Fluids.COOLANT) || type.equals(Fluids.CRYOGEL) || type.equals(AddonFluids.LIQUID_HE3);
+		return type.equals(Fluids.WATER) || type.equals(Fluids.OIL) || type.equals(Fluids.COOLANT) || type.equals(Fluids.CRYOGEL) || type.equals(AddonFluids.LIQUID_HE4);
 	}
 
 	private int getCoolingStrength(FluidType type) {
@@ -420,7 +420,9 @@ public class AMSBaseTE extends TileEntity implements ITickable, IFluidStandardRe
 			return 15;
 		} else if(type == Fluids.COOLANT || type == Fluids.CRYOGEL) {
 			return this.heat / 250;
-		} else if(type == AddonFluids.LIQUID_HE3){
+		} else if(type == AddonFluids.LIQUID_HE4){
+			// alright dude what is this i need a formula
+//			return this.heat > heat/2 ? 25 : 5;
 			return this.heat > heat/2 ? 25 : 5;
 		} else {
 			return 0;
