@@ -513,7 +513,10 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 			if (disableDecay) decay = 0;
 			decay *= 0.99992694932; // this is f*cked lmao //0.99854;
 			data.setDouble("decay",decay);
-			double newTemp = heat+Math.max(heatMg,decay);
+			double fuckoff = 1-Math.pow(Math.min(decay*20/12,1),0.5);
+			if (heatMg < 0)
+				heatMg *= fuckoff;
+			double newTemp = heat+heatMg+Math.max(decay-Math.max(heatMg,0),0);
 			if (Double.isNaN(newTemp))
 				newTemp = Double.MAX_VALUE;
 			//newTemp += decay * Math.pow(Math.max(1-Math.max(newTemp,20)/1300,0),0.2); old algorithm

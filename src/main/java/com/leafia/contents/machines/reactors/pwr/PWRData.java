@@ -516,11 +516,11 @@ public class PWRData implements ITickable, LeafiaPacketReceiver {
 				if (stack != null && stack2 != null) {
 					int boilAmt = Math.min(stack.amount * conversionRate, stack2.amount);
 					int division = (int) Math.pow(10, compression);
-					int filled = tanks[4].fill(tankTypes[4], boilAmt * 10 / division, true);
-					int drained = (Math.min(boilAmt, filled * division / 10) / conversionRate);
+					int filled = tanks[4].fill(tankTypes[4], boilAmt * 100 / division, true);
+					int drained = (Math.min(boilAmt, filled * division / 100) / conversionRate);
 					tanks[1].setFill(Math.max(tanks[1].getFill()-drained,0));
 					tanks[0].fill(tankTypes[0],(int)(drained/multiplier),true);
-					tanks[3].setFill(Math.max(tanks[3].getFill()-(Math.min(boilAmt, filled * division / 10)),0));
+					tanks[3].setFill(Math.max(tanks[3].getFill()-(Math.min(boilAmt, filled * division / 100)),0));
 				}
 			}
 			LeafiaPacket._start(companion).__write(30, new int[]{

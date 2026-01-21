@@ -168,9 +168,9 @@ public class MSRElementTE extends MSRTEBase {
 					try {
 						MSRFuel type = MSRFuel.valueOf(entry.getKey());
 						double tempAdd = type.function.apply(nbtProtocol(stack1.tag).getDouble("heat")+getBaseTemperature(AddonFluids.fromFF(stack0.getFluid())))*mix*B;
-						if (entry.getKey().equals("u233")) {
-							LeafiaDebug.debugLog(world,"U233: "+tempAdd);
-						}
+						//if (entry.getKey().equals("u233")) {
+							//LeafiaDebug.debugLog(world,"U233: "+tempAdd);
+						//}
 						y += tempAdd;
 						if (type.byproduct != null) {
 							double addAmt = tempAdd/type.life;
