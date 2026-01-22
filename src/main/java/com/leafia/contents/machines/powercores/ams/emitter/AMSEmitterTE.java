@@ -148,12 +148,32 @@ public class AMSEmitterTE extends TileEntity implements ITickable, IFluidStandar
 					efficiency = 0;
 					warning = 1;
 				}
-				
-				if(tank.getTankType().equals(AddonFluids.LIQUID_HE4)) {
-					
-					if(tank.getFluidAmount() >= 15) {
+
+				if(tank.getTankType() == AddonFluids.LIQUID_HE4) {
+					if (tank.getFluidAmount() >= 5) {
+						if (heat > 0) {
+							tank.drain(5, true);
+							needsUpdate = true;
+						}
+
+						if (heat <= maxHeat / 2)
+							if (efficiency > 0)
+								heat += efficiency;
+							else
+								for (int i = 0; i < 20; i++)
+									if (heat > 0)
+										heat--;
+
+						for (int i = 0; i < 20; i++)
+							if (heat > maxHeat / 2)
+								heat--;
+					} else {
+						heat += efficiency;
+					}
+				} else if(tank.getTankType() == Fluids.CRYOGEL) {
+					if(tank.getFluidAmount() >= 5) {
 						if(heat > 0){
-							tank.drain(15, true);
+							tank.drain(5, true);
 							needsUpdate = true;
 						}
 
@@ -164,18 +184,18 @@ public class AMSEmitterTE extends TileEntity implements ITickable, IFluidStandar
 								for(int i = 0; i < 10; i++)
 									if(heat > 0)
 										heat--;
-						
+
 						for(int i = 0; i < 10; i++)
 							if(heat > maxHeat / 2)
 								heat--;
 					} else {
 						heat += efficiency;
 					}
-				} else if(tank.getTankType().equals(Fluids.COOLANT) || tank.getTankType().equals(Fluids.CRYOGEL)) {
-					
-					if(tank.getFluidAmount() >= 15) {
+				} else if(tank.getTankType() == Fluids.COOLANT) {
+
+					if(tank.getFluidAmount() >= 5) {
 						if(heat > 0){
-							tank.drain(15, true);
+							tank.drain(5, true);
 							needsUpdate = true;
 						}
 
@@ -186,7 +206,7 @@ public class AMSEmitterTE extends TileEntity implements ITickable, IFluidStandar
 								for(int i = 0; i < 5; i++)
 									if(heat > 0)
 										heat--;
-						
+
 						for(int i = 0; i < 5; i++)
 							if(heat > maxHeat / 4)
 								heat--;

@@ -166,7 +166,27 @@ public class AMSStabilizerTE extends TileEntity implements ITickable, IFluidStan
 				}
 				
 				if(tank.getTankType() == AddonFluids.LIQUID_HE4) {
-					
+					if (tank.getFluidAmount() >= 5) {
+						if (heat > 0) {
+							tank.drain(5, true);
+							needsUpdate = true;
+						}
+
+						if (heat <= maxHeat / 2)
+							if (efficiency > 0)
+								heat += efficiency;
+							else
+								for (int i = 0; i < 20; i++)
+									if (heat > 0)
+										heat--;
+
+						for (int i = 0; i < 20; i++)
+							if (heat > maxHeat / 2)
+								heat--;
+					} else {
+						heat += efficiency;
+					}
+				} else if(tank.getTankType() == Fluids.CRYOGEL) {
 					if(tank.getFluidAmount() >= 5) {
 						if(heat > 0){
 							tank.drain(5, true);
@@ -180,14 +200,14 @@ public class AMSStabilizerTE extends TileEntity implements ITickable, IFluidStan
 								for(int i = 0; i < 10; i++)
 									if(heat > 0)
 										heat--;
-						
+
 						for(int i = 0; i < 10; i++)
 							if(heat > maxHeat / 2)
 								heat--;
 					} else {
 						heat += efficiency;
 					}
-				} else if(tank.getTankType() == Fluids.COOLANT || tank.getTankType() == Fluids.CRYOGEL) {
+				} else if(tank.getTankType() == Fluids.COOLANT) {
 					
 					if(tank.getFluidAmount() >= 5) {
 						if(heat > 0){
