@@ -1,7 +1,6 @@
 package com.leafia.contents;
 
 import com.hbm.blocks.ICustomBlockItem;
-import com.hbm.blocks.fluid.ModFluids;
 import com.hbm.blocks.generic.BlockModDoor;
 import com.hbm.items.ItemBakedBase;
 import com.hbm.items.ModItems;
@@ -20,15 +19,17 @@ import com.leafia.contents.machines.powercores.dfc.CrucifixItem;
 import com.leafia.contents.machines.powercores.dfc.LCEItemLens;
 import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisEntity.DebrisType;
 import com.leafia.contents.machines.reactors.pwr.debris.PWRDebrisItem;
-import com.leafia.dev.items.itembase.AddonItemHazardBase;
+import com.leafia.dev.items.itembase.AddonItemHazardBaked;
 import com.leafia.init.hazards.ItemRads;
 import com.leafia.dev.items.itembase.AddonItemBaked;
 import net.minecraft.block.Block;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.fluids.capability.templates.FluidHandlerItemStack;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -295,16 +296,6 @@ public class AddonItems {
 				.addRad(ItemRads.americium242zfb)
 				.setCreativeTab(MainRegistry.controlTab);*/
 		// normal rods-based
-		/*
-		public static final Item
-				leafRodU38
-				= new LeafiaRodItem("U-238",400000, 2865)
-				.setAppearance(ModItems.billet_u238, BILLET, ISOTOPE)
-				.setReactivity(0.3)
-				.setDecayProduct("hepu239")
-				.addRad(ItemRads.uranium238)
-				.setCreativeTab(MainRegistry.controlTab);
-		 */
 		public static final Item
 				leafRodPu238
 				= new LeafiaRodItem("Pu-238",350000, 2744)
@@ -449,15 +440,15 @@ public class AddonItems {
 				.addDigamma(0.333)
 				.setCreativeTab(MainRegistry.controlTab);
 		/*
-		public static final Item
-				leafRodSa326
-				= new LeafiaRodItem("Sa-326",200000, 3250)
-				.setAppearance(ModItems.billet_schrabidium, BILLET, FUEL)
-				.setEmission(2.25)
-				.addRad(ItemRads.schrabidium326)
-				.addBlinding()
-				.setCreativeTab(MainRegistry.controlTab);
-		 */
+public static final Item
+        leafRodSa326
+        = new LeafiaRodItem("Sa-326",200000, 3250)
+        .setAppearance(ModItems.billet_schrabidium, BILLET, FUEL)
+        .setEmission(2.25)
+        .addRad(ItemRads.schrabidium326)
+        .addBlinding()
+        .setCreativeTab(MainRegistry.controlTab);
+ */
 		public static final Item
 				leafRodAntiSchrabidium
 				= new LeafiaRodItem("Saˉ-326",200000, 3250)
@@ -466,7 +457,20 @@ public class AddonItems {
 				.addRad(ItemRads.schrabidium326)
 				.addBlinding()
 				.setCreativeTab(MainRegistry.controlTab);
-
+		public static final Item
+				leafRodKys
+				= new LeafiaRodItem("Kys-3000",Double.MAX_VALUE, 22) {
+			@Override
+			public void addInformation(ItemStack stack,@Nullable World worldIn,List<String> tooltip,ITooltipFlag flagIn) {
+				tooltip.add("Inspired by Quasar!");
+				tooltip.add("Corrstud will pay their life for this very rod.");
+				super.addInformation(stack,worldIn,tooltip,flagIn);
+			}
+		}
+				.setAppearance(AddonItems.billet_kys, BILLET, UNSTABLE)
+				.setEmission(114)
+				.setReactivity(514)
+				.setCreativeTab(null);
 		static {
 			LeafiaRodItem.confirmDecayProducts();
 		}
@@ -482,6 +486,14 @@ public class AddonItems {
 	public static final Item ingot_rubidium = new AddonItemBaked("ingot_rubidium","leafia/ingots/ingot_rubidium").setCreativeTab(MainRegistry.partsTab);
 	public static final Item ingot_francium = new AddonItemBaked("ingot_francium","leafia/ingots/ingot_francium").setCreativeTab(MainRegistry.partsTab);
 
+	public static final Item billet_kys = new AddonItemHazardBaked("billet_kys","leafia/billets/billet_kys") {
+		@Override
+		public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
+			super.addInformation(stack,worldIn,tooltip,flagIn);
+			tooltip.add("Inspired by Quasar!");
+			tooltip.add("Corrstud will pay their life for this very billet.");
+		}
+	}.addCryogenic(5).setCreativeTab(null);
 	public static final Item advisor = new AdvisorItem("advisor").setCreativeTab(MainRegistry.consumableTab);
 
 	public static final Item missile_customnuke = new CustomNukeMissileItem("missile_customnuke").setCreativeTab(MainRegistry.missileTab);
@@ -494,7 +506,7 @@ public class AddonItems {
 
 	public static final Item anitrate_solid = new AddonItemBaked("anitrate_solid").setCreativeTab(MainRegistry.resourceTab);
 	public static final Item antischrabidium_billet = new AddonItemBaked("antischrabidium_billet").setCreativeTab(MainRegistry.resourceTab);
-//	.addRad(ItemRads.schrabidium326).addBlinding()
+	//	.addRad(ItemRads.schrabidium326).addBlinding()
 
 	private static void modifyItemParams() {
 		ModItems.pwr_fuel.setCreativeTab(null);
