@@ -1,5 +1,6 @@
 package com.leafia.overwrite_contents.mixin.mod.hbm;
 
+import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.recipes.LiquefactionRecipes;
 import com.hbm.inventory.fluid.FluidStack;
 import com.hbm.inventory.RecipesCommon;
@@ -28,6 +29,7 @@ public class MixinRecipesLiquefaction {
 
 //            recipes.put(new RecipesCommon.ComparableStack(Items.APPLE), new FluidStack(100, Fluids.WATER));
             recipes.put(new RecipesCommon.ComparableStack(AddonItems.anitrate_solid), new FluidStack(100, AddonFluids.ANITRATE));
+            recipes.put(new RecipesCommon.ComparableStack(AddonItems.antischrabidium_billet), new FluidStack(96, Fluids.ASCHRAB));
 
         } catch (Exception e) {
             e.printStackTrace();

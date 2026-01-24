@@ -99,6 +99,8 @@ public class AddonHazards {
 		registerHazard(OreDictManager.OSMIRIDIUM,new HazardEntry(DIGAMMA,0.004));
 		HazardSystem.register(AddonBlocks.block_welded_osmiridium,makeData(DIGAMMA,0.04f));
 
+		HazardSystem.register(AddonItems.antischrabidium_billet,makeData(BLINDING, 1F).addEntry(Alpha.INSTANCE,1.5F));
+
 		for (AddonItemHazardBase hazardItem : AddonItemHazardBase.ALL_HAZARD_ITEMS) {
 			HazardEntry entry_contamination = null;
 			HazardEntry entry_alpha = null;

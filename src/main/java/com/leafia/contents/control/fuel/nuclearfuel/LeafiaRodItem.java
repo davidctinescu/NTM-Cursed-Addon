@@ -396,7 +396,7 @@ public class LeafiaRodItem extends AddonItemHazardBase implements IHasCustomMode
 				break;
 
 			// SCHRABIDIUM
-			case "lesa326": case "mesa326": case "hesa326": case "sa326": case "sa327":
+			case "lesa326": case "mesa326": case "hesa326": case "sa326": case "sa327": case "saˉ326":
 				y = Math.pow(x,0.65)*12+Math.pow(Math.max(x-2500,0)/1600,3);
 				n = ""+flux+"^0.65×12 "+TextFormatting.GOLD+"(RISKY)";
 				break;

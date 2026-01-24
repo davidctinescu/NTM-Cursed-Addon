@@ -1,8 +1,10 @@
 package com.leafia.overwrite_contents.mixin.mod.hbm;
 
+import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.recipes.SolidificationRecipes;
 import com.leafia.contents.AddonFluids;
 import com.leafia.contents.AddonItems;
+import net.minecraft.item.ItemStack;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -28,6 +30,9 @@ public class MixinRecipesSolidification {
 
             net.minecraft.item.ItemStack anitrateSolid = new net.minecraft.item.ItemStack(AddonItems.anitrate_solid, 1);
             registerRecipeMethod.invoke(null, AddonFluids.ANITRATE, 100, anitrateSolid);
+
+            ItemStack antischrabidium_billet = new ItemStack(AddonItems.antischrabidium_billet,1);
+            registerRecipeMethod.invoke(null, Fluids.ASCHRAB,96,antischrabidium_billet);
 
             registerRecipeMethod.setAccessible(false);
 
