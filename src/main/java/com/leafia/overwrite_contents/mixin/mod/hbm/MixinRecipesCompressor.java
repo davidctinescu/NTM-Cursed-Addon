@@ -6,6 +6,7 @@ import com.hbm.inventory.fluid.Fluids;
 import com.hbm.inventory.recipes.CompressorRecipes;
 import com.hbm.util.Tuple;
 //import com.leafia.contents.AddonFluids;
+import com.leafia.contents.AddonFluids;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
@@ -57,7 +58,7 @@ public class MixinRecipesCompressor {
                     new Tuple.Pair(Fluids.HELIUM4, 0),
                     new CompressorRecipes.CompressorRecipe(
                             1000,
-                            new FluidStack(Fluids.HELIUM3, 100,1),
+                            new FluidStack(Fluids.HELIUM4, 100,1),
                             20
                     )
             );
@@ -65,7 +66,7 @@ public class MixinRecipesCompressor {
                     new Tuple.Pair(Fluids.HELIUM4, 1),
                     new CompressorRecipes.CompressorRecipe(
                             1000,
-                            new FluidStack(Fluids.HELIUM3, 1001,2),
+                            new FluidStack(Fluids.HELIUM4, 1001,2),
                             40
                     )
             );
@@ -73,7 +74,7 @@ public class MixinRecipesCompressor {
                     new Tuple.Pair(Fluids.HELIUM4, 2),
                     new CompressorRecipes.CompressorRecipe(
                             1000,
-                            new FluidStack(Fluids.HELIUM3, 100,3),
+                            new FluidStack(Fluids.HELIUM4, 100,3),
                             60
                     )
             );
@@ -81,7 +82,7 @@ public class MixinRecipesCompressor {
                     new Tuple.Pair(Fluids.HELIUM4, 3),
                     new CompressorRecipes.CompressorRecipe(
                             1000,
-                            new FluidStack(Fluids.HELIUM3, 100,4),
+                            new FluidStack(Fluids.HELIUM4, 100,4),
                             80
                     )
             );
@@ -89,7 +90,7 @@ public class MixinRecipesCompressor {
                     new Tuple.Pair(Fluids.HELIUM4, 4),
                     new CompressorRecipes.CompressorRecipe(
                             1000,
-                            new FluidStack(Fluids.HELIUM3, 100,5),
+                            new FluidStack(Fluids.HELIUM4, 100,5),
                             100
                     )
             );
