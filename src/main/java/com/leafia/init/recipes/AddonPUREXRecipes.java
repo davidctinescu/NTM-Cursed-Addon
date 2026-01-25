@@ -16,7 +16,7 @@ public class AddonPUREXRecipes {
         long woahPower = 1000L;
         String autoWoah = "autoswitch.woah";
         INSTANCE.register(
-                (new GenericRecipe("purex.zirnoxnu"))
+                (new GenericRecipe("purex.woah"))
                         .setup(100,woahPower)
                         .setNameWrapper("purex.recycle").setGroup(autoWoah, INSTANCE)
                         .inputItems(new RecipesCommon.AStack[]{new RecipesCommon.ComparableStack(ModItems.powder_fertilizer)})
@@ -26,11 +26,12 @@ public class AddonPUREXRecipes {
                         })
                         .outputItems(new ItemStack[]{
                                 new ItemStack(AddonItems.anitrate_solid, 1),
-                                new ItemStack(ModItems.nothing, 2),
-                                new ItemStack(ModItems.nothing, 1),
-                                new ItemStack(ModItems.nothing, 2)
+                                null,
+                                null,
+                                null
                         })
                         .setIconToFirstIngredient()
         );
+        //just follow this and you'll be goooood
     }
 }
