@@ -121,7 +121,8 @@ hbmfluid.n2o=Nitrous Oxide
 hbmfluid.radspice_slop=Neoveline Slop
 hbmfluid.uf6_233=Uranium-233 Hexafluoride
 hbmfluid.uf6_235=Uranium-235 Hexafluoride
-#hbmfluid.amat=Antihydrogen
+
+hbmfluid.amat=Antihydrogen
 
 hbmfluid.anitrate=Ammonium Nitrate
 hbmfluid.ammonia=Ammonia
@@ -195,6 +196,7 @@ item.missile_customnuke.desc=Modular Missile
 item.ntmfbottle.name=%s Bottle
 item.supercooler.name=Supercooling Unit
 item.wand_v.name=Visualizer Wand
+item.antischrabidium_billet=Antischrabidium Billet
 potion.skindamage=Damaged Skin
 separator.u233=Uranium-233 Fluorination
 separator.u235=Uranium-235 Fluorination
